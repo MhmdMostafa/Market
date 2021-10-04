@@ -16,5 +16,13 @@ namespace Market
         {
             InitializeComponent();
         }
+
+        private void LoginB_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainForm MainWindow = new MainForm();
+            MainWindow.Closed += (s, args) => this.Close();
+            MainWindow.Show();
+        }
     }
 }

@@ -45,6 +45,7 @@ namespace Market
             this.LoginB.TabIndex = 0;
             this.LoginB.Text = "Login";
             this.LoginB.UseVisualStyleBackColor = true;
+            this.LoginB.Click += new System.EventHandler(this.LoginB_Click);
             // 
             // UserNameTB
             // 
@@ -82,7 +83,7 @@ namespace Market
             this.UserPasswordL.TabIndex = 5;
             this.UserPasswordL.Text = "Password";
             // 
-            // Login
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -92,7 +93,7 @@ namespace Market
             this.Controls.Add(this.UserPasswordTB);
             this.Controls.Add(this.UserNameTB);
             this.Controls.Add(this.LoginB);
-            this.Name = "Login";
+            this.Name = "LoginForm";
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();

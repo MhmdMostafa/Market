@@ -9,7 +9,9 @@ namespace Market
 {
     class MySQL_CRUD
     {
-        public MySQL_CRUD(string ConnectionString)
+        public static Dictionary<string, string> MySQLcfg = new Dictionary<string, string>();
+        public static string ConnectionString;
+        public MySQL_CRUD()
         {
             var connection = new MySqlConnection(ConnectionString);
             connection.Open();

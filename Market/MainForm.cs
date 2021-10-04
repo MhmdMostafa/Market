@@ -12,9 +12,24 @@ namespace Market
 {
     public partial class MainForm : Form
     {
+        public static bool FlagOpendWindow = false;
+        private Form ChiledWindow = null;
         public MainForm()
         {
             InitializeComponent();
         }
+         
+        public void OptionsMenuB_Click(object sender, EventArgs e)
+        {
+            FlagOpendWindow = true;
+            ChiledWindow = new OptionsForm(this);
+            ChiledWindow.Show();
+        }
+        protected override void OnActivated(EventArgs e)
+        {
+            if (FlagOpendWindow)
+                ChiledWindow.Activate();
+        }
+
     }
 }
