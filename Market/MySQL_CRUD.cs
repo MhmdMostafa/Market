@@ -11,6 +11,7 @@ namespace Market
     class MySQL_CRUD
     {
         public static string ConnectionString;
+        public static Dictionary<string, string> MySQLcfg = new Dictionary<string, string>();
         public MySQL_CRUD(string MySQLcfgPath)
         {
             //cfg file must be like:
@@ -18,7 +19,7 @@ namespace Market
             //User:****
             //Password:****
             //DataBase:****
-            Dictionary<string, string> MySQLcfg = new Dictionary<string, string>();
+            
             using (StreamReader sr = new StreamReader(@MySQLcfgPath))
             {
                 string _line;

@@ -12,8 +12,7 @@ namespace Market
 {
     public partial class MainForm : Form
     {
-        public static bool FlagOpendWindow = false;
-        private Form ChiledWindow = null;
+        MySQL_CRUD CRUD = new MySQL_CRUD("MySQL.cfg");
         public MainForm()
         {
             InitializeComponent();
@@ -21,15 +20,26 @@ namespace Market
          
         public void OptionsMenuB_Click(object sender, EventArgs e)
         {
-            FlagOpendWindow = true;
-            ChiledWindow = new OptionsForm(this);
-            ChiledWindow.Show();
-        }
-        protected override void OnActivated(EventArgs e)
-        {
-            if (FlagOpendWindow)
-                ChiledWindow.Activate();
+            this.Hide();
+            OptionsForm MainWindow = new OptionsForm();
+            MainWindow.Closed += (s, args) => this.Show();
+            MainWindow.Show();
         }
 
+        private void NewInvoiceB_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            NewInvoiceForm MainWindow = new NewInvoiceForm();
+            MainWindow.Closed += (s, args) => this.Show();
+            MainWindow.Show();
+        }
+
+        private void addProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            NewProduct MainWindow = new NewProduct();
+            MainWindow.Closed += (s, args) => this.Show();
+            MainWindow.Show();
+        }
     }
 }
