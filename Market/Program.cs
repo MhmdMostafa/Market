@@ -14,9 +14,9 @@ namespace Market
         [STAThread]
         static void Main()
         {
-            
 
-           
+
+            Class1.d();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
