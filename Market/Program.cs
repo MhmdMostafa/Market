@@ -11,16 +11,19 @@ namespace Market
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        
+
         [STAThread]
         static void Main()
         {
 
-
-            Class1.d();
+        
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new AddEditDefaultsForm(false, "countries"));
         }
+        
+
     }
 }

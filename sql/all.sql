@@ -11,12 +11,14 @@ CREATE TABLE continents(
 CREATE TABLE countries(
 	CountryID INT NOT NULL AUTO_INCREMENT,
     ContinentID INT NOT NULL,
-    CountryCallingCodeID VARCHAR NOT NULL,
+    CountryCallingCodeID VARCHAR (6) NOT NULL,
     CountryNameEN VARCHAR(50) NOT NULL,
     CountryNameAR VARCHAR(50) NOT NULL,
+    Shortcut VARCHAR (10) NOT NULL,
     PRIMARY KEY (CountryID),
     FOREIGN KEY (ContinentID) REFERENCES Continents(ContinentID),
     UNIQUE (CountryCallingCodeID)
+    UNIQUE (Shortcut)
 );
 
 CREATE TABLE contact_type(
@@ -47,7 +49,7 @@ CREATE TABLE currencies(
     CountryID INT NOT NULL,
     CurrencyNameEN VARCHAR(100) NOT NULL,
     CurrencyNameAR VARCHAR(100) NOT NULL,
-    CurrencyShortCut NCHAR(6) NOT NULL,
+    CurrencyShortCut CHAR(6) NOT NULL,
     PRIMARY KEY (CurrencyID),
     FOREIGN KEY (CountryID) REFERENCES countries(CountryID)
 );
@@ -59,13 +61,6 @@ CREATE TABLE invoice_type(
     PRIMARY KEY (InvoiceTypeID)
 );
 
-CREATE TABLE payment_methods(
-	PaymentMethodID int NOT NULL AUTO_INCREMENT,
-    PaymentMethodNameEN VARCHAR(50) NOT NULL,
-    PaymentMethodNameAR VARCHAR(50) NOT NULL,
-    PRIMARY KEY (PaymentMethodID)
-);
-
 CREATE TABLE payment_mechanisms(
 	PaymentMechanismeID INT NOT NULL AUTO_INCREMENT,
     PaymentMechanismeNameEN VARCHAR(50) NOT NULL,
@@ -73,13 +68,21 @@ CREATE TABLE payment_mechanisms(
     PRIMARY KEY (PaymentMechanismeID)
 );
 
-CREATE TABLE products_units_value(
+CREATE TABLE payment_methods(
+	PaymentMethodID int NOT NULL AUTO_INCREMENT,
+    PaymentMethodNameEN VARCHAR(50) NOT NULL,
+    PaymentMethodNameAR VARCHAR(50) NOT NULL,
+    PRIMARY KEY (PaymentMethodID)
+);
+
+CREATE TABLE units_value(
 	UnitValueID INT NOT NULL AUTO_INCREMENT,
-	UnitValueName VARCHAR(30) NOT NULL,
+	UnitValueNameEN VARCHAR(50) NOT NULL,
+    UnitValueNameAR VARCHAR(50) NOT NULL,
 	UnitsValueShortCut VARCHAR(10) NOT NULL,
     PRIMARY KEY (UnitValueID)
 );
-
+-- grobe like asprin or else
 CREATE TABLE products_groub(
 	ProductGroubID INT NOT NULL AUTO_INCREMENT,
 	ProductGroubNameEN VARCHAR(50) NOT NULL,
@@ -105,7 +108,7 @@ CREATE TABLE emp_group(
 CREATE TABLE emp_permissions(
 	PermissionID INT NOT NULL AUTO_INCREMENT,
     PermissionNameEN VARCHAR(50) NOT NULL,
-    PermissionNameAr VARCHAR(50) NOT NULL,
+    PermissionNameAr VARCHAR(50),
     PRIMARY KEY (PermissionID)
 );
 
@@ -120,11 +123,11 @@ CREATE TABLE emp_group_permissions(
 CREATE TABLE emp_employees(
 	EmpID INT NOT NULL AUTO_INCREMENT,
 	EmpGroupID INT,
-    UserName VARCHAR(50),
-	EmpNameEN VARCHAR(50) NOT NULL,
-    EmpNameAR VARCHAR(50) ,
+    UserName VARCHAR(50) NOT NULL,
+	EmpNameEN VARCHAR(50),
+    EmpNameAR VARCHAR(50),
 	DateOfBirh DATE,
-    Password VARCHAR(25) NOT NULL,
+    Pass_word VARCHAR(255) NOT NULL,
     PRIMARY KEY (EmpID),
     FOREIGN KEY (EmpGroupID) REFERENCES emp_group(EmpGroupID),
     UNIQUE (UserName)
@@ -178,19 +181,19 @@ CREATE TABLE emp_fingerprints(
     FOREIGN KEY (FingerID) REFERENCES hand_fingers(FingerID)
 );
 
-CREATE TABLE jop_titles(
-	JopTitleID INT NOT NULL,
-    JopTitleAR VARCHAR(100) NOT NULL,
-    JopTitleEN VARCHAR(100) NOT NULL,
-    PRIMARY KEY (JopTitleID)
-);
+-- CREATE TABLE jop_titles(
+-- 	JopTitleID INT NOT NULL,
+--     JopTitleAR VARCHAR(100) NOT NULL,
+--     JopTitleEN VARCHAR(100) NOT NULL,
+--     PRIMARY KEY (JopTitleID)
+-- );
 
-CREATE TABLE emp_jop_titles(
-	EmpID INT NOT NULL,
-    JopTitleID INT NOT NULL,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID),
-    FOREIGN KEY (JopTitleID) REFERENCES jop_titles(JopTitleID)
-);
+-- CREATE TABLE emp_jop_titles(
+-- 	EmpID INT NOT NULL,
+--     JopTitleID INT NOT NULL,
+--     FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID),
+--     FOREIGN KEY (JopTitleID) REFERENCES jop_titles(JopTitleID)
+-- );
 
 CREATE TABLE emp_history_login(
 	EmpID INT NOT NULL,
@@ -266,15 +269,15 @@ CREATE TABLE products(
     Barcode INT,
     IncludeVat BOOLEAN DEFAULT TRUE,
     IncludePrescription BOOLEAN DEFAULT FALSE,
-    UPC NCHAR(20),
-    SKU NCHAR(20),
-    ISBN NCHAR(20),
+    UPC CHAR(20),
+    SKU CHAR(20),
+    ISBN CHAR(20),
     Available BOOLEAN DEFAULT TRUE,
     PRIMARY KEY (ProductID),
     FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
     FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ProductGroubID),
     FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ProductGroubID),
-	FOREIGN KEY (UnitValueID) REFERENCES products_units_value(UnitValueID),
+	FOREIGN KEY (UnitValueID) REFERENCES units_value(UnitValueID),
     FOREIGN KEY (CurrencyID) REFERENCES currencies(CurrencyID)
 );
 
@@ -301,7 +304,7 @@ CREATE TABLE invoices(
     Credit FLOAT NOT NULL,
     Remain FLOAT NOT NULL,
     CurrencyID INT,
-    Barcode INT NOT NULL,
+    Barcode VARCHAR(255),
     Discrption VARCHAR (600),
     PRIMARY KEY (InvoiceID),
     FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(InvoiceTypeID),
@@ -399,7 +402,7 @@ CREATE TABLE customers(
     CustomerNameAR VARCHAR(50),
 	DateOfBirh DATE,
     CustomerNationalNumber INT,
-    Password VARCHAR(25) NOT NULL,
+    Pass_word VARCHAR(255),
     PRIMARY KEY (CustomerID),
     FOREIGN KEY (CustomerGroupID) REFERENCES customer_groups(CustomerGroupID),
     UNIQUE (UserName)
