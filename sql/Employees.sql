@@ -97,7 +97,7 @@ CREATE TABLE emp_jop_titles(
 
 CREATE TABLE emp_history_login(
 	EmpID INT NOT NULL,
-    LoginTime DATETIME NOT NULL,
+    DateOfLoging DATETIME NOT NULL,
     SourceIP NVARCHAR,
     FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID)
 );
@@ -106,5 +106,11 @@ CREATE TABLE emp_history_commands(
 	EmpID INT NOT NULL,
     Command NVARCHAR(100) NOT NULL,
     RunTime DATETIME,
+    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID)
+);
+
+CREATE TABLE emp_attendance(
+	EmpID INT NOT NULL,
+    DateOfAttending DATETIME,
     FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID)
 );

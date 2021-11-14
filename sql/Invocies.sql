@@ -1,23 +1,4 @@
-CREATE TABLE invoice_type(
-	InvoiceTypeID INT NOT NULL AUTO_INCREMENT,
-    InvoiceTypeNameEN NVARCHAr(50) NOT NULL,
-    InvoiceTypeNameAR NVARCHAr(50) NOT NULL,
-    PRIMARY KEY (InvoiceTypeID)
-);
 
-CREATE TABLE payment_methods(
-	PaymentMethodID int NOT NULL AUTO_INCREMENT,
-    PaymentMethodNameEN NVARCHAr(50) NOT NULL,
-    PaymentMethodNameAR NVARCHAr(50) NOT NULL,
-    PRIMARY KEY (PaymentMethodID)
-);
-
-CREATE TABLE payment_mechanisms(
-	PaymentMechanismeID INT NOT NULL AUTO_INCREMENT,
-    PaymentMechanismeNameEN NVARCHAr(50) NOT NULL,
-    PaymentMechanismeNameAR NVARCHAr(50) NOT NULL,
-    PRIMARY KEY (PaymentMechanismeID)
-);
 
 CREATE TABLE invoices(
 	InvoiceID INT NOT NULL AUTO_INCREMENT,
@@ -76,8 +57,8 @@ CREATE TABLE purchases(
     Size INT,
     UnitsValueID INT,
     Quantity INT,
-    Discrption NVARCHAR (MAX),
-    InvoiceSupplierID NVARCHAR(MAX) NOT NULL,
+    Discrption NVARCHAR (600),
+    InvoiceSupplierID NVARCHAR(100) NOT NULL,
     InvoiceSupplierDate DATE NOT NULL,
     FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
     FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),

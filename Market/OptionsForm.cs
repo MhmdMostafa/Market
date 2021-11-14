@@ -29,5 +29,13 @@ namespace Market
         {
 
         }
+
+        private void AddUserB_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AddEmp MainWindow = new AddEmp();
+            MainWindow.Closed += (s, args) => this.Close();
+            MainWindow.Show();
+        }
     }
 }

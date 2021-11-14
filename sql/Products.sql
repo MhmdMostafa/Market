@@ -19,13 +19,6 @@ CREATE TABLE products_type(
     PRIMARY KEY (ProductTypeID)
 );
 
-CREATE TABLE currencies(
-	CurrencyID INT NOT NULL AUTO_INCREMENT,
-    CountryCurrency NVARCHAR(30) NOT NULL,
-    CurrencyShortCut NCHAR(5) NOT NULL,
-    PRIMARY KEY (CurrencyID)
-);
-
 CREATE TABLE products(
 	ProductID INT NOT NULL AUTO_INCREMENT,
     SupplierID INT NOT NULL,
@@ -37,6 +30,7 @@ CREATE TABLE products(
     Price FLOAT NOT NULL,
     ProfitMargin FLOAT NOT NULL,
     CurrencyID INT NOT NULL,
+    UnitValueID INT,
     DateOfProduction DATE NOT NULL,
     ExpiryDate DATE NOT NULL,
     Barcode INT,
@@ -68,6 +62,6 @@ CREATE TABLE products_history(
     InvoiceID INT,
     InvoiceTypeID INT,
 	FOREIGN KEY (ProductID) REFERENCES products(ProductID),
-	FOREIGN KEY (InvoiceID) REFERENCES invocies(InvoiceID),
+	FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
 	FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(InvoiceTypeID),
 );

@@ -182,6 +182,7 @@ namespace Market
             this.AddUserB.TabIndex = 3;
             this.AddUserB.Text = "Add User";
             this.AddUserB.UseVisualStyleBackColor = true;
+            this.AddUserB.Click += new System.EventHandler(this.AddUserB_Click);
             // 
             // dataGridView1
             // 

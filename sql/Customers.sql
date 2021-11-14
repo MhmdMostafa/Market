@@ -82,6 +82,13 @@ CREATE TABLE customer_financial_history(
     CustomerID INT,
     InvoiceTypeID INT,
     FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(InvoiceTypeID),
-    FOREIGN KEY (InvoiceID) REFERENCES invocies(InvoiceID),
+    FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
+    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID)
+);
+
+CREATE TABLE customer_login_history(
+    CustomerID INT,
+    SourceIP NVARCHAR,
+    DateOfLoging DATE,
     FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID)
 );

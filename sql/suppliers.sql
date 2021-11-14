@@ -40,6 +40,6 @@ CREATE TABLE suppliers_financial_history(
     SupplierID INT,
     InvoiceTypeID INT,
     FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(InvoiceTypeID),
-    FOREIGN KEY (InvoiceID) REFERENCES invocies(InvoiceID),
+    FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
     FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID)
 );
