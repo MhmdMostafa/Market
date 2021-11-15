@@ -1,107 +1,107 @@
 USE market;
 
 INSERT INTO continents (ContinentNameEN, ContinentNameAR)
-VALUES ('Asia', 'آسيا');
+VALUES ('Asia', N'آسيا');
 INSERT INTO continents (ContinentNameEN, ContinentNameAR)
-VALUES ('Africa', 'أفريقيا');
+VALUES ('Africa', N'أفريقيا');
 INSERT INTO continents (ContinentNameEN, ContinentNameAR)
-VALUES ('Europ', 'أوروبا');
+VALUES ('Europ', N'أوروبا');
 INSERT INTO continents (ContinentNameEN, ContinentNameAR)
-VALUES ('North America', 'أمريكا الشمالية');
+VALUES ('North America', N'أمريكا الشمالية');
 INSERT INTO continents (ContinentNameEN, ContinentNameAR)
-VALUES ('South America', 'أمريكا الجنوبية');
+VALUES ('South America', N'أمريكا الجنوبية');
 INSERT INTO continents (ContinentNameEN, ContinentNameAR)
-VALUES ('Australia', 'أستراليا');
+VALUES ('Australia', N'أستراليا');
 INSERT INTO continents (ContinentNameEN, ContinentNameAR)
-VALUES ('Antarctica', 'المتجمدة الجنوبية');
+VALUES ('Antarctica', N'المتجمدة الجنوبية');
 
 
-INSERT INTO countries (ContinentID, CountryCallingCodeID, CountryNameEN, CountryNameAR)
-VALUES (1, '00966', 'Saudi Arabia', 'المملكة العربية السعودية');
+INSERT INTO countries (ContinentID, CountryCallingCodeID, CountryNameEN, CountryNameAR, Shortcut)
+VALUES (1, '00966', 'Saudi Arabia', N'المملكة العربية السعودية', 'KSA');
 
 
 INSERT INTO contact_type (ContactNameEN, ContactNameAR)
-VALUES ('Fax', 'فاكس');
+VALUES ('Fax', N'فاكس');
 INSERT INTO contact_type (ContactNameEN, ContactNameAR)
-VALUES ('Phone', 'جوال');
+VALUES ('Phone', N'جوال');
 INSERT INTO contact_type (ContactNameEN, ContactNameAR)
-VALUES ('Telephone', 'هاتف');
+VALUES ('Telephone', N'هاتف');
 
 
 INSERT INTO hands (HandNameEN, HandNameAR)
-VALUES ('Right hand', 'اليد اليمنى');
+VALUES ('Right hand', N'اليد اليمنى');
 INSERT INTO hands (HandNameEN, HandNameAR)
-VALUES ('Left hand', 'اليد اليسرى');
+VALUES ('Left hand', N'اليد اليسرى');
 
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (1, 'Thumb', 'الإبهام');
+VALUES (1, 'Thumb', N'الإبهام');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (1, 'Index', 'السبابة');
+VALUES (1, 'Index', N'السبابة');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (1, 'Middle', 'الوسطى');
+VALUES (1, 'Middle', N'الوسطى');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (1, 'Ring', 'البنصر');
+VALUES (1, 'Ring', N'البنصر');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (1, 'Pinkie', 'الخنصر');
+VALUES (1, 'Pinkie', N'الخنصر');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (2, 'Thumb', 'الإبهام');
+VALUES (2, 'Thumb', N'الإبهام');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (2, 'Index', 'السبابة');
+VALUES (2, 'Index', N'السبابة');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (2, 'Middle', 'الوسطى');
+VALUES (2, 'Middle', N'الوسطى');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (2, 'Ring', 'البنصر');
+VALUES (2, 'Ring', N'البنصر');
 INSERT INTO hand_fingers (HandID, FingerNameEN, FingerNameAR)
-VALUES (2, 'Pinkie', 'الخنصر');
+VALUES (2, 'Pinkie', N'الخنصر');
 
-INSERT INTO currencies (CountryID, CurrencyNameEN, CurrencyNameAR, CurrencyShortCut)
-VALUES (1, 'Saudi Riyal', 'ريال سعودي', 'SAR');
+INSERT INTO currencies (CurrencyNameEN, CurrencyNameAR, CurrencyShortCut)
+VALUES ('Saudi Riyal', N'ريال سعودي', 'SAR');
 
 
 INSERT INTO invoice_type (InvoiceTypeNameEN, InvoiceTypeNameAR)
-VALUES ('Purchases', 'مشتريات');
+VALUES ('Purchases', N'مشتريات');
 INSERT INTO invoice_type (InvoiceTypeNameEN, InvoiceTypeNameAR)
-VALUES ('Purchases return', 'مردود مشتريات');
+VALUES ('Purchases return', N'مردود مشتريات');
 INSERT INTO invoice_type (InvoiceTypeNameEN, InvoiceTypeNameAR)
-VALUES ('Sales', 'مبيعات');
+VALUES ('Sales', N'مبيعات');
 INSERT INTO invoice_type (InvoiceTypeNameEN, InvoiceTypeNameAR)
-VALUES ('Sales return', 'مردود مبيعات');
+VALUES ('Sales return', N'مردود مبيعات');
 
 
 INSERT INTO payment_mechanisms (PaymentMechanismeNameEN, PaymentMechanismeNameAR)
-VALUES ('Left hand', 'آجل');
+VALUES ('Cridit', N'آجل');
 INSERT INTO payment_mechanisms (PaymentMechanismeNameEN, PaymentMechanismeNameAR)
-VALUES ('Left hand', 'نقدي');
+VALUES ('Cash', N'نقدي');
 
 INSERT INTO payment_methods (PaymentMethodNameEN, PaymentMethodNameAR)
-VALUES ('Cash', 'كاش');
+VALUES ('Cash', N'كاش');
 INSERT INTO payment_methods (PaymentMethodNameEN, PaymentMethodNameAR)
-VALUES ('Visa', 'شبكة');
+VALUES ('Visa', N'شبكة');
 INSERT INTO payment_methods (PaymentMethodNameEN, PaymentMethodNameAR)
-VALUES ('Bamk Transfer', 'تحويل');
+VALUES ('Bamk Transfer', N'تحويل');
 INSERT INTO payment_methods (PaymentMethodNameEN, PaymentMethodNameAR)
-VALUES ('Check', 'شيك');
+VALUES ('Check', N'شيك');
 
 
 INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut)
-VALUES ('Gram', 'غرام', 'g');
+VALUES ('Gram', N'غرام', 'g');
 INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut)
-VALUES ('Kilo gram', 'كيلو غرام', 'kg');
+VALUES ('Kilo gram', N'كيلو غرام', 'kg');
 INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut)
-VALUES ('millimeter', 'مليمتر', 'mm');
+VALUES ('millimeter', N'مليمتر', 'mm');
 INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut)
-VALUES ('Centimeter', 'سنتيمتر', 'cm');
+VALUES ('Centimeter', N'سنتيمتر', 'cm');
 INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut)
-VALUES ('Meter', 'متر', 'm');
+VALUES ('Meter', N'متر', 'm');
 INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut)
-VALUES ('Milliliters', 'مليلتر', 'ml');
+VALUES ('Milliliters', N'مليلتر', 'ml');
 INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut)
-VALUES ('Liter', 'لتر', 'l');
+VALUES ('Liter', N'لتر', 'l');
 
 INSERT INTO products_type (ProductTypeNameEN, ProductTypeNameAR)
-VALUES ('Medicine', 'دواء');
+VALUES ('Medicine', N'دواء');
 INSERT INTO products_type (ProductTypeNameEN, ProductTypeNameAR)
-VALUES ('Treatment', 'علاج');
+VALUES ('Treatment', N'علاج');
 
 INSERT INTO emp_group (EmpGroupNameEN)
 VALUES ('Administrator');
@@ -132,13 +132,13 @@ INSERT INTO emp_employees (EmpGroupID, UserName, Pass_word)
 VALUES (1, 'admin',MD5('admin'));
 
 INSERT INTO suppliers (supplierNameEN, supplierNameAR, Discrption)
-VALUES ('Unknown', 'غير معروف','Used to start the market');
+VALUES ('Unknown', N'غير معروف','Used to start the market');
 
 INSERT INTO customer_groups (CustomerGroupNameEN, CustomerGroupNameAR)
-VALUES ('Normal','عادي');
+VALUES ('Normal',N'عادي');
 
 INSERT INTO customers (CustomerGroupID, CustomerNameEN, CustomerNameAR)
-VALUES (1,'Unknown', 'غير معروف');
+VALUES (1,'Unknown', N'غير معروف');
 
 INSERT INTO invoices (InvoiceTypeID, PaymentMethodID, PaymentMechanismeID, EmpID, InvoiceDate, Discount, VAT, Total, Paid,Credit, Remain, CurrencyID, Discrption)
-VALUES (1,'Unknown', 'غير معروف');
+VALUES (1,'Unknown', N'غير معروف');

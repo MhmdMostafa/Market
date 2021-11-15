@@ -110,6 +110,7 @@ namespace Market
             this.AddEditBT.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.AddEditBT.UseAccentColor = false;
             this.AddEditBT.UseVisualStyleBackColor = true;
+            this.AddEditBT.Click += new System.EventHandler(this.AddEditBT_Click);
             // 
             // CancelBT
             // 
@@ -139,7 +140,7 @@ namespace Market
             this.comboBox1.DropDownHeight = 174;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.DropDownWidth = 121;
-            this.comboBox1.Font = new System.Drawing.Font("Roboto Medium", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.IntegralHeight = false;
@@ -174,16 +175,17 @@ namespace Market
             this.textBox2.AnimateReadOnly = false;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Depth = 0;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBox2.LeadingIcon = null;
             this.textBox2.Location = new System.Drawing.Point(199, 204);
             this.textBox2.MaxLength = 50;
             this.textBox2.MouseState = MaterialSkin.MouseState.OUT;
             this.textBox2.Multiline = false;
             this.textBox2.Name = "textBox2";
+            this.textBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox2.Size = new System.Drawing.Size(280, 50);
             this.textBox2.TabIndex = 18;
-            this.textBox2.Text = "";
+            this.textBox2.Text = "sdfasd";
             this.textBox2.TrailingIcon = null;
             // 
             // textBox3
@@ -191,7 +193,7 @@ namespace Market
             this.textBox3.AnimateReadOnly = false;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Depth = 0;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.textBox3.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.textBox3.LeadingIcon = null;
             this.textBox3.Location = new System.Drawing.Point(199, 260);
             this.textBox3.MaxLength = 50;
@@ -208,7 +210,7 @@ namespace Market
             this.textBox4.AnimateReadOnly = false;
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Depth = 0;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.textBox4.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.textBox4.LeadingIcon = null;
             this.textBox4.Location = new System.Drawing.Point(199, 316);
             this.textBox4.MaxLength = 50;

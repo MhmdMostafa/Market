@@ -21,7 +21,7 @@ namespace Market
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddEditDefaultsForm(false, "countries"));
+            Application.Run(new AddEditDefaultsForm(true, "countries"));
         }
         
 

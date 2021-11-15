@@ -1,4 +1,4 @@
-CREATE DATABASE market;
+CREATE DATABASE market DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
 USE market;
 
 CREATE TABLE continents(
@@ -17,7 +17,7 @@ CREATE TABLE countries(
     Shortcut VARCHAR (10) NOT NULL,
     PRIMARY KEY (CountryID),
     FOREIGN KEY (ContinentID) REFERENCES Continents(ContinentID),
-    UNIQUE (CountryCallingCodeID)
+    UNIQUE (CountryCallingCodeID),
     UNIQUE (Shortcut)
 );
 
@@ -46,12 +46,10 @@ CREATE TABLE hand_fingers(
 
 CREATE TABLE currencies(
 	CurrencyID INT NOT NULL AUTO_INCREMENT,
-    CountryID INT NOT NULL,
     CurrencyNameEN VARCHAR(100) NOT NULL,
     CurrencyNameAR VARCHAR(100) NOT NULL,
     CurrencyShortCut CHAR(6) NOT NULL,
-    PRIMARY KEY (CurrencyID),
-    FOREIGN KEY (CountryID) REFERENCES countries(CountryID)
+    PRIMARY KEY (CurrencyID)
 );
 
 CREATE TABLE invoice_type(

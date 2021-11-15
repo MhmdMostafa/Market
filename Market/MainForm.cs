@@ -12,7 +12,6 @@ namespace Market
 {
     public partial class MainForm : Form
     {
-        MySQL_CRUD CRUD = new MySQL_CRUD("MySQL.cfg");
         public MainForm()
         {
             InitializeComponent();

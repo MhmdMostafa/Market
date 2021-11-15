@@ -65,12 +65,11 @@ namespace Market
             MySqlCommand cmd = new MySqlCommand(mySql, con);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             DataSet ds = new DataSet();
-            using (con)
-            {
+            
                 con.Open();
                 da.Fill(ds);
                 return ds;
-            }
+            
         }
 
         public DataSet getDsPassSqlDic(string mySql, Dictionary<string, object> formValues)
@@ -83,12 +82,11 @@ namespace Market
             }
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             DataSet ds = new DataSet();
-            using (con)
-            {
+            
                 con.Open();
                 da.Fill(ds);
                 return ds;
-            }
+            
         }
 
         public DataTable getDtPassSql(string mySql)
@@ -96,13 +94,12 @@ namespace Market
             MySqlConnection con = new MySqlConnection(ConnectionString);
             MySqlCommand cmd = new MySqlCommand(mySql, con);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            using (con)
-            {
+            
                 con.Open();
                 DataTable dt = new DataTable();
                 dt.Load(cmd.ExecuteReader());
                 return dt;
-            }
+            
         }
 
         public DataTable getDtPassSqlDic(string mySql, Dictionary<string, object> formValues)
@@ -114,13 +111,12 @@ namespace Market
                 cmd.Parameters.AddWithValue(p.Key, p.Value);
             }
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            using (con)
-            {
+            
                 con.Open();
                 DataTable dt = new DataTable();
                 dt.Load(cmd.ExecuteReader());
                 return dt;
-            }
+            
         }
 
         public int InsertUpdateDeleteViaSqlDic(string sqlStatement, Dictionary<string, object> InputParaList)
@@ -128,23 +124,17 @@ namespace Market
             int rowAffected;
             try
             {
-                using (MySqlConnection cn = new MySqlConnection(ConnectionString))
-                {
-                    using (MySqlCommand cmd = new MySqlCommand(sqlStatement, cn))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        foreach (KeyValuePair<string, object> p in InputParaList)
-                        {
-                            cmd.Parameters.AddWithValue(p.Key, p.Value);
-                        }
-                        using (cn)
-                        {
-                            cn.Open();
-                            rowAffected = cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
+                MySqlConnection cn = new MySqlConnection(ConnectionString);
+                MySqlCommand cmd = new MySqlCommand(sqlStatement, cn);
+                cmd.CommandType = CommandType.Text;    
+                foreach (KeyValuePair<string, object> p in InputParaList)      
+                {   
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);   
+                }  
+                cn.Open();     
+                rowAffected = cmd.ExecuteNonQuery();
             }
+            
             catch (System.Data.SqlClient.SqlException ex)
             {
                 throw ex;
