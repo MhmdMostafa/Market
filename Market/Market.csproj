@@ -51,7 +51,7 @@
     <Reference Include="MaterialSkin, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.0\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.1.6.1\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -71,11 +71,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AEemail.cs">
+    <Compile Include="AddContact.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AEemail.Designer.cs">
-      <DependentUpon>AEemail.cs</DependentUpon>
+    <Compile Include="AddContact.Designer.cs">
+      <DependentUpon>AddContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEemail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEemail.Designer.cs">
+      <DependentUpon>AddEemail.cs</DependentUpon>
     </Compile>
     <Compile Include="AddEditDefaultsForm.cs">
       <SubType>Form</SubType>
@@ -125,8 +131,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\qr.cs" />
-    <EmbeddedResource Include="AEemail.resx">
-      <DependentUpon>AEemail.cs</DependentUpon>
+    <EmbeddedResource Include="AddContact.resx">
+      <DependentUpon>AddContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEemail.resx">
+      <DependentUpon>AddEemail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddEditDefaultsForm.resx">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>

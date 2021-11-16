@@ -1,7 +1,7 @@
 ﻿
 namespace Market
 {
-    partial class AEemail
+    partial class AddEemail
     {
         /// <summary>
         /// Required designer variable.

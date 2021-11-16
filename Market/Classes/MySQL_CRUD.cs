@@ -19,7 +19,7 @@ namespace Market
             //User:****
             //Password:****
             //DataBase:****
-            
+
             using (StreamReader sr = new StreamReader(@MySQLcfgPath))
             {
                 string _line;
@@ -65,11 +65,11 @@ namespace Market
             MySqlCommand cmd = new MySqlCommand(mySql, con);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             DataSet ds = new DataSet();
-            
-                con.Open();
-                da.Fill(ds);
-                return ds;
-            
+
+            con.Open();
+            da.Fill(ds);
+            return ds;
+
         }
 
         public DataSet getDsPassSqlDic(string mySql, Dictionary<string, object> formValues)
@@ -82,11 +82,11 @@ namespace Market
             }
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             DataSet ds = new DataSet();
-            
-                con.Open();
-                da.Fill(ds);
-                return ds;
-            
+
+            con.Open();
+            da.Fill(ds);
+            return ds;
+
         }
 
         public DataTable getDtPassSql(string mySql)
@@ -94,12 +94,12 @@ namespace Market
             MySqlConnection con = new MySqlConnection(ConnectionString);
             MySqlCommand cmd = new MySqlCommand(mySql, con);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            
-                con.Open();
-                DataTable dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                return dt;
-            
+
+            con.Open();
+            DataTable dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
+            return dt;
+
         }
 
         public DataTable getDtPassSqlDic(string mySql, Dictionary<string, object> formValues)
@@ -111,12 +111,12 @@ namespace Market
                 cmd.Parameters.AddWithValue(p.Key, p.Value);
             }
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            
-                con.Open();
-                DataTable dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                return dt;
-            
+
+            con.Open();
+            DataTable dt = new DataTable();
+            dt.Load(cmd.ExecuteReader());
+            return dt;
+
         }
 
         public int InsertUpdateDeleteViaSqlDic(string sqlStatement, Dictionary<string, object> InputParaList)
@@ -126,15 +126,15 @@ namespace Market
             {
                 MySqlConnection cn = new MySqlConnection(ConnectionString);
                 MySqlCommand cmd = new MySqlCommand(sqlStatement, cn);
-                cmd.CommandType = CommandType.Text;    
-                foreach (KeyValuePair<string, object> p in InputParaList)      
-                {   
-                    cmd.Parameters.AddWithValue(p.Key, p.Value);   
-                }  
-                cn.Open();     
+                cmd.CommandType = CommandType.Text;
+                foreach (KeyValuePair<string, object> p in InputParaList)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+                cn.Open();
                 rowAffected = cmd.ExecuteNonQuery();
             }
-            
+
             catch (System.Data.SqlClient.SqlException ex)
             {
                 throw ex;

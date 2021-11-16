@@ -20,7 +20,7 @@ namespace Market
         }
         public static string RmSpace(string name)
         {
-            if (name.Length == 0)
+            if (name.Length == 0 || name ==null)
                 return name;
             while (name.Last() == ' ')
                 name = name.Substring(0, name.Length - 1);
@@ -36,19 +36,11 @@ namespace Market
             using (MySqlDataReader dr = myCrud.getDrPassSql($@"SELECT * FROM {Table};"))
             {
                 dr.Read();
-                try
+                while (true)
                 {
-                    while (true)
-                    {
-                        count += 1;
-                        columns.Add(dr.GetName(count), count);
-                    }
+                    count += 1;
+                    columns.Add(dr.GetName(count), count);
                 }
-                catch (Exception e)
-                {
-
-                }
-                
             }
             return columns;
         }
