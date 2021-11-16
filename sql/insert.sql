@@ -131,8 +131,8 @@ VALUES (2,3,TRUE);
 INSERT INTO emp_employees (EmpGroupID, UserName, Pass_word)
 VALUES (1, 'admin',MD5('admin'));
 
-INSERT INTO suppliers (supplierNameEN, supplierNameAR, Discrption)
-VALUES ('Unknown', N'غير معروف','Used to start the market');
+INSERT INTO suppliers (SupplierNameEN, SupplierNameAR, SupplierVatNumber, Discrption)
+VALUES ('Unknown', N'غير معروف', 'sd123123' 'Used to start the market');
 
 INSERT INTO customer_groups (CustomerGroupNameEN, CustomerGroupNameAR)
 VALUES ('Normal',N'عادي');

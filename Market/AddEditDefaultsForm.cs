@@ -15,17 +15,19 @@ namespace Market
     {
         
         public string SQLtable;
+        public string command;
         public int SelctedID;
         public AddEditDefaultsForm()
         {
             InitializeComponent();
         }
-        public AddEditDefaultsForm(bool conf, string table, int id = 0)
+        public AddEditDefaultsForm(string conf, string table, int id = 0)
         {
             InitializeComponent();
             SelctedID = id;
             SQLtable = table;
-            if (conf)
+            command = conf;
+            if (command == "add")
             {
                 Text = "Add New";
                 AddEditBT.Text = "ADD";
@@ -35,7 +37,6 @@ namespace Market
             {
                 Text = "Edit";
                 AddEditBT.Text = "Edit";
-                
             }
             
             switch (SQLtable)
@@ -54,7 +55,7 @@ namespace Market
                             comboBox1.Items.Add(dr.GetString("ContinentNameEN"));
                         }
 
-                    if (AddEditBT.Text == "Edit")
+                    if (command == "edit")
                     {
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM countries WHERE CountryID = {SelctedID}"))
                         {
@@ -80,7 +81,7 @@ namespace Market
                     label_2.Text = "Name English:";
                     label_3.Text = "Name Arabic:";
                     label_4.Text = "Shortcut:";
-                    if (AddEditBT.Text == "Edit")
+                    if (command == "edit")
                     {
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM currencies WHERE CurrencyID = {SelctedID}"))
                         {
@@ -105,7 +106,7 @@ namespace Market
                     label_3.Text = "Name Arabic:";
                     label_4.Text = "Shortcut:";
 
-                    if (AddEditBT.Text == "Edit")
+                    if (command == "edit")
                     {
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM units_value WHERE UnitValueID = {SelctedID}"))
                         {
@@ -127,7 +128,7 @@ namespace Market
                     Text += " Product Type";
                     label_2.Text = "Name English:";
                     label_3.Text = "Name Arabic:";
-                    if (AddEditBT.Text == "Edit")
+                    if (command == "edit")
                     {
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM products_groub WHERE ProductGroubID = {SelctedID}"))
                         {
@@ -149,7 +150,7 @@ namespace Market
                     Text += " Product Type";
                     label_2.Text = "Name English:";
                     label_3.Text = "Name Arabic:";
-                    if (AddEditBT.Text == "Edit")
+                    if (command == "edit")
                     {
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM products_type WHERE ProductTypeID = {SelctedID}"))
                         {
@@ -171,7 +172,7 @@ namespace Market
                     Text += " Customer Group";
                     label_2.Text = "Name English:";
                     label_3.Text = "Name Arabic:";
-                    if (AddEditBT.Text == "Edit")
+                    if (command == "edit")
                     {
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM customer_groups WHERE CustomerGroupID = {SelctedID}"))
                         {
@@ -193,7 +194,7 @@ namespace Market
                     Text += " Emploee Group";
                     label_2.Text = "Name English:";
                     label_3.Text = "Name Arabic:";
-                    if (AddEditBT.Text == "Edit")
+                    if (command == "edit")
                     {
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM emp_group WHERE EmpGroupID = {SelctedID}"))
                         {
@@ -215,7 +216,7 @@ namespace Market
                     Text += " Emploee Permission";
                     label_2.Text = "Name English:";
                     label_3.Text = "Name Arabic:";
-                    if (AddEditBT.Text == "Edit")
+                    if (command == "edit")
                     {
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM emp_permissions WHERE PermissionID = {SelctedID}"))
                         {
@@ -227,18 +228,58 @@ namespace Market
                     }
                     break;
 
+                case "invoice_type":
+                    label_1.Visible = false;
+                    comboBox1.Visible = false;
+                    label_4.Visible = false;
+                    textBox3.Visible = false;
+                    label_5.Visible = false;
+                    textBox4.Visible = false;
+                    Text += " Emploee Permission";
+                    label_2.Text = "Name English:";
+                    label_3.Text = "Name Arabic:";
+                    if (command == "edit")
+                    {
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM invoice_type WHERE InvoiceTypeID = {SelctedID}"))
+                        {
+                            dr.Read();
+                            textBox1.Text = dr.GetString("InvoiceTypeNameEN");
+                            textBox2.Text = dr.GetString("InvoiceTypeNameAR");
+                        }
+
+                    }
+                    break;
+                case "contact_type":
+                    label_1.Visible = false;
+                    comboBox1.Visible = false;
+                    label_4.Visible = false;
+                    textBox3.Visible = false;
+                    label_5.Visible = false;
+                    textBox4.Visible = false;
+                    Text += " Emploee Permission";
+                    label_2.Text = "Name English:";
+                    label_3.Text = "Name Arabic:";
+                    if (command == "edit")
+                    {
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM contact_type WHERE ContactTypeID = {SelctedID}"))
+                        {
+                            dr.Read();
+                            textBox1.Text = dr.GetString("ContactNameEN");
+                            textBox2.Text = dr.GetString("ContactNameAR");
+                        }
+
+                    }
+                    break;
+
             }
             Text += " Wizerd";
-
-
-
         }
 
         private void AddEditBT_Click(object sender, EventArgs e)
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL;
-            if (AddEditBT.Text == "ADD")
+            if (command == "add")
             {
                 switch (SQLtable)
                 {
@@ -246,49 +287,161 @@ namespace Market
                     case "countries":
 
                         SQL = @"INSERT INTO countries (ContinentID, CountryCallingCodeID, CountryNameEN, CountryNameAR, Shortcut) VALUES(@ContinentID, @CountryCallingCodeID, @CountryNameEN, @CountryNameAR, @Shortcut);";
-                               
-                                
-                        myPara.Add("@ContinentID", Globals.GetID(SQLtable, "ContinentNameEN", comboBox1.Text, "ContinentID"));
-                        myPara.Add("@CountryCallingCodeID", textBox3.Text);
-                        myPara.Add("@CountryNameEN", textBox1.Text);
-                        myPara.Add("@CountryNameAR", textBox2.Text);
-                        myPara.Add("@Shortcut", textBox4.Text);
+                        myPara.Add("@ContinentID", Globals.GetID("ContinentID", "continents", "ContinentNameEN", comboBox1.Text));
+                        myPara.Add("@CountryCallingCodeID", Globals.RmSpace(textBox3.Text));
+                        myPara.Add("@CountryNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CountryNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@Shortcut", Globals.RmSpace(textBox4.Text));
                         Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                            
                         break;
 
                     case "currencies":
-
+                        SQL = @"INSERT INTO currencies (CurrencyNameEN, CurrencyNameAR, CurrencyShortCut) VALUES(@CurrencyNameEN, @CurrencyNameAR, @CurrencyShortCut);";
+                        myPara.Add("@CurrencyNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CurrencyNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@CurrencyShortCut", Globals.RmSpace(textBox3.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                         break;
 
                     case "units_value":
-                        
+                        SQL = @"INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut) VALUES(@UnitValueNameEN, @UnitValueNameAR, @UnitsValueShortCut);";
+                        myPara.Add("@UnitValueNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@UnitValueNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@UnitsValueShortCut", Globals.RmSpace(textBox3.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                         break;
                     case "products_groub":
-                        
+                        SQL = @"INSERT INTO products_groub (ProductGroubNameEN, ProductGroubNameAR) VALUES(@ProductGroubNameEN, @ProductGroubNameAR);";
+                        myPara.Add("@ProductGroubNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ProductGroubNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                         break;
 
                     case "products_type":
-                       
+                        SQL = @"INSERT INTO products_type (ProductTypeNameEN, ProductTypeNameAR) VALUES(@ProductTypeNameEN, @ProductTypeNameAR);";
+                        myPara.Add("@ProductTypeNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ProductTypeNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                         break;
 
                     case "customer_groups":
-                       
+                        SQL = @"INSERT INTO customer_groups (CustomerGroupNameEN, CustomerGroupNameAR) VALUES(@CustomerGroupNameEN, @CustomerGroupNameAR);";
+                        myPara.Add("@CustomerGroupNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CustomerGroupNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                         break;
 
                     case "emp_group":
-                        
+                        SQL = @"INSERT INTO emp_group (EmpGroupNameEN, EmpGroupNameAR) VALUES(@EmpGroupNameEN, @EmpGroupNameAR);";
+                        myPara.Add("@EmpGroupNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@EmpGroupNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                         break;
 
                     case "emp_permissions":
-                       
+                        SQL = @"INSERT INTO emp_permissions (PermissionNameEN, PermissionNameAr) VALUES(@PermissionNameEN, @PermissionNameAr);";
+                        myPara.Add("@PermissionNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@PermissionNameAr", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "invoice_type":
+                        SQL = @"INSERT INTO invoice_type (InvoiceTypeNameEN, InvoiceTypeNameAR) VALUES(@InvoiceTypeNameEN, @InvoiceTypeNameAR);";
+                        myPara.Add("@InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "contact_type":
+                        SQL = @"INSERT INTO contact_type (ContactNameEN, ContactNameAR) VALUES(@ContactNameEN, @ContactNameAR);";
+                        myPara.Add("@ContactNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ContactNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                         break;
 
                 }
             }
             else
             {
+                switch (SQLtable)
+                {
+                    //countries
+                    case "countries":
 
+                        SQL = $@"UPDATE countries SET ContinentID=@ContinentID, CountryCallingCodeID=@CountryCallingCodeID, CountryNameEN= @CountryNameEN, CountryNameAR=@CountryNameAR, Shortcut=@Shortcut WHERE CountryID={SelctedID};";
+                        myPara.Add("@ContinentID", Globals.GetID("ContinentID","continents", "ContinentNameEN", comboBox1.Text ));
+                        myPara.Add("@CountryCallingCodeID", Globals.RmSpace(textBox3.Text));
+                        myPara.Add("@CountryNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CountryNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@Shortcut", Globals.RmSpace(textBox4.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "currencies":
+                        SQL = $@"UPDATE currencies SET CurrencyNameEN=@CurrencyNameEN, CurrencyNameAR=@CurrencyNameAR, CurrencyShortCut=@CurrencyShortCut WHERE CurrencyID={SelctedID};";
+                        myPara.Add("@CurrencyNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CurrencyNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@CurrencyShortCut", Globals.RmSpace(textBox3.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "units_value":
+                        SQL = $@"UPDATE units_value SET UnitValueNameEN=@UnitValueNameEN, UnitValueNameAR=@UnitValueNameAR, UnitsValueShortCut=@UnitsValueShortCut WHERE CurrencyID={SelctedID};";
+                        myPara.Add("@UnitValueNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@UnitValueNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@UnitsValueShortCut", Globals.RmSpace(textBox3.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+                    case "products_groub":
+                        SQL = $@"UPDATE products_groub SET ProductGroubNameEN=@ProductGroubNameEN, ProductGroubNameAR=@ProductGroubNameAR WHERE ProductGroubID={SelctedID};";
+                        myPara.Add("@ProductGroubNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ProductGroubNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "products_type":
+                        SQL = $@"UPDATE products_type SET ProductTypeNameEN=@ProductTypeNameEN, ProductTypeNameAR=@ProductTypeNameAR WHERE ProductTypeID={SelctedID};";
+                        myPara.Add("@ProductTypeNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ProductTypeNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "customer_groups":
+                        SQL = $@"UPDATE customer_groups SET CustomerGroupNameEN=@CustomerGroupNameEN, CustomerGroupNameAR=@CustomerGroupNameAR WHERE CustomerGroupID={SelctedID};";
+                        myPara.Add("@CustomerGroupNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CustomerGroupNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "emp_group":
+                        SQL = $@"UPDATE emp_group SET EmpGroupNameEN=@EmpGroupNameEN, EmpGroupNameAR=@EmpGroupNameAR WHERE EmpGroupID={SelctedID};";
+                        myPara.Add("@EmpGroupNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@EmpGroupNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "emp_permissions":
+                        SQL = $@"UPDATE emp_permissions SET PermissionNameEN=@PermissionNameEN, PermissionNameAr=@PermissionNameAr WHERE PermissionID={SelctedID};";
+                        myPara.Add("@PermissionNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@PermissionNameAr", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "invoice_type":
+                        SQL = $@"UPDATE invoice_type SET InvoiceTypeNameEN=@InvoiceTypeNameEN, InvoiceTypeNameAR=@InvoiceTypeNameAR WHERE InvoiceTypeID={SelctedID};";
+                        myPara.Add("@InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                    case "contact_type":
+                        SQL = $@"UPDATE contact_type SET ContactNameEN=@ContactNameEN, ContactNameAR=@ContactNameAR WHERE ContactTypeID={SelctedID};";
+                        myPara.Add("@ContactNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ContactNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                        break;
+
+                }
             }
         }
     }

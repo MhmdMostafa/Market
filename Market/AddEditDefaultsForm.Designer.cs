@@ -100,13 +100,14 @@ namespace Market
             this.AddEditBT.Depth = 0;
             this.AddEditBT.HighEmphasis = true;
             this.AddEditBT.Icon = null;
-            this.AddEditBT.Location = new System.Drawing.Point(684, 437);
+            this.AddEditBT.Location = new System.Drawing.Point(415, 385);
             this.AddEditBT.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.AddEditBT.MouseState = MaterialSkin.MouseState.HOVER;
             this.AddEditBT.Name = "AddEditBT";
             this.AddEditBT.NoAccentTextColor = System.Drawing.Color.Empty;
             this.AddEditBT.Size = new System.Drawing.Size(64, 36);
             this.AddEditBT.TabIndex = 14;
+            this.AddEditBT.Text = "edit";
             this.AddEditBT.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.AddEditBT.UseAccentColor = false;
             this.AddEditBT.UseVisualStyleBackColor = true;
@@ -119,7 +120,7 @@ namespace Market
             this.CancelBT.Depth = 0;
             this.CancelBT.HighEmphasis = true;
             this.CancelBT.Icon = null;
-            this.CancelBT.Location = new System.Drawing.Point(599, 437);
+            this.CancelBT.Location = new System.Drawing.Point(330, 385);
             this.CancelBT.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.CancelBT.MouseState = MaterialSkin.MouseState.HOVER;
             this.CancelBT.Name = "CancelBT";
@@ -175,7 +176,7 @@ namespace Market
             this.textBox2.AnimateReadOnly = false;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Depth = 0;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.textBox2.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.textBox2.LeadingIcon = null;
             this.textBox2.Location = new System.Drawing.Point(199, 204);
             this.textBox2.MaxLength = 50;
@@ -185,7 +186,7 @@ namespace Market
             this.textBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox2.Size = new System.Drawing.Size(280, 50);
             this.textBox2.TabIndex = 18;
-            this.textBox2.Text = "sdfasd";
+            this.textBox2.Text = "";
             this.textBox2.TrailingIcon = null;
             // 
             // textBox3
@@ -226,7 +227,7 @@ namespace Market
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 482);
+            this.ClientSize = new System.Drawing.Size(518, 433);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);

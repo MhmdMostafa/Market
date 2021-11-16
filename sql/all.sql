@@ -215,9 +215,9 @@ CREATE TABLE emp_attendance(
 
 CREATE TABLE suppliers(
 	SupplierID INT NOT NULL AUTO_INCREMENT,
-	supplierNameEN VARCHAR(50) NOT NULL,
-    supplierNameAR VARCHAR(50),
-    supplierVatNumber VARCHAR(24),
+	SupplierNameEN VARCHAR(50) NOT NULL,
+    SupplierNameAR VARCHAR(50),
+    SupplierVatNumber VARCHAR(24),
     Discrption VARCHAR (600),
     PRIMARY KEY (SupplierID)
 );
