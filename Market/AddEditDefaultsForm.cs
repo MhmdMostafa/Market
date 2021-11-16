@@ -17,13 +17,16 @@ namespace Market
         public string SQLtable;
         public string command;
         public int SelctedID;
+        public Dictionary<string, int> tableCol = new Dictionary<string, int>();
         public AddEditDefaultsForm()
         {
             InitializeComponent();
         }
         public AddEditDefaultsForm(string conf, string table, int id = 0)
         {
+            
             InitializeComponent();
+            tableCol = Globals.GetColumnsIndex(table);
             SelctedID = id;
             SQLtable = table;
             command = conf;

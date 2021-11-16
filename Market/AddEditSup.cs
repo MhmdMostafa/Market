@@ -15,6 +15,10 @@ namespace Market
         
         public string command;
         public int SelctedID;
+        public Dictionary<string, int> suppliersCol = new Dictionary<string, int>();
+        public Dictionary<string, int> suppliersEmailAddressesCol = new Dictionary<string, int>();
+        public Dictionary<string, int> suppliersContactNumbersCol = new Dictionary<string, int>();
+        public Dictionary<string, int> suppliersBankAccountsCol = new Dictionary<string, int>();
         public AddEditSup()
         {
             InitializeComponent();
@@ -23,8 +27,13 @@ namespace Market
         public AddEditSup(string conf, int id = 0)
         {
             InitializeComponent();
+            suppliersCol = Globals.GetColumnsIndex("suppliers");
+            suppliersEmailAddressesCol = Globals.GetColumnsIndex("suppliers_email_addresses");
+            suppliersContactNumbersCol = Globals.GetColumnsIndex("suppliers_contact_numbers");
+            suppliersBankAccountsCol = Globals.GetColumnsIndex("suppliers_bank_accounts");
             SelctedID = id;
             command = conf;
+            string SQLquary;
             if (conf == "add")
             {
                 Text = "Add new Supplaier Wizerd";
@@ -34,13 +43,14 @@ namespace Market
                 CancelBack.Visible = false;
                 NextEnd.Text = "Done";
                 Text = "Edit Supplaier Wizerd";
-                using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM suppliers WHERE SupplierID = {SelctedID}"))
+                SQLquary = $"SELECT * FROM suppliers WHERE SupplierID = {SelctedID}";
+                using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQLquary))
                 {
                     dr.Read();
-                    GNameEnTB.Text = dr.GetString("supplierNameEN");
-                    GNameArTB.Text = dr.GetString("supplierNameAR");
-                    GVatTB.Text = dr.GetString("supplierVatNumber");
-                    GDiscRTB.Text = dr.GetString("Discrption");
+                    GNameEnTB.Text = dr.IsDBNull(suppliersCol["supplierNameEN"]) ? "" : dr.GetString("supplierNameEN");
+                    GNameArTB.Text = dr.IsDBNull(suppliersCol["supplierNameAR"]) ? "" : dr.GetString("supplierNameAR");
+                    GVatTB.Text = dr.IsDBNull(suppliersCol["supplierVatNumber"]) ? "":dr.GetString("supplierVatNumber") ;
+                    GDiscRTB.Text = dr.IsDBNull(suppliersCol["Discrption"]) ? "" : dr.GetString("Discrption");
                 }
             }
 
@@ -114,6 +124,8 @@ namespace Market
                 CB.Items.RemoveAt(i);
             }
         }
+
+        
 
         private void NextEnd_Click(object sender, EventArgs e)
         {

@@ -28,5 +28,29 @@ namespace Market
                 name = name.Substring(1, name.Length - 1);
             return name;
         }
+
+        public static Dictionary<string,int> GetColumnsIndex(string Table)
+        {
+            Dictionary<string, int> columns = new Dictionary<string, int>();
+            int count = -1;
+            using (MySqlDataReader dr = myCrud.getDrPassSql($@"SELECT * FROM {Table};"))
+            {
+                dr.Read();
+                try
+                {
+                    while (true)
+                    {
+                        count += 1;
+                        columns.Add(dr.GetName(count), count);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+                
+            }
+            return columns;
+        }
     }
 }
