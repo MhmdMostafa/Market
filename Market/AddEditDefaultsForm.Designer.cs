@@ -36,7 +36,7 @@ namespace Market
             this.label_5 = new System.Windows.Forms.Label();
             this.AddEditBT = new MaterialSkin.Controls.MaterialButton();
             this.CancelBT = new MaterialSkin.Controls.MaterialButton();
-            this.comboBox1 = new MaterialSkin.Controls.MaterialComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new MaterialSkin.Controls.MaterialTextBox();
             this.textBox2 = new MaterialSkin.Controls.MaterialTextBox();
             this.textBox3 = new MaterialSkin.Controls.MaterialTextBox();
@@ -134,25 +134,12 @@ namespace Market
             // 
             // comboBox1
             // 
-            this.comboBox1.AutoResize = false;
-            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.comboBox1.Depth = 0;
-            this.comboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBox1.DropDownHeight = 174;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.DropDownWidth = 121;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.comboBox1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.IntegralHeight = false;
-            this.comboBox1.ItemHeight = 43;
-            this.comboBox1.Location = new System.Drawing.Point(199, 83);
-            this.comboBox1.MaxDropDownItems = 4;
-            this.comboBox1.MouseState = MaterialSkin.MouseState.OUT;
+            this.comboBox1.Location = new System.Drawing.Point(199, 95);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(280, 49);
-            this.comboBox1.StartIndex = 0;
-            this.comboBox1.TabIndex = 16;
+            this.comboBox1.Size = new System.Drawing.Size(280, 32);
+            this.comboBox1.TabIndex = 28;
             // 
             // textBox1
             // 
@@ -256,7 +243,7 @@ namespace Market
         private System.Windows.Forms.Label label_5;
         private MaterialSkin.Controls.MaterialButton AddEditBT;
         private MaterialSkin.Controls.MaterialButton CancelBT;
-        private MaterialSkin.Controls.MaterialComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
         private MaterialSkin.Controls.MaterialTextBox textBox1;
         private MaterialSkin.Controls.MaterialTextBox textBox2;
         private MaterialSkin.Controls.MaterialTextBox textBox3;

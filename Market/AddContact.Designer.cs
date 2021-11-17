@@ -34,7 +34,7 @@ namespace Market
             this.label_1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.typeCB = new System.Windows.Forms.ComboBox();
-            this.ContryCB = new System.Windows.Forms.ComboBox();
+            this.CountryCB = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // applyB
@@ -95,21 +95,21 @@ namespace Market
             this.typeCB.Size = new System.Drawing.Size(121, 32);
             this.typeCB.TabIndex = 28;
             // 
-            // ContryCB
+            // CountryCB
             // 
-            this.ContryCB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.ContryCB.FormattingEnabled = true;
-            this.ContryCB.Location = new System.Drawing.Point(106, 133);
-            this.ContryCB.Name = "ContryCB";
-            this.ContryCB.Size = new System.Drawing.Size(80, 32);
-            this.ContryCB.TabIndex = 29;
+            this.CountryCB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.CountryCB.FormattingEnabled = true;
+            this.CountryCB.Location = new System.Drawing.Point(106, 133);
+            this.CountryCB.Name = "CountryCB";
+            this.CountryCB.Size = new System.Drawing.Size(80, 32);
+            this.CountryCB.TabIndex = 29;
             // 
             // AddContact
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 220);
-            this.Controls.Add(this.ContryCB);
+            this.Controls.Add(this.CountryCB);
             this.Controls.Add(this.typeCB);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PhoneTB);
@@ -129,6 +129,6 @@ namespace Market
         private System.Windows.Forms.Label label_1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox typeCB;
-        private System.Windows.Forms.ComboBox ContryCB;
+        private System.Windows.Forms.ComboBox CountryCB;
     }
 }

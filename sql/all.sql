@@ -132,18 +132,18 @@ CREATE TABLE emp_employees(
 );
 
 CREATE TABLE emp_email_addresses(
-	EmpID INT NOT NULL,
+	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID),
+    FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE emp_contact_numbers(
-	EmpID INT NOT NULL,
+	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID),
+    FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
     FOREIGN KEY (CountryID) REFERENCES countries(CountryID),
     FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
     UNIQUE (ContactNumber)
@@ -223,19 +223,19 @@ CREATE TABLE suppliers(
 );
 
 CREATE TABLE suppliers_email_addresses(
-	SupplierID INT NOT NULL,
+	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
+    FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE suppliers_contact_numbers(
-	SupplierID INT NOT NULL,
+	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
     FOREIGN KEY (CountryID) REFERENCES countries(CountryID),
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
+    FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
     FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
     UNIQUE (ContactNumber)
 );
@@ -407,19 +407,19 @@ CREATE TABLE customers(
 );
 
 CREATE TABLE customer_email_addresses(
-	CustomerID INT NOT NULL,
+	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
+    FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE customer_contact_numbers(
-	CustomerID INT NOT NULL,
+	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
     FOREIGN KEY (countryID) REFERENCES countries(countryID),
-    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
+    FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
     FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
     UNIQUE (ContactNumber)
 );

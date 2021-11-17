@@ -28,9 +28,9 @@ namespace Market
         {
             InitializeComponent();
             suppliersCol = Globals.GetColumnsIndex("suppliers");
-            suppliersEmailAddressesCol = Globals.GetColumnsIndex("suppliers_email_addresses");
-            suppliersContactNumbersCol = Globals.GetColumnsIndex("suppliers_contact_numbers");
-            suppliersBankAccountsCol = Globals.GetColumnsIndex("suppliers_bank_accounts");
+            suppliersEmailAddressesCol = Globals.GetColumnsIndex("Suppliers_email_addresses");
+            suppliersContactNumbersCol = Globals.GetColumnsIndex("Suppliers_contact_numbers");
+            suppliersBankAccountsCol = Globals.GetColumnsIndex("Suppliers_bank_accounts");
             SelctedID = id;
             command = conf;
             string SQLquary;

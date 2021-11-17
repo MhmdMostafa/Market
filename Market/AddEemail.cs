@@ -51,12 +51,12 @@ namespace Market
 
             if (command == "edit")
             {
-                SQL = $"UPDATE {SQLtable} SET EmailAddress= @EmailAddressNew WHERE EmailAddress = @EmailAddressOld";
+                SQL = $"UPDATE {SQLtable} SET EmailAddress= @EmailAddressNew WHERE UserID = @UserID AND EmailAddress = @EmailAddressOld";
                 myPara.Add("@EmailAddressOld", Globals.RmSpace(email));
             }
             else if (command == "add")
             {
-                SQL = @"INSERT INTO {SQLtable} (EmailAddress) VALUES(@EmailAddress);";
+                SQL = $@"INSERT INTO {SQLtable} (UserID, EmailAddress) VALUES(@UserID, @EmailAddressNew);";
 
             }
 
@@ -65,6 +65,7 @@ namespace Market
             DialogResult d = MessageBox.Show("are you shure", command.ToUpper(), MessageBoxButtons.YesNo);
             if (d == DialogResult.Yes)
             {
+                myPara.Add("@UserID", selectedID);
                 myPara.Add("@EmailAddressNew", Globals.RmSpace(EmailTB.Text));
                 Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                 this.Close();

@@ -63,6 +63,7 @@ namespace Market
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM countries WHERE CountryID = {SelctedID}"))
                         {
                             dr.Read();
+                            //there is something here i need to understand
                             comboBox1.SelectedIndex = int.Parse(dr.IsDBNull(tableCol["ContinentID"]) ? "" : dr.GetString("ContinentID")) - 1;
                             textBox1.Text = dr.IsDBNull(tableCol["CountryNameEN"]) ? "" : dr.GetString("CountryNameEN");
                             textBox2.Text = dr.IsDBNull(tableCol["CountryNameAR"]) ? "" : dr.GetString("CountryNameAR");

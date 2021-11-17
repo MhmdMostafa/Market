@@ -12,8 +12,8 @@ namespace Market
         public static int GetID(string columnID, string SqlTable, string StrCol, string str )
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
-            myPara.Add("@str", str);;
             string SQL = $@"SELECT {columnID} From {SqlTable} WHERE {StrCol} = @str";
+            myPara.Add("@str", str);;
             MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL,myPara);
             dr.Read();
             return int.Parse(dr.GetString(columnID));
@@ -32,15 +32,22 @@ namespace Market
         public static Dictionary<string,int> GetColumnsIndex(string Table)
         {
             Dictionary<string, int> columns = new Dictionary<string, int>();
-            int count = -1;
+            int count = 0;
             using (MySqlDataReader dr = myCrud.getDrPassSql($@"SELECT * FROM {Table};"))
             {
                 dr.Read();
-                while (true)
-                {
-                    count += 1;
-                    columns.Add(dr.GetName(count), count);
+                try{
+                    while (true)
+                    {
+                        columns.Add(dr.GetName(count), count);
+                        count += 1;
+                    }
                 }
+                catch(Exception e)
+                {
+
+                }
+                
             }
             return columns;
         }
