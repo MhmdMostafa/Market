@@ -19,6 +19,8 @@ VALUES ('Antarctica', N'المتجمدة الجنوبية');
 INSERT INTO countries (ContinentID, CountryCallingCodeID, CountryNameEN, CountryNameAR, Shortcut)
 VALUES (1, '00966', 'Saudi Arabia', N'المملكة العربية السعودية', 'KSA');
 
+INSERT INTO cities (CountryID, CityNameEN, CityNameAR)
+VALUES (1, 'Riyadh', N'الرياض');
 
 INSERT INTO contact_type (ContactNameEN, ContactNameAR)
 VALUES ('Fax', N'فاكس');

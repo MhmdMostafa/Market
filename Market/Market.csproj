@@ -51,7 +51,7 @@
     <Reference Include="MaterialSkin, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.0\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.1.6.1\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -71,28 +71,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddContact.cs">
+    <Compile Include="AddEdit\AddContact.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddContact.Designer.cs">
+    <Compile Include="AddEdit\AddContact.Designer.cs">
       <DependentUpon>AddContact.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEemail.cs">
+    <Compile Include="AddEdit\AddEditAddress.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEemail.Designer.cs">
+    <Compile Include="AddEdit\AddEditAddress.Designer.cs">
+      <DependentUpon>AddEditAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit\AddEditBank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEdit\AddEditBank.Designer.cs">
+      <DependentUpon>AddEditBank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit\AddEemail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEdit\AddEemail.Designer.cs">
       <DependentUpon>AddEemail.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEditDefaultsForm.cs">
+    <Compile Include="AddEdit\AddEditDefaultsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEditDefaultsForm.Designer.cs">
+    <Compile Include="AddEdit\AddEditDefaultsForm.Designer.cs">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEditSup.cs">
+    <Compile Include="AddEdit\AddEditSup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEditSup.Designer.cs">
+    <Compile Include="AddEdit\AddEditSup.Designer.cs">
       <DependentUpon>AddEditSup.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Class1.cs" />
@@ -131,16 +143,22 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\qr.cs" />
-    <EmbeddedResource Include="AddContact.resx">
+    <EmbeddedResource Include="AddEdit\AddContact.resx">
       <DependentUpon>AddContact.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEemail.resx">
+    <EmbeddedResource Include="AddEdit\AddEditAddress.resx">
+      <DependentUpon>AddEditAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEdit\AddEditBank.resx">
+      <DependentUpon>AddEditBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEdit\AddEemail.resx">
       <DependentUpon>AddEemail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEditDefaultsForm.resx">
+    <EmbeddedResource Include="AddEdit\AddEditDefaultsForm.resx">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEditSup.resx">
+    <EmbeddedResource Include="AddEdit\AddEditSup.resx">
       <DependentUpon>AddEditSup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
@@ -193,5 +211,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

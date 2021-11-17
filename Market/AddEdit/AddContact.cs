@@ -45,7 +45,7 @@ namespace Market
                     typeCB.Items.Add(dr.IsDBNull(ContactTypeIDCol["ContactNameEN"]) ? "" : dr.GetString("ContactNameEN"));
                 }
 
-            
+
             if (command == "edit")
             {
                 string SQL = $@"SELECT * FROM {table} WHERE ContactNumber = @ContactNumberOld AND UserID=@UserID;";
@@ -60,17 +60,17 @@ namespace Market
                     PhoneTB.Text = phoneOld;
                 }
             }
-            
-            
+
+            Text = $"{cmd} Wizerd";
             applyB.Text = cmd;
-            
+
 
 
         }
 
         private void applyB_Click(object sender, EventArgs e)
         {
-            
+
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = "";
 
@@ -83,7 +83,7 @@ namespace Market
             if (command == "edit")
             {
                 SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, ContactTypeID= @ContactTypeID, ContactNumber= @ContactNumber WHERE ContactNumber = @ContactNumberOld AND UserID=@UserID";
-                
+
                 myPara.Add("@ContactNumberOld", Globals.RmSpace(phoneOld));
             }
             else if (command == "add")

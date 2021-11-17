@@ -21,7 +21,7 @@ namespace Market
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddContact("edit", "suppliers_contact_numbers", 1, "0505831100"));
+            Application.Run(new AddEditBank());
         }
 
 

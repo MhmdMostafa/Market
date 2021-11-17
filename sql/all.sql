@@ -21,6 +21,15 @@ CREATE TABLE countries(
     UNIQUE (Shortcut)
 );
 
+CREATE TABLE cities(
+    CityID INT NOT NULL AUTO_INCREMENT,
+	CountryID INT,
+    CityNameEN VARCHAR(50) NOT NULL,
+    CityNameAR VARCHAR(50) NOT NULL,
+    PRIMARY KEY (CityID),
+    FOREIGN KEY (CountryID) REFERENCES countries(CountryID)
+);
+
 CREATE TABLE contact_type(
 	ContactTypeID INT AUTO_INCREMENT,
 	ContactNameEN VARCHAR(50) NOT NULL,
@@ -132,17 +141,21 @@ CREATE TABLE emp_employees(
 );
 
 CREATE TABLE emp_email_addresses(
+    EmailID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
+    PRIMARY KEY(EmailID),
     FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE emp_contact_numbers(
+    ContactID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
+    PRIMARY KEY(ContactID),
     FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
     FOREIGN KEY (CountryID) REFERENCES countries(CountryID),
     FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
@@ -150,23 +163,31 @@ CREATE TABLE emp_contact_numbers(
 );
 
 CREATE TABLE emp_bank_accounts(
-	EmpID INT NOT NULL,
+    BankID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
     BankNameAR VARCHAR(100) NOT NULL,
     BankNameEN VARCHAR(100) NOT NULL,
     BankIban VARCHAR(24) NOT NULL,
     FullNameOnwer VARCHAR(100) NOT NULL,
     ExpiryDate DATE NOT NULL,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID)
+    PRIMARY KEY (BankID),
+    FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
+    UNIQUE (BankIban)
 );
 
-CREATE TABLE emp_Addresses(
-	EmpID INT NOT NULL,
+CREATE TABLE emp_addresses(
+    AddressID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
     CountryID INT NOT NULL,
+    CityID INT NOT NULL,
     District VARCHAR (45) NOT NULL,
     Street VARCHAR (45) NOT NULL,
+    ZipCode INT,
     Description VARCHAR (100) NOT NULL,
+    PRIMARY KEY (AddressID),
+    FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
     FOREIGN KEY (CountryID) REFERENCES Countries(CountryID),
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID)
+    FOREIGN KEY (CityID) REFERENCES cities(CityID)
 );
 
 CREATE TABLE emp_fingerprints(
@@ -223,17 +244,21 @@ CREATE TABLE suppliers(
 );
 
 CREATE TABLE suppliers_email_addresses(
+    EmailID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
+    PRIMARY KEY(EmailID),
     FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE suppliers_contact_numbers(
+    ContactID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
+    PRIMARY KEY(ContactID),
     FOREIGN KEY (CountryID) REFERENCES countries(CountryID),
     FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
     FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
@@ -241,13 +266,16 @@ CREATE TABLE suppliers_contact_numbers(
 );
 
 CREATE TABLE suppliers_bank_accounts(
-	SupplierID INT NOT NULL,
+    BankID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
     BankNameAR VARCHAR(100),
     BankNameEN VARCHAR(100),
     BankIban VARCHAR(24),
     FullNameOnwer VARCHAR(100),
     ExpiryDate DATE,
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID)
+    PRIMARY KEY (BankID),
+    FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
+    UNIQUE (BankIban)
 );
 
 CREATE TABLE products(
@@ -407,17 +435,21 @@ CREATE TABLE customers(
 );
 
 CREATE TABLE customer_email_addresses(
+    EmailID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
+    PRIMARY KEY(EmailID),
     FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE customer_contact_numbers(
+    ContactID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
+    PRIMARY KEY(ContactID),
     FOREIGN KEY (countryID) REFERENCES countries(countryID),
     FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
     FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
@@ -425,13 +457,16 @@ CREATE TABLE customer_contact_numbers(
 );
 
 CREATE TABLE customer_bank_accounts(
-	CustomerID INT NOT NULL,
+    BankID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
     BankNameAR VARCHAR(100) NOT NULL,
     BankNameEN VARCHAR(100) NOT NULL,
     BankIban VARCHAR(24) NOT NULL,
-    BankCardOnwer VARCHAR(100) NOT NULL,
+    FullNameOnwer VARCHAR(100) NOT NULL,
     ExpiryDate DATE NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID)
+    PRIMARY KEY (BankID),
+    FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
+    UNIQUE (BankIban)
 );
 
 CREATE TABLE customer_fingerprints(
@@ -445,13 +480,18 @@ CREATE TABLE customer_fingerprints(
 );
 
 CREATE TABLE customer_Addresses(
-	CustomerID INT NOT NULL,
+    AddressID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
     CountryID INT NOT NULL,
+    CityID INT NOT NULL,
     District VARCHAR (45) NOT NULL,
     Street VARCHAR (45) NOT NULL,
+    ZipCode INT,
     Description VARCHAR (100) NOT NULL,
+    PRIMARY KEY (AddressID),
     FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
-    FOREIGN KEY (CountryID) REFERENCES Countries(CountryID)
+    FOREIGN KEY (UserID) REFERENCES Countries(CountryID),
+    FOREIGN KEY (CityID) REFERENCES cities(CityID)
 );
 
 CREATE TABLE customer_wallet(
