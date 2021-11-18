@@ -136,6 +136,10 @@ VALUES (1, 'admin',MD5('admin'));
 INSERT INTO suppliers (SupplierNameEN, SupplierNameAR, SupplierVatNumber, Discrption)
 VALUES ('Unknown', N'غير معروف', 'sd123123', 'Used to start the market');
 
+insert into suppliers_contact_numbers (UserID,CountryID, ContactTypeID, ContactNumber)  values(1,1,1,'0552382676');
+
+insert into suppliers_email_addresses (UserID,EmailAddress)  values(1,'heelo@hello.com');
+
 INSERT INTO customer_groups (CustomerGroupNameEN, CustomerGroupNameAR)
 VALUES ('Normal',N'عادي');
 

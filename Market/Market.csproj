@@ -51,7 +51,7 @@
     <Reference Include="MaterialSkin, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.0\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.1.6.1\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -89,6 +89,12 @@
     <Compile Include="AddEdit\AddEditBank.Designer.cs">
       <DependentUpon>AddEditBank.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddEdit\AddEditcu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEdit\AddEditcu.Designer.cs">
+      <DependentUpon>AddEditcu.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddEdit\AddEemail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,11 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\MySQL_CRUD.cs" />
+    <Compile Include="marketDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>marketDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="NewInvoiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddEdit\AddEditBank.resx">
       <DependentUpon>AddEditBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEdit\AddEditcu.resx">
+      <DependentUpon>AddEditcu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddEdit\AddEemail.resx">
       <DependentUpon>AddEemail.cs</DependentUpon>
@@ -185,6 +199,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="marketDataSet.xsc">
+      <DependentUpon>marketDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="marketDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>marketDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="marketDataSet.xss">
+      <DependentUpon>marketDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

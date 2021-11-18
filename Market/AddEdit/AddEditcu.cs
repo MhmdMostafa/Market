@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace Market
 {
-    public partial class AddEditSup : MaterialSkin.Controls.MaterialForm
+    public partial class AddEditcu : MaterialSkin.Controls.MaterialForm
     {
         
         public string command;
@@ -20,12 +20,12 @@ namespace Market
         public Dictionary<string, int> suppliersEmailAddressesCol = new Dictionary<string, int>();
         public Dictionary<string, int> suppliersContactNumbersCol = new Dictionary<string, int>();
         public Dictionary<string, int> suppliersBankAccountsCol = new Dictionary<string, int>();
-        public AddEditSup()
+        public AddEditcu()
         {
             InitializeComponent();
         }
 
-        public AddEditSup(string conf, int id = 0)
+        public AddEditcu(string conf, int id = 0)
         {
             InitializeComponent();
             suppliersCol = Globals.GetColumnsIndex("suppliers");
@@ -38,6 +38,7 @@ namespace Market
 
 
             EmailDGV.AutoGenerateColumns = false;
+            AddressDGV.AutoGenerateColumns = false;
             ContactDGV.AutoGenerateColumns = false;
             BankDGV.AutoGenerateColumns = false;
             if (conf == "add")
@@ -102,12 +103,20 @@ namespace Market
                         }
                         break;
                     case "Emails":
-                        SQL = $"SELECT EmailID, EmailAddress FROM suppliers_email_addresses WHERE UserID = {SelctedID}";
-                        EmailDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
+                        SQL = $"SELECT UserID, EmailAddress FROM suppliers_email_addresses WHERE UserID = {SelctedID}";
+
+                        DataTable dt = Globals.myCrud.getDtPassSql(SQL);
+                        EmailDGV.DataSource = dt;
+
+
+
+
                         break;
-                    case "Contact":
-                        SQL = $"SELECT ContactID, ContactNumber, countries.Shortcut, contact_type.ContactNameEN FROM suppliers_contact_numbers INNER JOIN countries ON suppliers_contact_numbers.CountryID=countries.CountryID INNER JOIN contact_type ON suppliers_contact_numbers.ContactTypeID=contact_type.ContactTypeID WHERE UserID = {SelctedID};";
-                        ContactDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
+                    case "Address":
+                        AddressDGV.Rows.Clear();
+                        break;
+                    case "Contacts":
+                        ContactDGV.Rows.Clear();
                         break;
                     case "Bank Acconts":
                         BankDGV.Rows.Clear();

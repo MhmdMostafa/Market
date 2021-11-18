@@ -1,7 +1,7 @@
 ﻿
 namespace Market
 {
-    partial class AddEditSup
+    partial class AddEditcu
     {
         /// <summary>
         /// Required designer variable.
@@ -47,9 +47,28 @@ namespace Market
             this.EditEmailB = new System.Windows.Forms.Button();
             this.DeleteEmailB = new System.Windows.Forms.Button();
             this.AddEmailB = new System.Windows.Forms.Button();
+            this.AddressTP = new System.Windows.Forms.TabPage();
+            this.AddrCheckAllCb = new System.Windows.Forms.CheckBox();
+            this.AddressDGV = new System.Windows.Forms.DataGridView();
+            this.AddrCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.AddrIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AddrCountryGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CityGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DistrictGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StreetGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ZipCodeGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DiscriptionGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EditAddressB = new System.Windows.Forms.Button();
+            this.DeleteAddressB = new System.Windows.Forms.Button();
+            this.AddAddressB = new System.Windows.Forms.Button();
             this.ContactTP = new System.Windows.Forms.TabPage();
             this.CallCheckAllCb = new System.Windows.Forms.CheckBox();
             this.ContactDGV = new System.Windows.Forms.DataGridView();
+            this.CallCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CallIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contactNoGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CallCountryGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ContactTypeGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EditContactB = new System.Windows.Forms.Button();
             this.DeleteContactB = new System.Windows.Forms.Button();
             this.AddContactB = new System.Windows.Forms.Button();
@@ -69,15 +88,12 @@ namespace Market
             this.EmCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.EmIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CallCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CallIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contactNoGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CallCountryGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContactTypeGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TapsPage.SuspendLayout();
             this.GenralTP.SuspendLayout();
             this.EmailTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EmailDGV)).BeginInit();
+            this.AddressTP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AddressDGV)).BeginInit();
             this.ContactTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ContactDGV)).BeginInit();
             this.BankTP.SuspendLayout();
@@ -127,6 +143,7 @@ namespace Market
             // 
             this.TapsPage.Controls.Add(this.GenralTP);
             this.TapsPage.Controls.Add(this.EmailTP);
+            this.TapsPage.Controls.Add(this.AddressTP);
             this.TapsPage.Controls.Add(this.ContactTP);
             this.TapsPage.Controls.Add(this.BankTP);
             this.TapsPage.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -293,6 +310,127 @@ namespace Market
             this.AddEmailB.Text = "Add";
             this.AddEmailB.UseVisualStyleBackColor = true;
             // 
+            // AddressTP
+            // 
+            this.AddressTP.Controls.Add(this.AddrCheckAllCb);
+            this.AddressTP.Controls.Add(this.AddressDGV);
+            this.AddressTP.Controls.Add(this.EditAddressB);
+            this.AddressTP.Controls.Add(this.DeleteAddressB);
+            this.AddressTP.Controls.Add(this.AddAddressB);
+            this.AddressTP.Location = new System.Drawing.Point(4, 28);
+            this.AddressTP.Name = "AddressTP";
+            this.AddressTP.Padding = new System.Windows.Forms.Padding(3);
+            this.AddressTP.Size = new System.Drawing.Size(565, 297);
+            this.AddressTP.TabIndex = 2;
+            this.AddressTP.Text = "Address";
+            this.AddressTP.UseVisualStyleBackColor = true;
+            // 
+            // AddrCheckAllCb
+            // 
+            this.AddrCheckAllCb.AutoSize = true;
+            this.AddrCheckAllCb.Location = new System.Drawing.Point(50, 15);
+            this.AddrCheckAllCb.Name = "AddrCheckAllCb";
+            this.AddrCheckAllCb.Size = new System.Drawing.Size(15, 14);
+            this.AddrCheckAllCb.TabIndex = 16;
+            this.AddrCheckAllCb.UseVisualStyleBackColor = true;
+            // 
+            // AddressDGV
+            // 
+            this.AddressDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.AddressDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AddrCbGv,
+            this.AddrIdGv,
+            this.AddrCountryGv,
+            this.CityGv,
+            this.DistrictGv,
+            this.StreetGv,
+            this.ZipCodeGv,
+            this.DiscriptionGv});
+            this.AddressDGV.Location = new System.Drawing.Point(6, 6);
+            this.AddressDGV.Name = "AddressDGV";
+            this.AddressDGV.Size = new System.Drawing.Size(553, 244);
+            this.AddressDGV.TabIndex = 12;
+            // 
+            // AddrCbGv
+            // 
+            this.AddrCbGv.Frozen = true;
+            this.AddrCbGv.HeaderText = "";
+            this.AddrCbGv.Name = "AddrCbGv";
+            this.AddrCbGv.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AddrCbGv.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AddrCbGv.Width = 20;
+            // 
+            // AddrIdGv
+            // 
+            this.AddrIdGv.HeaderText = "ID";
+            this.AddrIdGv.Name = "AddrIdGv";
+            this.AddrIdGv.ReadOnly = true;
+            this.AddrIdGv.Width = 50;
+            // 
+            // AddrCountryGv
+            // 
+            this.AddrCountryGv.HeaderText = "Country";
+            this.AddrCountryGv.Name = "AddrCountryGv";
+            this.AddrCountryGv.ReadOnly = true;
+            // 
+            // CityGv
+            // 
+            this.CityGv.HeaderText = "City";
+            this.CityGv.Name = "CityGv";
+            this.CityGv.ReadOnly = true;
+            // 
+            // DistrictGv
+            // 
+            this.DistrictGv.HeaderText = "District";
+            this.DistrictGv.Name = "DistrictGv";
+            this.DistrictGv.ReadOnly = true;
+            // 
+            // StreetGv
+            // 
+            this.StreetGv.HeaderText = "Street";
+            this.StreetGv.Name = "StreetGv";
+            this.StreetGv.ReadOnly = true;
+            // 
+            // ZipCodeGv
+            // 
+            this.ZipCodeGv.HeaderText = "Zip Code";
+            this.ZipCodeGv.Name = "ZipCodeGv";
+            this.ZipCodeGv.ReadOnly = true;
+            this.ZipCodeGv.Width = 110;
+            // 
+            // DiscriptionGv
+            // 
+            this.DiscriptionGv.HeaderText = "Discription";
+            this.DiscriptionGv.Name = "DiscriptionGv";
+            this.DiscriptionGv.ReadOnly = true;
+            // 
+            // EditAddressB
+            // 
+            this.EditAddressB.Location = new System.Drawing.Point(439, 256);
+            this.EditAddressB.Name = "EditAddressB";
+            this.EditAddressB.Size = new System.Drawing.Size(61, 35);
+            this.EditAddressB.TabIndex = 11;
+            this.EditAddressB.Text = "Edit";
+            this.EditAddressB.UseVisualStyleBackColor = true;
+            // 
+            // DeleteAddressB
+            // 
+            this.DeleteAddressB.Location = new System.Drawing.Point(350, 256);
+            this.DeleteAddressB.Name = "DeleteAddressB";
+            this.DeleteAddressB.Size = new System.Drawing.Size(83, 35);
+            this.DeleteAddressB.TabIndex = 10;
+            this.DeleteAddressB.Text = "Delete";
+            this.DeleteAddressB.UseVisualStyleBackColor = true;
+            // 
+            // AddAddressB
+            // 
+            this.AddAddressB.Location = new System.Drawing.Point(506, 256);
+            this.AddAddressB.Name = "AddAddressB";
+            this.AddAddressB.Size = new System.Drawing.Size(53, 35);
+            this.AddAddressB.TabIndex = 9;
+            this.AddAddressB.Text = "Add";
+            this.AddAddressB.UseVisualStyleBackColor = true;
+            // 
             // ContactTP
             // 
             this.ContactTP.Controls.Add(this.CallCheckAllCb);
@@ -330,6 +468,42 @@ namespace Market
             this.ContactDGV.Name = "ContactDGV";
             this.ContactDGV.Size = new System.Drawing.Size(553, 244);
             this.ContactDGV.TabIndex = 13;
+            // 
+            // CallCbGv
+            // 
+            this.CallCbGv.Frozen = true;
+            this.CallCbGv.HeaderText = "";
+            this.CallCbGv.Name = "CallCbGv";
+            this.CallCbGv.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CallCbGv.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CallCbGv.Width = 20;
+            // 
+            // CallIdGv
+            // 
+            this.CallIdGv.HeaderText = "ID";
+            this.CallIdGv.Name = "CallIdGv";
+            this.CallIdGv.ReadOnly = true;
+            this.CallIdGv.Width = 50;
+            // 
+            // contactNoGv
+            // 
+            this.contactNoGv.HeaderText = "Contact Number";
+            this.contactNoGv.Name = "contactNoGv";
+            this.contactNoGv.ReadOnly = true;
+            this.contactNoGv.Width = 190;
+            // 
+            // CallCountryGv
+            // 
+            this.CallCountryGv.HeaderText = "Country";
+            this.CallCountryGv.Name = "CallCountryGv";
+            this.CallCountryGv.ReadOnly = true;
+            // 
+            // ContactTypeGv
+            // 
+            this.ContactTypeGv.HeaderText = "Contact Type";
+            this.ContactTypeGv.Name = "ContactTypeGv";
+            this.ContactTypeGv.ReadOnly = true;
+            this.ContactTypeGv.Width = 150;
             // 
             // EditContactB
             // 
@@ -488,7 +662,7 @@ namespace Market
             // 
             // EmIdGv
             // 
-            this.EmIdGv.DataPropertyName = "EmailID";
+            this.EmIdGv.DataPropertyName = "UserID";
             this.EmIdGv.Frozen = true;
             this.EmIdGv.HeaderText = "ID";
             this.EmIdGv.Name = "EmIdGv";
@@ -502,46 +676,6 @@ namespace Market
             this.EmGv.Name = "EmGv";
             this.EmGv.ReadOnly = true;
             this.EmGv.Width = 400;
-            // 
-            // CallCbGv
-            // 
-            this.CallCbGv.Frozen = true;
-            this.CallCbGv.HeaderText = "";
-            this.CallCbGv.Name = "CallCbGv";
-            this.CallCbGv.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CallCbGv.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CallCbGv.Width = 20;
-            // 
-            // CallIdGv
-            // 
-            this.CallIdGv.DataPropertyName = "ContactID";
-            this.CallIdGv.HeaderText = "ID";
-            this.CallIdGv.Name = "CallIdGv";
-            this.CallIdGv.ReadOnly = true;
-            this.CallIdGv.Width = 50;
-            // 
-            // contactNoGv
-            // 
-            this.contactNoGv.DataPropertyName = "ContactNumber";
-            this.contactNoGv.HeaderText = "Contact Number";
-            this.contactNoGv.Name = "contactNoGv";
-            this.contactNoGv.ReadOnly = true;
-            this.contactNoGv.Width = 190;
-            // 
-            // CallCountryGv
-            // 
-            this.CallCountryGv.DataPropertyName = "Shortcut";
-            this.CallCountryGv.HeaderText = "Country";
-            this.CallCountryGv.Name = "CallCountryGv";
-            this.CallCountryGv.ReadOnly = true;
-            // 
-            // ContactTypeGv
-            // 
-            this.ContactTypeGv.DataPropertyName = "ContactNameEN";
-            this.ContactTypeGv.HeaderText = "Contact Type";
-            this.ContactTypeGv.Name = "ContactTypeGv";
-            this.ContactTypeGv.ReadOnly = true;
-            this.ContactTypeGv.Width = 150;
             // 
             // AddEditSup
             // 
@@ -559,6 +693,9 @@ namespace Market
             this.EmailTP.ResumeLayout(false);
             this.EmailTP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EmailDGV)).EndInit();
+            this.AddressTP.ResumeLayout(false);
+            this.AddressTP.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AddressDGV)).EndInit();
             this.ContactTP.ResumeLayout(false);
             this.ContactTP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ContactDGV)).EndInit();
@@ -585,6 +722,7 @@ namespace Market
         private System.Windows.Forms.Label label_2;
         private System.Windows.Forms.Label label_1;
         private System.Windows.Forms.TabPage EmailTP;
+        private System.Windows.Forms.TabPage AddressTP;
         private System.Windows.Forms.TabPage ContactTP;
         private System.Windows.Forms.Button EditEmailB;
         private System.Windows.Forms.Button DeleteEmailB;
@@ -592,14 +730,32 @@ namespace Market
         private System.Windows.Forms.Button EditContactB;
         private System.Windows.Forms.Button DeleteContactB;
         private System.Windows.Forms.Button AddContactB;
+        private System.Windows.Forms.Button EditAddressB;
+        private System.Windows.Forms.Button DeleteAddressB;
+        private System.Windows.Forms.Button AddAddressB;
         private System.Windows.Forms.TabPage BankTP;
         private System.Windows.Forms.Button EditBankB;
         private System.Windows.Forms.Button DeleteBankB;
         private System.Windows.Forms.Button AddBankB;
         private System.Windows.Forms.DataGridView EmailDGV;
+        private System.Windows.Forms.DataGridView AddressDGV;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn AddrCbGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AddrIdGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AddrCountryGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CityGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DistrictGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StreetGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ZipCodeGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DiscriptionGv;
         private System.Windows.Forms.DataGridView ContactDGV;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CallCbGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CallIdGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contactNoGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CallCountryGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ContactTypeGv;
         private System.Windows.Forms.DataGridView BankDGV;
         private System.Windows.Forms.CheckBox EmCheckAllCb;
+        private System.Windows.Forms.CheckBox AddrCheckAllCb;
         private System.Windows.Forms.CheckBox CallCheckAllCb;
         private System.Windows.Forms.CheckBox BnCheckAllCb;
         private System.Windows.Forms.DataGridViewCheckBoxColumn BnCbGv;
@@ -612,10 +768,5 @@ namespace Market
         private System.Windows.Forms.DataGridViewCheckBoxColumn EmCbGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmIdGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmGv;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CallCbGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CallIdGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contactNoGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CallCountryGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ContactTypeGv;
     }
 }

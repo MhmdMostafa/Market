@@ -271,7 +271,7 @@ CREATE TABLE suppliers_bank_accounts(
     BankNameAR VARCHAR(100),
     BankNameEN VARCHAR(100),
     BankIban VARCHAR(24),
-    FullNameOnwer VARCHAR(100),
+    FullNameOwner VARCHAR(100),
     ExpiryDate DATE,
     PRIMARY KEY (BankID),
     FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
@@ -489,8 +489,8 @@ CREATE TABLE customer_Addresses(
     ZipCode INT,
     Description VARCHAR (100) NOT NULL,
     PRIMARY KEY (AddressID),
-    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
-    FOREIGN KEY (UserID) REFERENCES Countries(CountryID),
+    FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
+    FOREIGN KEY (CountryID) REFERENCES Countries(CountryID),
     FOREIGN KEY (CityID) REFERENCES cities(CityID)
 );
 

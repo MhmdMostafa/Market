@@ -62,6 +62,7 @@ namespace Market
             this.applyB.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.applyB.UseAccentColor = false;
             this.applyB.UseVisualStyleBackColor = true;
+            this.applyB.Click += new System.EventHandler(this.applyB_Click);
             // 
             // label3
             // 

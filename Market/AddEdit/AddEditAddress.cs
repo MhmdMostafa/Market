@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using MySql.Data.MySqlClient;
 namespace Market
 {
     public partial class AddEditAddress : MaterialSkin.Controls.MaterialForm
@@ -44,11 +44,11 @@ namespace Market
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
-                    FullNameTB.Text = dr.IsDBNull(tableCol["FullNameOnwer"]) ? "" : dr.GetString("FullNameOnwer");
-                    DistrictTB.Text = dr.IsDBNull(tableCol["BankNameEn"]) ? "" : dr.GetString("BankNameEn");
-                    StreetTB.Text = dr.IsDBNull(tableCol["BankNameAR"]) ? "" : dr.GetString("BankNameAR");
-                    IbanTB.Text = dr.IsDBNull(tableCol["BankIban"]) ? "" : dr.GetString("BankIban");
-                    DateTB.Text = dr.IsDBNull(tableCol["ExpiryDate"]) ? "" : dr.GetString("ExpiryDate");
+                    //FullNameTB.Text = dr.IsDBNull(tableCol["FullNameOnwer"]) ? "" : dr.GetString("FullNameOnwer");
+                    //DistrictTB.Text = dr.IsDBNull(tableCol["BankNameEn"]) ? "" : dr.GetString("BankNameEn");
+                    //StreetTB.Text = dr.IsDBNull(tableCol["BankNameAR"]) ? "" : dr.GetString("BankNameAR");
+                    //IbanTB.Text = dr.IsDBNull(tableCol["BankIban"]) ? "" : dr.GetString("BankIban");
+                    //DateTB.Text = dr.IsDBNull(tableCol["ExpiryDate"]) ? "" : dr.GetString("ExpiryDate");
                     OldInfo[0] = dr.GetString("FullNameOnwer");
                     OldInfo[1] = dr.GetString("BankNameEn");
                     OldInfo[2] = dr.GetString("BankNameAR");
@@ -57,6 +57,11 @@ namespace Market
 
                 }
             }
+        }
+
+        private void applyB_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

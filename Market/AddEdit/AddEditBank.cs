@@ -31,7 +31,7 @@ namespace Market
 
             SQLtable = table;
             applyB.Text = command.ToUpper();
-            Text = $"{command.ToUpper()} Wizerd";
+            Text = $"{command.ToUpper()} Bank Wizerd";
 
             tableCol = Globals.GetColumnsIndex(table);
             if (command == "edit")
