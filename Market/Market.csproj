@@ -128,11 +128,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\MySQL_CRUD.cs" />
-    <Compile Include="marketDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>marketDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="NewInvoiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,17 +194,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="marketDataSet.xsc">
-      <DependentUpon>marketDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="marketDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>marketDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="marketDataSet.xss">
-      <DependentUpon>marketDataSet.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

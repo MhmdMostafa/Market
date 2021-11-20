@@ -42,14 +42,19 @@ namespace Market
             this.label_2 = new System.Windows.Forms.Label();
             this.label_1 = new System.Windows.Forms.Label();
             this.EmailTP = new System.Windows.Forms.TabPage();
-            this.EmCheckAllCb = new System.Windows.Forms.CheckBox();
-            this.EmailDGV = new System.Windows.Forms.DataGridView();
+            this.SelectAllEmailsCb = new System.Windows.Forms.CheckBox();
+            this.EmailsCBL = new System.Windows.Forms.CheckedListBox();
             this.EditEmailB = new System.Windows.Forms.Button();
             this.DeleteEmailB = new System.Windows.Forms.Button();
             this.AddEmailB = new System.Windows.Forms.Button();
             this.ContactTP = new System.Windows.Forms.TabPage();
             this.CallCheckAllCb = new System.Windows.Forms.CheckBox();
             this.ContactDGV = new System.Windows.Forms.DataGridView();
+            this.CallCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CallIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contactNoGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CallCountryGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ContactTypeGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EditContactB = new System.Windows.Forms.Button();
             this.DeleteContactB = new System.Windows.Forms.Button();
             this.AddContactB = new System.Windows.Forms.Button();
@@ -66,18 +71,9 @@ namespace Market
             this.EditBankB = new System.Windows.Forms.Button();
             this.DeleteBankB = new System.Windows.Forms.Button();
             this.AddBankB = new System.Windows.Forms.Button();
-            this.EmCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.EmIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CallCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CallIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contactNoGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CallCountryGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContactTypeGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TapsPage.SuspendLayout();
             this.GenralTP.SuspendLayout();
             this.EmailTP.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EmailDGV)).BeginInit();
             this.ContactTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ContactDGV)).BeginInit();
             this.BankTP.SuspendLayout();
@@ -231,8 +227,8 @@ namespace Market
             // 
             // EmailTP
             // 
-            this.EmailTP.Controls.Add(this.EmCheckAllCb);
-            this.EmailTP.Controls.Add(this.EmailDGV);
+            this.EmailTP.Controls.Add(this.SelectAllEmailsCb);
+            this.EmailTP.Controls.Add(this.EmailsCBL);
             this.EmailTP.Controls.Add(this.EditEmailB);
             this.EmailTP.Controls.Add(this.DeleteEmailB);
             this.EmailTP.Controls.Add(this.AddEmailB);
@@ -244,26 +240,24 @@ namespace Market
             this.EmailTP.Text = "Emails";
             this.EmailTP.UseVisualStyleBackColor = true;
             // 
-            // EmCheckAllCb
+            // SelectAllEmailsCb
             // 
-            this.EmCheckAllCb.AutoSize = true;
-            this.EmCheckAllCb.Location = new System.Drawing.Point(73, 15);
-            this.EmCheckAllCb.Name = "EmCheckAllCb";
-            this.EmCheckAllCb.Size = new System.Drawing.Size(15, 14);
-            this.EmCheckAllCb.TabIndex = 16;
-            this.EmCheckAllCb.UseVisualStyleBackColor = true;
+            this.SelectAllEmailsCb.AutoSize = true;
+            this.SelectAllEmailsCb.Location = new System.Drawing.Point(6, 6);
+            this.SelectAllEmailsCb.Name = "SelectAllEmailsCb";
+            this.SelectAllEmailsCb.Size = new System.Drawing.Size(118, 23);
+            this.SelectAllEmailsCb.TabIndex = 6;
+            this.SelectAllEmailsCb.Text = "Select All";
+            this.SelectAllEmailsCb.UseVisualStyleBackColor = true;
+            this.SelectAllEmailsCb.CheckedChanged += new System.EventHandler(this.SelectAllEmailsCb_CheckedChanged);
             // 
-            // EmailDGV
+            // EmailsCBL
             // 
-            this.EmailDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.EmailDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.EmCbGv,
-            this.EmIdGv,
-            this.EmGv});
-            this.EmailDGV.Location = new System.Drawing.Point(29, 6);
-            this.EmailDGV.Name = "EmailDGV";
-            this.EmailDGV.Size = new System.Drawing.Size(513, 219);
-            this.EmailDGV.TabIndex = 5;
+            this.EmailsCBL.FormattingEnabled = true;
+            this.EmailsCBL.Location = new System.Drawing.Point(6, 35);
+            this.EmailsCBL.Name = "EmailsCBL";
+            this.EmailsCBL.Size = new System.Drawing.Size(553, 193);
+            this.EmailsCBL.TabIndex = 5;
             // 
             // EditEmailB
             // 
@@ -283,6 +277,7 @@ namespace Market
             this.DeleteEmailB.TabIndex = 3;
             this.DeleteEmailB.Text = "Delete";
             this.DeleteEmailB.UseVisualStyleBackColor = true;
+            this.DeleteEmailB.Click += new System.EventHandler(this.DeleteEmailB_Click);
             // 
             // AddEmailB
             // 
@@ -292,6 +287,7 @@ namespace Market
             this.AddEmailB.TabIndex = 2;
             this.AddEmailB.Text = "Add";
             this.AddEmailB.UseVisualStyleBackColor = true;
+            this.AddEmailB.Click += new System.EventHandler(this.AddEmailB_Click);
             // 
             // ContactTP
             // 
@@ -330,6 +326,46 @@ namespace Market
             this.ContactDGV.Name = "ContactDGV";
             this.ContactDGV.Size = new System.Drawing.Size(553, 244);
             this.ContactDGV.TabIndex = 13;
+            // 
+            // CallCbGv
+            // 
+            this.CallCbGv.Frozen = true;
+            this.CallCbGv.HeaderText = "";
+            this.CallCbGv.Name = "CallCbGv";
+            this.CallCbGv.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CallCbGv.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CallCbGv.Width = 20;
+            // 
+            // CallIdGv
+            // 
+            this.CallIdGv.DataPropertyName = "ContactID";
+            this.CallIdGv.HeaderText = "ID";
+            this.CallIdGv.Name = "CallIdGv";
+            this.CallIdGv.ReadOnly = true;
+            this.CallIdGv.Width = 50;
+            // 
+            // contactNoGv
+            // 
+            this.contactNoGv.DataPropertyName = "ContactNumber";
+            this.contactNoGv.HeaderText = "Contact Number";
+            this.contactNoGv.Name = "contactNoGv";
+            this.contactNoGv.ReadOnly = true;
+            this.contactNoGv.Width = 190;
+            // 
+            // CallCountryGv
+            // 
+            this.CallCountryGv.DataPropertyName = "Shortcut";
+            this.CallCountryGv.HeaderText = "Country";
+            this.CallCountryGv.Name = "CallCountryGv";
+            this.CallCountryGv.ReadOnly = true;
+            // 
+            // ContactTypeGv
+            // 
+            this.ContactTypeGv.DataPropertyName = "ContactNameEN";
+            this.ContactTypeGv.HeaderText = "Contact Type";
+            this.ContactTypeGv.Name = "ContactTypeGv";
+            this.ContactTypeGv.ReadOnly = true;
+            this.ContactTypeGv.Width = 150;
             // 
             // EditContactB
             // 
@@ -477,72 +513,6 @@ namespace Market
             this.AddBankB.Text = "Add";
             this.AddBankB.UseVisualStyleBackColor = true;
             // 
-            // EmCbGv
-            // 
-            this.EmCbGv.Frozen = true;
-            this.EmCbGv.HeaderText = "";
-            this.EmCbGv.Name = "EmCbGv";
-            this.EmCbGv.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.EmCbGv.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.EmCbGv.Width = 20;
-            // 
-            // EmIdGv
-            // 
-            this.EmIdGv.DataPropertyName = "EmailID";
-            this.EmIdGv.Frozen = true;
-            this.EmIdGv.HeaderText = "ID";
-            this.EmIdGv.Name = "EmIdGv";
-            this.EmIdGv.ReadOnly = true;
-            this.EmIdGv.Width = 50;
-            // 
-            // EmGv
-            // 
-            this.EmGv.DataPropertyName = "EmailAddress";
-            this.EmGv.HeaderText = "Email";
-            this.EmGv.Name = "EmGv";
-            this.EmGv.ReadOnly = true;
-            this.EmGv.Width = 400;
-            // 
-            // CallCbGv
-            // 
-            this.CallCbGv.Frozen = true;
-            this.CallCbGv.HeaderText = "";
-            this.CallCbGv.Name = "CallCbGv";
-            this.CallCbGv.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CallCbGv.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CallCbGv.Width = 20;
-            // 
-            // CallIdGv
-            // 
-            this.CallIdGv.DataPropertyName = "ContactID";
-            this.CallIdGv.HeaderText = "ID";
-            this.CallIdGv.Name = "CallIdGv";
-            this.CallIdGv.ReadOnly = true;
-            this.CallIdGv.Width = 50;
-            // 
-            // contactNoGv
-            // 
-            this.contactNoGv.DataPropertyName = "ContactNumber";
-            this.contactNoGv.HeaderText = "Contact Number";
-            this.contactNoGv.Name = "contactNoGv";
-            this.contactNoGv.ReadOnly = true;
-            this.contactNoGv.Width = 190;
-            // 
-            // CallCountryGv
-            // 
-            this.CallCountryGv.DataPropertyName = "Shortcut";
-            this.CallCountryGv.HeaderText = "Country";
-            this.CallCountryGv.Name = "CallCountryGv";
-            this.CallCountryGv.ReadOnly = true;
-            // 
-            // ContactTypeGv
-            // 
-            this.ContactTypeGv.DataPropertyName = "ContactNameEN";
-            this.ContactTypeGv.HeaderText = "Contact Type";
-            this.ContactTypeGv.Name = "ContactTypeGv";
-            this.ContactTypeGv.ReadOnly = true;
-            this.ContactTypeGv.Width = 150;
-            // 
             // AddEditSup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,7 +528,6 @@ namespace Market
             this.GenralTP.PerformLayout();
             this.EmailTP.ResumeLayout(false);
             this.EmailTP.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EmailDGV)).EndInit();
             this.ContactTP.ResumeLayout(false);
             this.ContactTP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ContactDGV)).EndInit();
@@ -596,10 +565,8 @@ namespace Market
         private System.Windows.Forms.Button EditBankB;
         private System.Windows.Forms.Button DeleteBankB;
         private System.Windows.Forms.Button AddBankB;
-        private System.Windows.Forms.DataGridView EmailDGV;
         private System.Windows.Forms.DataGridView ContactDGV;
         private System.Windows.Forms.DataGridView BankDGV;
-        private System.Windows.Forms.CheckBox EmCheckAllCb;
         private System.Windows.Forms.CheckBox CallCheckAllCb;
         private System.Windows.Forms.CheckBox BnCheckAllCb;
         private System.Windows.Forms.DataGridViewCheckBoxColumn BnCbGv;
@@ -609,13 +576,12 @@ namespace Market
         private System.Windows.Forms.DataGridViewTextBoxColumn BnExpiryDateGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn BnNameEnGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn BnNameArGv;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn EmCbGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EmIdGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EmGv;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CallCbGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn CallIdGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn contactNoGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn CallCountryGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn ContactTypeGv;
+        private System.Windows.Forms.CheckBox SelectAllEmailsCb;
+        private System.Windows.Forms.CheckedListBox EmailsCBL;
     }
 }
