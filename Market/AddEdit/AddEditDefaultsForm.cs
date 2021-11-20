@@ -295,13 +295,20 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
+                    if (Globals.ifExist("countries", "Shortcut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("countries", "CountryCallingCodeID", Globals.RmSpace(textBox3.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@ContinentID", Globals.GetID("ContinentID", "continents", "ContinentNameEN", comboBox1.Text));
+                        myPara.Add("@CountryCallingCodeID", Globals.RmSpace(textBox3.Text));
+                        myPara.Add("@CountryNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CountryNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@Shortcut", Globals.RmSpace(textBox4.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
 
-                    myPara.Add("@ContinentID", Globals.GetID("ContinentID", "continents", "ContinentNameEN", comboBox1.Text));
-                    myPara.Add("@CountryCallingCodeID", Globals.RmSpace(textBox3.Text));
-                    myPara.Add("@CountryNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@CountryNameAR", Globals.RmSpace(textBox2.Text));
-                    myPara.Add("@Shortcut", Globals.RmSpace(textBox4.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                     break;
 
                 case "currencies":
@@ -314,10 +321,18 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@CurrencyNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@CurrencyNameAR", Globals.RmSpace(textBox2.Text));
-                    myPara.Add("@CurrencyShortCut", Globals.RmSpace(textBox3.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("currencies", "CurrencyShortCut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("currencies", "CurrencyNameEN", Globals.RmSpace(textBox1.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@CurrencyNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CurrencyNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@CurrencyShortCut", Globals.RmSpace(textBox3.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
+
                     break;
 
                 case "units_value":
@@ -330,10 +345,18 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@UnitValueNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@UnitValueNameAR", Globals.RmSpace(textBox2.Text));
-                    myPara.Add("@UnitsValueShortCut", Globals.RmSpace(textBox3.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("units_value", "UnitValueNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("units_value", "UnitsValueShortCut", Globals.RmSpace(textBox3.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@UnitValueNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@UnitValueNameAR", Globals.RmSpace(textBox2.Text));
+                        myPara.Add("@UnitsValueShortCut", Globals.RmSpace(textBox3.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
+
                     break;
                 case "products_groub":
                     if (command == "add")
@@ -345,9 +368,18 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@ProductGroubNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@ProductGroubNameAR", Globals.RmSpace(textBox2.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("products_groub", "ProductGroubNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_groub", "ProductGroubNameAR", Globals.RmSpace(textBox2.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@ProductGroubNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ProductGroubNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
+
+
                     break;
 
                 case "products_type":
@@ -360,9 +392,16 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@ProductTypeNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@ProductTypeNameAR", Globals.RmSpace(textBox2.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("products_type", "ProductTypeNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_type", "ProductTypeNameAR", Globals.RmSpace(textBox2.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@ProductTypeNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ProductTypeNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
                     break;
 
                 case "customer_groups":
@@ -375,9 +414,16 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@CustomerGroupNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@CustomerGroupNameAR", Globals.RmSpace(textBox2.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("customer_groups", "CustomerGroupNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("customer_groups", "CustomerGroupNameAR", Globals.RmSpace(textBox2.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@CustomerGroupNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@CustomerGroupNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
                     break;
 
                 case "emp_group":
@@ -390,9 +436,17 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@EmpGroupNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@EmpGroupNameAR", Globals.RmSpace(textBox2.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("emp_group", "EmpGroupNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_group", "EmpGroupNameAR", Globals.RmSpace(textBox2.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@EmpGroupNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@EmpGroupNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
+
                     break;
 
                 case "emp_permissions":
@@ -405,9 +459,17 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@PermissionNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@PermissionNameAr", Globals.RmSpace(textBox2.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("emp_permissions", "PermissionNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_permissions", "PermissionNameAr", Globals.RmSpace(textBox2.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@PermissionNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@PermissionNameAr", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
+
                     break;
 
                 case "invoice_type":
@@ -420,9 +482,16 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("invoice_type", "InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("invoice_type", "InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        myPara.Add("@InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
                     break;
 
                 case "contact_type":
@@ -435,14 +504,35 @@ namespace Market
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    myPara.Add("@ContactNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@ContactNameAR", Globals.RmSpace(textBox2.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    if (Globals.ifExist("contact_type", "ContactNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("contact_type", "ContactNameAR", Globals.RmSpace(textBox2.Text)))
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Entry is alredy exist");
+                        myPara.Add("@ContactNameEN", Globals.RmSpace(textBox1.Text));
+                        myPara.Add("@ContactNameAR", Globals.RmSpace(textBox2.Text));
+                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                    }
+
+
                     break;
 
             }
 
 
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsControl(e.KeyChar))
+                return;
+
+            if ((!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

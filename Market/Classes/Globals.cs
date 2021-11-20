@@ -11,18 +11,18 @@ namespace Market
     class Globals
     {
         public static MySQL_CRUD myCrud = new MySQL_CRUD(@"mysql.cfg");
-        public static int GetID(string columnID, string SqlTable, string StrCol, string str )
+        public static int GetID(string columnID, string SqlTable, string StrCol, string str)
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = $@"SELECT {columnID} From {SqlTable} WHERE {StrCol} = @str";
-            myPara.Add("@str", str);;
-            MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL,myPara);
+            myPara.Add("@str", str); ;
+            MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara);
             dr.Read();
             return int.Parse(dr.GetString(columnID));
         }
         public static string RmSpace(string name)
         {
-            if (name.Length == 0 || name ==null)
+            if (name.Length == 0 || name == null)
                 return name;
             while (name.Last() == ' ')
                 name = name.Substring(0, name.Length - 1);
@@ -31,30 +31,31 @@ namespace Market
             return name;
         }
 
-        public static Dictionary<string,int> GetColumnsIndex(string Table)
+        public static Dictionary<string, int> GetColumnsIndex(string Table)
         {
             Dictionary<string, int> columns = new Dictionary<string, int>();
             int count = 0;
             using (MySqlDataReader dr = myCrud.getDrPassSql($@"SELECT * FROM {Table};"))
             {
                 dr.Read();
-                try{
+                try
+                {
                     while (true)
                     {
                         columns.Add(dr.GetName(count), count);
                         count += 1;
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
 
                 }
-                
+
             }
             return columns;
         }
 
-        public static void Clean_SelectCbList(CheckedListBox Cbs,bool ched)
+        public static void Clean_SelectCbList(CheckedListBox Cbs, bool ched)
         {
             if (ched)
                 for (int i = 0; i < Cbs.Items.Count; i++)
@@ -88,12 +89,24 @@ namespace Market
             return false;
         }
 
-        public static void DeleteValue(string table,string columnName, string value)
+        public static void DeleteValue(string table, string columnName, string value)
         {
             string SQL = $@"DELETE FROM {table} WHERE {columnName} = @value;";
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             myPara.Add("@value", value);
             myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+        }
+
+        public static bool ifExist(string table, string columnName, string value)
+        {
+            string SQL = $"SELECT * FROM {table} WHERE {columnName} = @value";
+            Dictionary<string, object> myPara = new Dictionary<string, object>();
+            myPara.Add("@EmailAddress", value);
+            MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara);
+            if (dr.Read())
+                return true;
+            else
+                return false;
         }
 
     }

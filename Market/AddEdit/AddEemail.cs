@@ -57,39 +57,21 @@ namespace Market
             else if (command == "add")
             {
                 SQL = $@"INSERT INTO {SQLtable} (UserID, EmailAddress) VALUES(@UserID, @EmailAddressNew);";
-
             }
-
-
-
-            DialogResult d = MessageBox.Show("are you shure", command.ToUpper(), MessageBoxButtons.YesNo);
-            if (d == DialogResult.Yes)
+            if (Globals.ifExist(SQLtable, "EmailAddress", Globals.RmSpace(oldEmail)) || Globals.RmSpace(EmailTB.Text) == oldEmail)
             {
-                if (ifExist() || EmailTB.Text==oldEmail)
-                {
-                    MessageBox.Show("this email is alredy used");
-                }
-                else
-                {
-                    myPara.Add("@UserID", selectedID);
-                    myPara.Add("@EmailAddressNew", Globals.RmSpace(EmailTB.Text));
-                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    this.Close();
-                    
-                }
-                
+                MessageBox.Show("this email is alredy used");
             }
-        }
-        private bool ifExist()
-        {
-            string SQL = $"SELECT * FROM {SQLtable} WHERE EmailAddress = @EmailAddress";
-            Dictionary<string, object> myPara = new Dictionary<string, object>();
-            myPara.Add("@EmailAddress", EmailTB.Text);
-            MySqlDataReader dr= Globals.myCrud.getDrPassSqlDic(SQL,myPara);
-            if (dr.Read())
-                return true;
             else
-                return false;
+            {
+                myPara.Add("@UserID", selectedID);
+                myPara.Add("@EmailAddressNew", Globals.RmSpace(EmailTB.Text));
+                Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+
+                this.Close();
+            }
+
         }
+
     }
 }

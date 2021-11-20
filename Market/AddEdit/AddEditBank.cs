@@ -66,7 +66,7 @@ namespace Market
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = "";
 
-            if (FullNameTB.Text == "" || BankArTB.Text == "" || BankEnTB.Text == "" || IbanTB.Text == "")
+            if (FullNameTB.Text == "" || BankArTB.Text == "" || BankEnTB.Text == "" || IbanTB.Text == "" || DateTB.Text == "")
             {
                 MessageBox.Show("Please fill all feilds");
                 return;
@@ -85,17 +85,20 @@ namespace Market
             }
 
 
-
-            DialogResult d = MessageBox.Show("are you sure", command.ToUpper(), MessageBoxButtons.YesNo);
-            if (d == DialogResult.Yes)
+            if (Globals.ifExist(SQLtable, "BankIban", Globals.RmSpace(IbanTB.Text)))
+            {
+                MessageBox.Show("This Iban is alredy Exist");
+            }
+            else
             {
                 myPara.Add("@UserID", selectedID);
-                myPara.Add("@FullNameOnwer", selectedID);
-                myPara.Add("@BankNameEn", selectedID);
-                myPara.Add("@BankNameAR", selectedID);
-                myPara.Add("@BankIban", selectedID);
-                myPara.Add("@ExpiryDate", selectedID);
+                myPara.Add("@FullNameOnwer", Globals.RmSpace(FullNameTB.Text));
+                myPara.Add("@BankNameEn", Globals.RmSpace(BankEnTB.Text));
+                myPara.Add("@BankNameAR", Globals.RmSpace(BankArTB.Text));
+                myPara.Add("@BankIban", Globals.RmSpace(IbanTB.Text));
+                myPara.Add("@ExpiryDate", Globals.RmSpace(DateTB.Text));
                 Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                MessageBox.Show("Done!!");
                 this.Close();
             }
 

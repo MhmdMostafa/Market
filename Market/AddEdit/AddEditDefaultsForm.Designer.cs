@@ -37,10 +37,10 @@ namespace Market
             this.AddEditBT = new MaterialSkin.Controls.MaterialButton();
             this.CancelBT = new MaterialSkin.Controls.MaterialButton();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new MaterialSkin.Controls.MaterialTextBox();
             this.textBox2 = new MaterialSkin.Controls.MaterialTextBox();
             this.textBox3 = new MaterialSkin.Controls.MaterialTextBox();
             this.textBox4 = new MaterialSkin.Controls.MaterialTextBox();
+            this.textBox1 = new MaterialSkin.Controls.MaterialTextBox();
             this.SuspendLayout();
             // 
             // label_1
@@ -141,23 +141,6 @@ namespace Market
             this.comboBox1.Size = new System.Drawing.Size(280, 32);
             this.comboBox1.TabIndex = 28;
             // 
-            // textBox1
-            // 
-            this.textBox1.AnimateReadOnly = false;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Depth = 0;
-            this.textBox1.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.textBox1.LeadingIcon = null;
-            this.textBox1.Location = new System.Drawing.Point(199, 148);
-            this.textBox1.MaxLength = 50;
-            this.textBox1.MouseState = MaterialSkin.MouseState.OUT;
-            this.textBox1.Multiline = false;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(280, 50);
-            this.textBox1.TabIndex = 17;
-            this.textBox1.Text = "";
-            this.textBox1.TrailingIcon = null;
-            // 
             // textBox2
             // 
             this.textBox2.AnimateReadOnly = false;
@@ -192,6 +175,7 @@ namespace Market
             this.textBox3.TabIndex = 19;
             this.textBox3.Text = "";
             this.textBox3.TrailingIcon = null;
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // textBox4
             // 
@@ -209,6 +193,23 @@ namespace Market
             this.textBox4.TabIndex = 20;
             this.textBox4.Text = "";
             this.textBox4.TrailingIcon = null;
+            // 
+            // textBox1
+            // 
+            this.textBox1.AnimateReadOnly = false;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Depth = 0;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.textBox1.LeadingIcon = null;
+            this.textBox1.Location = new System.Drawing.Point(199, 148);
+            this.textBox1.MaxLength = 50;
+            this.textBox1.MouseState = MaterialSkin.MouseState.OUT;
+            this.textBox1.Multiline = false;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(280, 50);
+            this.textBox1.TabIndex = 17;
+            this.textBox1.Text = "";
+            this.textBox1.TrailingIcon = null;
             // 
             // AddEditDefaultsForm
             // 
@@ -244,9 +245,9 @@ namespace Market
         private MaterialSkin.Controls.MaterialButton AddEditBT;
         private MaterialSkin.Controls.MaterialButton CancelBT;
         private System.Windows.Forms.ComboBox comboBox1;
-        private MaterialSkin.Controls.MaterialTextBox textBox1;
         private MaterialSkin.Controls.MaterialTextBox textBox2;
         private MaterialSkin.Controls.MaterialTextBox textBox3;
         private MaterialSkin.Controls.MaterialTextBox textBox4;
+        private MaterialSkin.Controls.MaterialTextBox textBox1;
     }
 }
