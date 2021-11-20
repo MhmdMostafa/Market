@@ -64,7 +64,7 @@ namespace Market
                         {
                             dr.Read();
                             //there is something here i need to understand
-                            comboBox1.SelectedIndex = int.Parse(dr.IsDBNull(tableCol["ContinentID"]) ? "" : dr.GetString("ContinentID")) - 1;
+                            comboBox1.SelectedIndex = dr.IsDBNull(tableCol["ContinentID"]) ? 0 : int.Parse(dr.GetString("ContinentID")) - 1;
                             textBox1.Text = dr.IsDBNull(tableCol["CountryNameEN"]) ? "" : dr.GetString("CountryNameEN");
                             textBox2.Text = dr.IsDBNull(tableCol["CountryNameAR"]) ? "" : dr.GetString("CountryNameAR");
                             textBox3.Text = dr.IsDBNull(tableCol["CountryCallingCodeID"]) ? "" : dr.GetString("CountryCallingCodeID");
@@ -283,239 +283,240 @@ namespace Market
 
             switch (SQLtable)
             {
-                //countries
                 case "countries":
-
-                    if (command == "add")
-                        SQL = @"INSERT INTO countries (ContinentID, CountryCallingCodeID, CountryNameEN, CountryNameAR, Shortcut) VALUES(@ContinentID, @CountryCallingCodeID, @CountryNameEN, @CountryNameAR, @Shortcut);";
-                    else
-                        SQL = $@"UPDATE countries SET ContinentID=@ContinentID, CountryCallingCodeID=@CountryCallingCodeID, CountryNameEN= @CountryNameEN, CountryNameAR=@CountryNameAR, Shortcut=@Shortcut WHERE CountryID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    if (Globals.ifExist("countries", "Shortcut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("countries", "CountryCallingCodeID", Globals.RmSpace(textBox3.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("countries", "Shortcut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("countries", "CountryCallingCodeID", Globals.RmSpace(textBox3.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                        }
+                        SQL = @"INSERT INTO countries (ContinentID, CountryCallingCodeID, CountryNameEN, CountryNameAR, Shortcut) VALUES(@ContinentID, @CountryCallingCodeID, @CountryNameEN, @CountryNameAR, @Shortcut);";
                     }
                     else
-                    {
-                        myPara.Add("@ContinentID", Globals.GetID("ContinentID", "continents", "ContinentNameEN", comboBox1.Text));
-                        myPara.Add("@CountryCallingCodeID", Globals.RmSpace(textBox3.Text));
-                        myPara.Add("@CountryNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@CountryNameAR", Globals.RmSpace(textBox2.Text));
-                        myPara.Add("@Shortcut", Globals.RmSpace(textBox4.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE countries SET ContinentID=@ContinentID, CountryCallingCodeID=@CountryCallingCodeID, CountryNameEN= @CountryNameEN, CountryNameAR=@CountryNameAR, Shortcut=@Shortcut WHERE CountryID={SelctedID};";
+
+                    myPara.Add("@ContinentID", Globals.GetID("ContinentID", "continents", "ContinentNameEN", comboBox1.Text));
+                    myPara.Add("@CountryCallingCodeID", Globals.RmSpace(textBox3.Text));
+                    myPara.Add("@CountryNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@CountryNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@Shortcut", Globals.RmSpace(textBox4.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
 
                 case "currencies":
-                    if (command == "add")
-                        SQL = @"INSERT INTO currencies (CurrencyNameEN, CurrencyNameAR, CurrencyShortCut) VALUES(@CurrencyNameEN, @CurrencyNameAR, @CurrencyShortCut);";
-                    else
-                        SQL = $@"UPDATE currencies SET CurrencyNameEN=@CurrencyNameEN, CurrencyNameAR=@CurrencyNameAR, CurrencyShortCut=@CurrencyShortCut WHERE CurrencyID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    if (Globals.ifExist("currencies", "CurrencyShortCut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("currencies", "CurrencyNameEN", Globals.RmSpace(textBox1.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("currencies", "CurrencyShortCut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("currencies", "CurrencyNameEN", Globals.RmSpace(textBox1.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                        }
+                        SQL = @"INSERT INTO currencies (CurrencyNameEN, CurrencyNameAR, CurrencyShortCut) VALUES(@CurrencyNameEN, @CurrencyNameAR, @CurrencyShortCut);";
                     }
                     else
-                    {
-                        myPara.Add("@CurrencyNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@CurrencyNameAR", Globals.RmSpace(textBox2.Text));
-                        myPara.Add("@CurrencyShortCut", Globals.RmSpace(textBox3.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE currencies SET CurrencyNameEN=@CurrencyNameEN, CurrencyNameAR=@CurrencyNameAR, CurrencyShortCut=@CurrencyShortCut WHERE CurrencyID={SelctedID};";
+
+                    myPara.Add("@CurrencyNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@CurrencyNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@CurrencyShortCut", Globals.RmSpace(textBox3.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
 
                 case "units_value":
-                    if (command == "add")
-                        SQL = @"INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut) VALUES(@UnitValueNameEN, @UnitValueNameAR, @UnitsValueShortCut);";
-                    else
-                        SQL = $@"UPDATE units_value SET UnitValueNameEN=@UnitValueNameEN, UnitValueNameAR=@UnitValueNameAR, UnitsValueShortCut=@UnitsValueShortCut WHERE CurrencyID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
                         return;
                     }
-                    if (Globals.ifExist("units_value", "UnitValueNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("units_value", "UnitsValueShortCut", Globals.RmSpace(textBox3.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("units_value", "UnitValueNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("units_value", "UnitsValueShortCut", Globals.RmSpace(textBox3.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                        }
+                        SQL = @"INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut) VALUES(@UnitValueNameEN, @UnitValueNameAR, @UnitsValueShortCut);";
                     }
                     else
-                    {
-                        myPara.Add("@UnitValueNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@UnitValueNameAR", Globals.RmSpace(textBox2.Text));
-                        myPara.Add("@UnitsValueShortCut", Globals.RmSpace(textBox3.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE units_value SET UnitValueNameEN=@UnitValueNameEN, UnitValueNameAR=@UnitValueNameAR, UnitsValueShortCut=@UnitsValueShortCut WHERE CurrencyID={SelctedID};";
+
+                    myPara.Add("@UnitValueNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@UnitValueNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@UnitsValueShortCut", Globals.RmSpace(textBox3.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
+
                 case "products_groub":
-                    if (command == "add")
-                        SQL = @"INSERT INTO products_groub (ProductGroubNameEN, ProductGroubNameAR) VALUES(@ProductGroubNameEN, @ProductGroubNameAR);";
-                    else
-                        SQL = $@"UPDATE products_groub SET ProductGroubNameEN=@ProductGroubNameEN, ProductGroubNameAR=@ProductGroubNameAR WHERE ProductGroubID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
-                        return;
                     }
-                    if (Globals.ifExist("products_groub", "ProductGroubNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_groub", "ProductGroubNameAR", Globals.RmSpace(textBox2.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("products_groub", "ProductGroubNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_groub", "ProductGroubNameAR", Globals.RmSpace(textBox2.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                        }
+                        SQL = @"INSERT INTO products_groub (ProductGroubNameEN, ProductGroubNameAR) VALUES(@ProductGroubNameEN, @ProductGroubNameAR);";
                     }
                     else
-                    {
-                        myPara.Add("@ProductGroubNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@ProductGroubNameAR", Globals.RmSpace(textBox2.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
-
+                        SQL = $@"UPDATE products_groub SET ProductGroubNameEN=@ProductGroubNameEN, ProductGroubNameAR=@ProductGroubNameAR WHERE ProductGroubID={SelctedID};";
+                    myPara.Add("@ProductGroubNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@ProductGroubNameAR", Globals.RmSpace(textBox2.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
 
                 case "products_type":
-                    if (command == "add")
-                        SQL = @"INSERT INTO products_type (ProductTypeNameEN, ProductTypeNameAR) VALUES(@ProductTypeNameEN, @ProductTypeNameAR);";
-                    else
-                        SQL = $@"UPDATE products_type SET ProductTypeNameEN=@ProductTypeNameEN, ProductTypeNameAR=@ProductTypeNameAR WHERE ProductTypeID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
-                        return;
                     }
-                    if (Globals.ifExist("products_type", "ProductTypeNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_type", "ProductTypeNameAR", Globals.RmSpace(textBox2.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("products_type", "ProductTypeNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_type", "ProductTypeNameAR", Globals.RmSpace(textBox2.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                        }
+                        SQL = @"INSERT INTO products_type (ProductTypeNameEN, ProductTypeNameAR) VALUES(@ProductTypeNameEN, @ProductTypeNameAR);";
                     }
                     else
-                    {
-                        myPara.Add("@ProductTypeNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@ProductTypeNameAR", Globals.RmSpace(textBox2.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE products_type SET ProductTypeNameEN=@ProductTypeNameEN, ProductTypeNameAR=@ProductTypeNameAR WHERE ProductTypeID={SelctedID};";
+
+                    myPara.Add("@ProductTypeNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@ProductTypeNameAR", Globals.RmSpace(textBox2.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+
                     break;
 
                 case "customer_groups":
-                    if (command == "add")
-                        SQL = @"INSERT INTO customer_groups (CustomerGroupNameEN, CustomerGroupNameAR) VALUES(@CustomerGroupNameEN, @CustomerGroupNameAR);";
-                    else
-                        SQL = $@"UPDATE customer_groups SET CustomerGroupNameEN=@CustomerGroupNameEN, CustomerGroupNameAR=@CustomerGroupNameAR WHERE CustomerGroupID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
-                        return;
                     }
-                    if (Globals.ifExist("customer_groups", "CustomerGroupNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("customer_groups", "CustomerGroupNameAR", Globals.RmSpace(textBox2.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("customer_groups", "CustomerGroupNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("customer_groups", "CustomerGroupNameAR", Globals.RmSpace(textBox2.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                        }
+                        SQL = @"INSERT INTO customer_groups (CustomerGroupNameEN, CustomerGroupNameAR) VALUES(@CustomerGroupNameEN, @CustomerGroupNameAR);";
                     }
                     else
-                    {
-                        myPara.Add("@CustomerGroupNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@CustomerGroupNameAR", Globals.RmSpace(textBox2.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE customer_groups SET CustomerGroupNameEN=@CustomerGroupNameEN, CustomerGroupNameAR=@CustomerGroupNameAR WHERE CustomerGroupID={SelctedID};";
+
+
+                    myPara.Add("@CustomerGroupNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@CustomerGroupNameAR", Globals.RmSpace(textBox2.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                     break;
 
                 case "emp_group":
-                    if (command == "add")
-                        SQL = @"INSERT INTO emp_group (EmpGroupNameEN, EmpGroupNameAR) VALUES(@EmpGroupNameEN, @EmpGroupNameAR);";
-                    else
-                        SQL = $@"UPDATE emp_group SET EmpGroupNameEN=@EmpGroupNameEN, EmpGroupNameAR=@EmpGroupNameAR WHERE EmpGroupID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
-                        return;
                     }
-                    if (Globals.ifExist("emp_group", "EmpGroupNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_group", "EmpGroupNameAR", Globals.RmSpace(textBox2.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("emp_group", "EmpGroupNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_group", "EmpGroupNameAR", Globals.RmSpace(textBox2.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                        }
+                        SQL = @"INSERT INTO emp_group (EmpGroupNameEN, EmpGroupNameAR) VALUES(@EmpGroupNameEN, @EmpGroupNameAR);";
                     }
                     else
-                    {
-                        myPara.Add("@EmpGroupNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@EmpGroupNameAR", Globals.RmSpace(textBox2.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE emp_group SET EmpGroupNameEN=@EmpGroupNameEN, EmpGroupNameAR=@EmpGroupNameAR WHERE EmpGroupID={SelctedID};";
+
+                    myPara.Add("@EmpGroupNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@EmpGroupNameAR", Globals.RmSpace(textBox2.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
 
                 case "emp_permissions":
-                    if (command == "add")
-                        SQL = @"INSERT INTO emp_permissions (PermissionNameEN, PermissionNameAr) VALUES(@PermissionNameEN, @PermissionNameAr);";
-                    else
-                        SQL = $@"UPDATE emp_permissions SET PermissionNameEN=@PermissionNameEN, PermissionNameAr=@PermissionNameAr WHERE PermissionID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
-                        return;
                     }
-                    if (Globals.ifExist("emp_permissions", "PermissionNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_permissions", "PermissionNameAr", Globals.RmSpace(textBox2.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("emp_permissions", "PermissionNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_permissions", "PermissionNameAr", Globals.RmSpace(textBox2.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                        }
+                        SQL = @"INSERT INTO emp_permissions (PermissionNameEN, PermissionNameAr) VALUES(@PermissionNameEN, @PermissionNameAr);";
                     }
                     else
-                    {
-                        myPara.Add("@PermissionNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@PermissionNameAr", Globals.RmSpace(textBox2.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE emp_permissions SET PermissionNameEN=@PermissionNameEN, PermissionNameAr=@PermissionNameAr WHERE PermissionID={SelctedID};";
+
+                    myPara.Add("@PermissionNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@PermissionNameAr", Globals.RmSpace(textBox2.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
 
                 case "invoice_type":
-                    if (command == "add")
-                        SQL = @"INSERT INTO invoice_type (InvoiceTypeNameEN, InvoiceTypeNameAR) VALUES(@InvoiceTypeNameEN, @InvoiceTypeNameAR);";
-                    else
-                        SQL = $@"UPDATE invoice_type SET InvoiceTypeNameEN=@InvoiceTypeNameEN, InvoiceTypeNameAR=@InvoiceTypeNameAR WHERE InvoiceTypeID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
-                        return;
                     }
-                    if (Globals.ifExist("invoice_type", "InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("invoice_type", "InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("invoice_type", "InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("invoice_type", "InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                            SQL = @"INSERT INTO invoice_type (InvoiceTypeNameEN, InvoiceTypeNameAR) VALUES(@InvoiceTypeNameEN, @InvoiceTypeNameAR);";
+                        }
                     }
                     else
-                    {
-                        myPara.Add("@InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE invoice_type SET InvoiceTypeNameEN=@InvoiceTypeNameEN, InvoiceTypeNameAR=@InvoiceTypeNameAR WHERE InvoiceTypeID={SelctedID};";
+
+                    myPara.Add("@InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+
                     break;
 
                 case "contact_type":
-                    if (command == "add")
-                        SQL = @"INSERT INTO contact_type (ContactNameEN, ContactNameAR) VALUES(@ContactNameEN, @ContactNameAR);";
-                    else
-                        SQL = $@"UPDATE contact_type SET ContactNameEN=@ContactNameEN, ContactNameAR=@ContactNameAR WHERE ContactTypeID={SelctedID};";
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
-                        return;
                     }
-                    if (Globals.ifExist("contact_type", "ContactNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("contact_type", "ContactNameAR", Globals.RmSpace(textBox2.Text)))
+                    if (command == "add")
                     {
-                        MessageBox.Show("Entry is alredy exist");
+                        if (Globals.ifExist("contact_type", "ContactNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("contact_type", "ContactNameAR", Globals.RmSpace(textBox2.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                            SQL = @"INSERT INTO contact_type (ContactNameEN, ContactNameAR) VALUES(@ContactNameEN, @ContactNameAR);";
+                        }
                     }
                     else
-                    {
-                        MessageBox.Show("Entry is alredy exist");
-                        myPara.Add("@ContactNameEN", Globals.RmSpace(textBox1.Text));
-                        myPara.Add("@ContactNameAR", Globals.RmSpace(textBox2.Text));
-                        Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                    }
+                        SQL = $@"UPDATE contact_type SET ContactNameEN=@ContactNameEN, ContactNameAR=@ContactNameAR WHERE ContactTypeID={SelctedID};";
 
+                    MessageBox.Show("Entry is alredy exist");
+                    myPara.Add("@ContactNameEN", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@ContactNameAR", Globals.RmSpace(textBox2.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
 

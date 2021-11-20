@@ -99,9 +99,9 @@ namespace Market
 
         public static bool ifExist(string table, string columnName, string value)
         {
-            string SQL = $"SELECT * FROM {table} WHERE {columnName} = @value";
+            string SQL = $"SELECT * FROM {table} WHERE @{columnName} = @value";
             Dictionary<string, object> myPara = new Dictionary<string, object>();
-            myPara.Add("@EmailAddress", value);
+            myPara.Add($"@{columnName}", value);
             MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara);
             if (dr.Read())
                 return true;

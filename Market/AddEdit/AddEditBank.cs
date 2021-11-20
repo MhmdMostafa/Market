@@ -13,7 +13,7 @@ namespace Market
     public partial class AddEditBank : MaterialSkin.Controls.MaterialForm
     {
         public string SQLtable;
-        public string[] OldInfo = new string[4];
+        public string OldIban;
         public int selectedID;
         public string command;
         public Dictionary<string, int> tableCol = new Dictionary<string, int>();
@@ -48,11 +48,8 @@ namespace Market
                     BankArTB.Text = dr.IsDBNull(tableCol["BankNameAR"]) ? "" : dr.GetString("BankNameAR");
                     IbanTB.Text = dr.IsDBNull(tableCol["BankIban"]) ? "" : dr.GetString("BankIban");
                     DateTB.Text = dr.IsDBNull(tableCol["ExpiryDate"]) ? "" : dr.GetString("ExpiryDate");
-                    OldInfo[0] = dr.GetString("FullNameOnwer");
-                    OldInfo[1] = dr.GetString("BankNameEn");
-                    OldInfo[2] = dr.GetString("BankNameAR");
-                    OldInfo[3] = dr.GetString("BankIban");
-                    OldInfo[4] = dr.GetString("ExpiryDate");
+
+                    OldIban = dr.GetString("BankIban");
 
                 }
             }
@@ -76,31 +73,27 @@ namespace Market
             {
                 SQL = $"UPDATE {SQLtable} SET FullNameOnwer= @FullNameOnwer, BankNameEn= @BankNameEn, BankNameAR= @BankNameA, BankIban= @BankIban, ExpiryDate= @ExpiryDate WHERE BankIban = @BankIban AND UserID=@selectedID";
 
-                myPara.Add("@BankIban", Globals.RmSpace(OldInfo[3]));
+                myPara.Add("@BankIban", Globals.RmSpace(OldIban));
             }
             else if (command == "add")
             {
+                if (Globals.ifExist(SQLtable, "BankIban", Globals.RmSpace(IbanTB.Text)))
+                {
+                    MessageBox.Show("This Iban is alredy Exist");
+                    return;
+                }
                 SQL = $@"INSERT INTO {SQLtable} (UserID, FullNameOnwer, BankNameEn, BankNameAR, BankIban, ExpiryDate) VALUES(@UserID, @FullNameOnwer, @BankNameEn, @BankNameAR, @BankIban, ExpiryDate);";
 
             }
-
-
-            if (Globals.ifExist(SQLtable, "BankIban", Globals.RmSpace(IbanTB.Text)))
-            {
-                MessageBox.Show("This Iban is alredy Exist");
-            }
-            else
-            {
-                myPara.Add("@UserID", selectedID);
-                myPara.Add("@FullNameOnwer", Globals.RmSpace(FullNameTB.Text));
-                myPara.Add("@BankNameEn", Globals.RmSpace(BankEnTB.Text));
-                myPara.Add("@BankNameAR", Globals.RmSpace(BankArTB.Text));
-                myPara.Add("@BankIban", Globals.RmSpace(IbanTB.Text));
-                myPara.Add("@ExpiryDate", Globals.RmSpace(DateTB.Text));
-                Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                MessageBox.Show("Done!!");
-                this.Close();
-            }
+            myPara.Add("@UserID", selectedID);
+            myPara.Add("@FullNameOnwer", Globals.RmSpace(FullNameTB.Text));
+            myPara.Add("@BankNameEn", Globals.RmSpace(BankEnTB.Text));
+            myPara.Add("@BankNameAR", Globals.RmSpace(BankArTB.Text));
+            myPara.Add("@BankIban", Globals.RmSpace(IbanTB.Text));
+            myPara.Add("@ExpiryDate", Globals.RmSpace(DateTB.Text));
+            Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+            MessageBox.Show("Done!!");
+            this.Close();
 
         }
         private void DateTB_KeyPress(object sender, KeyPressEventArgs e)

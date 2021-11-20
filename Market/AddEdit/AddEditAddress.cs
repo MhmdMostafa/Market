@@ -23,7 +23,7 @@ namespace Market
             InitializeComponent();
         }
 
-        public AddEditAddress(string cmd, string table, int id, string Iban = "")
+        public AddEditAddress(string cmd, string table, int id)
         {
             InitializeComponent();
 
@@ -35,25 +35,27 @@ namespace Market
             Text = $"{command.ToUpper()} Wizerd";
 
             tableCol = Globals.GetColumnsIndex(table);
+
+            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
+                while (dr.Read())
+                {
+                    ContryCB.Items.Add(dr.IsDBNull(tableCol["ContinentNameEN"]) ? "" : dr.GetString("ContinentNameEN"));
+                }
+
             if (command == "edit")
             {
-                string SQL = $@"SELECT * FROM {table} WHERE BankIban = @BankIban AND UserID=@UserID;";
+                string SQL = $@"SELECT * FROM {table} WHERE AddressID = @AddressID;";
                 Dictionary<string, object> myPara = new Dictionary<string, object>();
-                myPara.Add("@UserID", selectedID);
-                myPara.Add("@BankIban", Globals.RmSpace(Iban));
+                myPara.Add("@AddressID", id);
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
-                    //FullNameTB.Text = dr.IsDBNull(tableCol["FullNameOnwer"]) ? "" : dr.GetString("FullNameOnwer");
-                    //DistrictTB.Text = dr.IsDBNull(tableCol["BankNameEn"]) ? "" : dr.GetString("BankNameEn");
-                    //StreetTB.Text = dr.IsDBNull(tableCol["BankNameAR"]) ? "" : dr.GetString("BankNameAR");
-                    //IbanTB.Text = dr.IsDBNull(tableCol["BankIban"]) ? "" : dr.GetString("BankIban");
-                    //DateTB.Text = dr.IsDBNull(tableCol["ExpiryDate"]) ? "" : dr.GetString("ExpiryDate");
-                    OldInfo[0] = dr.GetString("FullNameOnwer");
-                    OldInfo[1] = dr.GetString("BankNameEn");
-                    OldInfo[2] = dr.GetString("BankNameAR");
-                    OldInfo[3] = dr.GetString("BankIban");
-                    OldInfo[4] = dr.GetString("ExpiryDate");
+                    ContryCB.SelectedIndex = dr.IsDBNull(tableCol["CountryID"]) ? 0 : int.Parse(dr.GetString("CountryID")) - 1;
+                    OldInfo[1] = dr.GetString("CityID");
+                    OldInfo[2] = dr.GetString("District");
+                    OldInfo[3] = dr.GetString("Street");
+                    OldInfo[4] = dr.GetString("ZipCode");
+                    OldInfo[4] = dr.GetString("Description");
 
                 }
             }
