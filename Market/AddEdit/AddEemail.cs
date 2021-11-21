@@ -61,6 +61,7 @@ namespace Market
             if (Globals.ifExist(SQLtable, "EmailAddress", Globals.RmSpace(oldEmail)) || Globals.RmSpace(EmailTB.Text) == oldEmail)
             {
                 MessageBox.Show("this email is alredy used");
+                return;
             }
             else
             {

@@ -36,20 +36,20 @@ namespace Market
             tableCol = Globals.GetColumnsIndex(table);
             if (command == "edit")
             {
-                string SQL = $@"SELECT * FROM {table} WHERE BankIban = @BankIban AND UserID=@UserID;";
+                string SQL = $@"SELECT * FROM {table} WHERE Iban = @Iban AND UserID=@UserID;";
                 Dictionary<string, object> myPara = new Dictionary<string, object>();
                 myPara.Add("@UserID", selectedID);
-                myPara.Add("@BankIban", Globals.RmSpace(Iban));
+                myPara.Add("@Iban", Globals.RmSpace(Iban));
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
                     FullNameTB.Text = dr.IsDBNull(tableCol["FullNameOnwer"]) ? "" : dr.GetString("FullNameOnwer");
-                    BankEnTB.Text = dr.IsDBNull(tableCol["BankNameEn"]) ? "" : dr.GetString("BankNameEn");
-                    BankArTB.Text = dr.IsDBNull(tableCol["BankNameAR"]) ? "" : dr.GetString("BankNameAR");
-                    IbanTB.Text = dr.IsDBNull(tableCol["BankIban"]) ? "" : dr.GetString("BankIban");
+                    BankEnTB.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                    BankArTB.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                    IbanTB.Text = dr.IsDBNull(tableCol["Iban"]) ? "" : dr.GetString("Iban");
                     DateTB.Text = dr.IsDBNull(tableCol["ExpiryDate"]) ? "" : dr.GetString("ExpiryDate");
 
-                    OldIban = dr.GetString("BankIban");
+                    OldIban = dr.GetString("Iban");
 
                 }
             }
@@ -71,25 +71,25 @@ namespace Market
 
             if (command == "edit")
             {
-                SQL = $"UPDATE {SQLtable} SET FullNameOnwer= @FullNameOnwer, BankNameEn= @BankNameEn, BankNameAR= @BankNameA, BankIban= @BankIban, ExpiryDate= @ExpiryDate WHERE BankIban = @BankIban AND UserID=@selectedID";
+                SQL = $"UPDATE {SQLtable} SET FullNameOnwer= @FullNameOnwer, NameEn= @NameEn, NameAr= @BankNameA, Iban= @Iban, ExpiryDate= @ExpiryDate WHERE Iban = @Iban AND UserID=@selectedID";
 
-                myPara.Add("@BankIban", Globals.RmSpace(OldIban));
+                myPara.Add("@Iban", Globals.RmSpace(OldIban));
             }
             else if (command == "add")
             {
-                if (Globals.ifExist(SQLtable, "BankIban", Globals.RmSpace(IbanTB.Text)))
+                if (Globals.ifExist(SQLtable, "Iban", Globals.RmSpace(IbanTB.Text)))
                 {
                     MessageBox.Show("This Iban is alredy Exist");
                     return;
                 }
-                SQL = $@"INSERT INTO {SQLtable} (UserID, FullNameOnwer, BankNameEn, BankNameAR, BankIban, ExpiryDate) VALUES(@UserID, @FullNameOnwer, @BankNameEn, @BankNameAR, @BankIban, ExpiryDate);";
+                SQL = $@"INSERT INTO {SQLtable} (UserID, FullNameOnwer, NameEn, NameAr, Iban, ExpiryDate) VALUES(@UserID, @FullNameOnwer, @NameEn, @NameAr, @Iban, ExpiryDate);";
 
             }
             myPara.Add("@UserID", selectedID);
             myPara.Add("@FullNameOnwer", Globals.RmSpace(FullNameTB.Text));
-            myPara.Add("@BankNameEn", Globals.RmSpace(BankEnTB.Text));
-            myPara.Add("@BankNameAR", Globals.RmSpace(BankArTB.Text));
-            myPara.Add("@BankIban", Globals.RmSpace(IbanTB.Text));
+            myPara.Add("@NameEn", Globals.RmSpace(BankEnTB.Text));
+            myPara.Add("@NameAr", Globals.RmSpace(BankArTB.Text));
+            myPara.Add("@Iban", Globals.RmSpace(IbanTB.Text));
             myPara.Add("@ExpiryDate", Globals.RmSpace(DateTB.Text));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");

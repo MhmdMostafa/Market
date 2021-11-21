@@ -18,6 +18,8 @@ namespace Market
         public string command;
         public int SelctedID;
         public Dictionary<string, int> tableCol = new Dictionary<string, int>();
+        public Dictionary<string, int> ContinentCol = new Dictionary<string, int>();
+        public Dictionary<string, int> CountryCol = new Dictionary<string, int>();
         public AddEditDefaultsForm()
         {
             InitializeComponent();
@@ -27,6 +29,9 @@ namespace Market
 
             InitializeComponent();
             tableCol = Globals.GetColumnsIndex(table);
+            ContinentCol = Globals.GetColumnsIndex("continents");
+            CountryCol = Globals.GetColumnsIndex("countries");
+
             SelctedID = id;
             SQLtable = table;
             command = conf;
@@ -55,22 +60,50 @@ namespace Market
                     using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM continents;"))
                         while (dr.Read())
                         {
-                            comboBox1.Items.Add(dr.IsDBNull(tableCol["ContinentNameEN"]) ? "" : dr.GetString("ContinentNameEN"));
+                            comboBox1.Items.Add(dr.IsDBNull(ContinentCol["NameEn"]) ? "" : dr.GetString("NameEn"));
                         }
 
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM countries WHERE CountryID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM countries WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
                             //there is something here i need to understand
                             comboBox1.SelectedIndex = dr.IsDBNull(tableCol["ContinentID"]) ? 0 : int.Parse(dr.GetString("ContinentID")) - 1;
-                            textBox1.Text = dr.IsDBNull(tableCol["CountryNameEN"]) ? "" : dr.GetString("CountryNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["CountryNameAR"]) ? "" : dr.GetString("CountryNameAR");
-                            textBox3.Text = dr.IsDBNull(tableCol["CountryCallingCodeID"]) ? "" : dr.GetString("CountryCallingCodeID");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                            textBox3.Text = dr.IsDBNull(tableCol["CallingCode"]) ? "" : dr.GetString("CallingCode");
                             textBox4.Text = dr.IsDBNull(tableCol["Shortcut"]) ? "" : dr.GetString("Shortcut");
                         }
 
+                    }
+                    break;
+                case "cities":
+                    label_4.Visible = false;
+                    textBox4.Visible = false;
+                    label_5.Visible = false;
+                    textBox3.Visible = false;
+
+                    Text += " City";
+                    label_1.Text = "Country:";
+                    label_2.Text = "Name English:";
+                    label_3.Text = "Name Arabic:";
+                    using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
+                        while (dr.Read())
+                        {
+                            comboBox1.Items.Add(dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn"));
+                        }
+
+                    if (command == "edit")
+                    {
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM cities WHERE ID = {SelctedID}"))
+                        {
+                            dr.Read();
+                            //there is something here i need to understand
+                            comboBox1.SelectedIndex = dr.IsDBNull(tableCol["NameEn"]) ? 0 : int.Parse(dr.GetString("NameEn")) - 1;
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                        }
                     }
                     break;
 
@@ -86,11 +119,11 @@ namespace Market
                     label_4.Text = "Shortcut:";
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM currencies WHERE CurrencyID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM currencies WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
-                            textBox1.Text = dr.IsDBNull(tableCol["CurrencyNameEN"]) ? "" : dr.GetString("CurrencyNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["CurrencyNameAR"]) ? "" : dr.GetString("CurrencyNameAR");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                             textBox3.Text = dr.IsDBNull(tableCol["CurrencyShortCut"]) ? "" : dr.GetString("CurrencyShortCut");
                         }
 
@@ -109,12 +142,12 @@ namespace Market
 
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM units_value WHERE UnitValueID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM units_value WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
-                            textBox1.Text = dr.IsDBNull(tableCol["UnitValueNameEN"]) ? "" : dr.GetString("UnitValueNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["UnitValueNameAR"]) ? "" : dr.GetString("UnitValueNameAR");
-                            textBox3.Text = dr.IsDBNull(tableCol["UnitsValueShortCut"]) ? "" : dr.GetString("UnitsValueShortCut");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                            textBox3.Text = dr.IsDBNull(tableCol["Shortcut"]) ? "" : dr.GetString("Shortcut");
                         }
 
                     }
@@ -131,11 +164,11 @@ namespace Market
                     label_3.Text = "Name Arabic:";
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM products_groub WHERE ProductGroubID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM products_groub WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
-                            textBox1.Text = dr.IsDBNull(tableCol["ProductGroubNameEN"]) ? "" : dr.GetString("ProductGroubNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["ProductGroubNameAR"]) ? "" : dr.GetString("ProductGroubNameAR");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                         }
 
                     }
@@ -153,11 +186,11 @@ namespace Market
                     label_3.Text = "Name Arabic:";
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM products_type WHERE ProductTypeID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM products_type WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
-                            textBox1.Text = dr.IsDBNull(tableCol["ProductTypeNameEN"]) ? "" : dr.GetString("ProductTypeNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["ProductTypeNameAR"]) ? "" : dr.GetString("ProductTypeNameAR");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                         }
 
                     }
@@ -197,11 +230,11 @@ namespace Market
                     label_3.Text = "Name Arabic:";
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM emp_group WHERE EmpGroupID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM emp_group WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
-                            textBox1.Text = dr.IsDBNull(tableCol["EmpGroupNameEN"]) ? "" : dr.GetString("EmpGroupNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["EmpGroupNameAR"]) ? "" : dr.GetString("EmpGroupNameAR");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                         }
 
                     }
@@ -219,11 +252,11 @@ namespace Market
                     label_3.Text = "Name Arabic:";
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM emp_permissions WHERE PermissionID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM emp_permissions WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
-                            textBox1.Text = dr.IsDBNull(tableCol["PermissionNameEN"]) ? "" : dr.GetString("PermissionNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["PermissionNameAr"]) ? "" : dr.GetString("PermissionNameAr");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                         }
 
                     }
@@ -241,11 +274,11 @@ namespace Market
                     label_3.Text = "Name Arabic:";
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM invoice_type WHERE InvoiceTypeID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM invoice_type WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
-                            textBox1.Text = dr.IsDBNull(tableCol["InvoiceTypeNameEN"]) ? "" : dr.GetString("InvoiceTypeNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["InvoiceTypeNameAR"]) ? "" : dr.GetString("InvoiceTypeNameAR");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                         }
 
                     }
@@ -262,11 +295,11 @@ namespace Market
                     label_3.Text = "Name Arabic:";
                     if (command == "edit")
                     {
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM contact_type WHERE ContactTypeID = {SelctedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM contact_type WHERE ID = {SelctedID}"))
                         {
                             dr.Read();
-                            textBox1.Text = dr.IsDBNull(tableCol["ContactNameEN"]) ? "" : dr.GetString("ContactNameEN");
-                            textBox2.Text = dr.IsDBNull(tableCol["ContactNameAR"]) ? "" : dr.GetString("ContactNameAR");
+                            textBox1.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            textBox2.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                         }
 
                     }
@@ -291,21 +324,45 @@ namespace Market
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("countries", "Shortcut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("countries", "CountryCallingCodeID", Globals.RmSpace(textBox3.Text)))
+                        if (Globals.ifExist("countries", "Shortcut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("countries", "CallingCode", Globals.RmSpace(textBox3.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                             return;
                         }
-                        SQL = @"INSERT INTO countries (ContinentID, CountryCallingCodeID, CountryNameEN, CountryNameAR, Shortcut) VALUES(@ContinentID, @CountryCallingCodeID, @CountryNameEN, @CountryNameAR, @Shortcut);";
+                        SQL = @"INSERT INTO countries (ContinentID, CallingCode, NameEn, NameAr, Shortcut) VALUES(@ContinentID, @CallingCode, @NameEn, @NameAr, @Shortcut);";
                     }
                     else
-                        SQL = $@"UPDATE countries SET ContinentID=@ContinentID, CountryCallingCodeID=@CountryCallingCodeID, CountryNameEN= @CountryNameEN, CountryNameAR=@CountryNameAR, Shortcut=@Shortcut WHERE CountryID={SelctedID};";
+                        SQL = $@"UPDATE countries SET ContinentID=@ContinentID, CallingCode=@CallingCode, NameEn= @NameEn, NameAr=@NameAr, Shortcut=@Shortcut WHERE ID={SelctedID};";
 
-                    myPara.Add("@ContinentID", Globals.GetID("ContinentID", "continents", "ContinentNameEN", comboBox1.Text));
-                    myPara.Add("@CountryCallingCodeID", Globals.RmSpace(textBox3.Text));
-                    myPara.Add("@CountryNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@CountryNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@ContinentID", Globals.GetID("ContinentID", "continents", "NameEn", comboBox1.Text));
+                    myPara.Add("@CallingCode", Globals.RmSpace(textBox3.Text));
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     myPara.Add("@Shortcut", Globals.RmSpace(textBox4.Text));
+                    Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+
+                    break;
+
+                case "cities":
+                    if (textBox1.Text == "" || textBox2.Text == "")
+                    {
+                        MessageBox.Show("Please fill the feilds");
+                        return;
+                    }
+                    if (command == "add")
+                    {
+                        if (Globals.ifExist("cities", "NameEn", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("cities", "NameAr", Globals.RmSpace(textBox2.Text)))
+                        {
+                            MessageBox.Show("Entry is alredy exist");
+                            return;
+                        }
+                        SQL = @"INSERT INTO cities (NameEn, NameAr) VALUES(@NameEn, @NameAr);";
+                    }
+                    else
+                        SQL = $@"UPDATE cities SET NameEn=@NameEn, NameAr=@NameAr WHERE ID={SelctedID};";
+
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
@@ -318,18 +375,18 @@ namespace Market
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("currencies", "CurrencyShortCut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("currencies", "CurrencyNameEN", Globals.RmSpace(textBox1.Text)))
+                        if (Globals.ifExist("currencies", "CurrencyShortCut", Globals.RmSpace(textBox4.Text)) || Globals.ifExist("currencies", "NameEn", Globals.RmSpace(textBox1.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                             return;
                         }
-                        SQL = @"INSERT INTO currencies (CurrencyNameEN, CurrencyNameAR, CurrencyShortCut) VALUES(@CurrencyNameEN, @CurrencyNameAR, @CurrencyShortCut);";
+                        SQL = @"INSERT INTO currencies (NameEn, NameAr, CurrencyShortCut) VALUES(@NameEn, @NameAr, @CurrencyShortCut);";
                     }
                     else
-                        SQL = $@"UPDATE currencies SET CurrencyNameEN=@CurrencyNameEN, CurrencyNameAR=@CurrencyNameAR, CurrencyShortCut=@CurrencyShortCut WHERE CurrencyID={SelctedID};";
+                        SQL = $@"UPDATE currencies SET NameEn=@NameEn, NameAr=@NameAr, CurrencyShortCut=@CurrencyShortCut WHERE ID={SelctedID};";
 
-                    myPara.Add("@CurrencyNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@CurrencyNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     myPara.Add("@CurrencyShortCut", Globals.RmSpace(textBox3.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
@@ -343,19 +400,19 @@ namespace Market
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("units_value", "UnitValueNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("units_value", "UnitsValueShortCut", Globals.RmSpace(textBox3.Text)))
+                        if (Globals.ifExist("units_value", "NameEn", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("units_value", "Shortcut", Globals.RmSpace(textBox3.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                             return;
                         }
-                        SQL = @"INSERT INTO units_value (UnitValueNameEN, UnitValueNameAR, UnitsValueShortCut) VALUES(@UnitValueNameEN, @UnitValueNameAR, @UnitsValueShortCut);";
+                        SQL = @"INSERT INTO units_value (NameEn, NameAr, Shortcut) VALUES(@NameEn, @NameAr, @Shortcut);";
                     }
                     else
-                        SQL = $@"UPDATE units_value SET UnitValueNameEN=@UnitValueNameEN, UnitValueNameAR=@UnitValueNameAR, UnitsValueShortCut=@UnitsValueShortCut WHERE CurrencyID={SelctedID};";
+                        SQL = $@"UPDATE units_value SET NameEn=@NameEn, NameAr=@NameAr, Shortcut=@Shortcut WHERE ID={SelctedID};";
 
-                    myPara.Add("@UnitValueNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@UnitValueNameAR", Globals.RmSpace(textBox2.Text));
-                    myPara.Add("@UnitsValueShortCut", Globals.RmSpace(textBox3.Text));
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@Shortcut", Globals.RmSpace(textBox3.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
@@ -364,20 +421,21 @@ namespace Market
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
+                        return;
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("products_groub", "ProductGroubNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_groub", "ProductGroubNameAR", Globals.RmSpace(textBox2.Text)))
+                        if (Globals.ifExist("products_groub", "NameEn", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_groub", "NameAr", Globals.RmSpace(textBox2.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                             return;
                         }
-                        SQL = @"INSERT INTO products_groub (ProductGroubNameEN, ProductGroubNameAR) VALUES(@ProductGroubNameEN, @ProductGroubNameAR);";
+                        SQL = @"INSERT INTO products_groub (NameEn, NameAr) VALUES(@NameEn, @NameAr);";
                     }
                     else
-                        SQL = $@"UPDATE products_groub SET ProductGroubNameEN=@ProductGroubNameEN, ProductGroubNameAR=@ProductGroubNameAR WHERE ProductGroubID={SelctedID};";
-                    myPara.Add("@ProductGroubNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@ProductGroubNameAR", Globals.RmSpace(textBox2.Text));
+                        SQL = $@"UPDATE products_groub SET NameEn=@NameEn, NameAr=@NameAr WHERE ID={SelctedID};";
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
@@ -386,20 +444,21 @@ namespace Market
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
+                        return;
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("products_type", "ProductTypeNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_type", "ProductTypeNameAR", Globals.RmSpace(textBox2.Text)))
+                        if (Globals.ifExist("products_type", "NameEn", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("products_type", "NameAr", Globals.RmSpace(textBox2.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                         }
-                        SQL = @"INSERT INTO products_type (ProductTypeNameEN, ProductTypeNameAR) VALUES(@ProductTypeNameEN, @ProductTypeNameAR);";
+                        SQL = @"INSERT INTO products_type (NameEn, NameAr) VALUES(@NameEn, @NameAr);";
                     }
                     else
-                        SQL = $@"UPDATE products_type SET ProductTypeNameEN=@ProductTypeNameEN, ProductTypeNameAR=@ProductTypeNameAR WHERE ProductTypeID={SelctedID};";
+                        SQL = $@"UPDATE products_type SET NameEn=@NameEn, NameAr=@NameAr WHERE ID={SelctedID};";
 
-                    myPara.Add("@ProductTypeNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@ProductTypeNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
@@ -408,6 +467,7 @@ namespace Market
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
+                        return;
                     }
                     if (command == "add")
                     {
@@ -431,21 +491,22 @@ namespace Market
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
+                        return;
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("emp_group", "EmpGroupNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_group", "EmpGroupNameAR", Globals.RmSpace(textBox2.Text)))
+                        if (Globals.ifExist("emp_group", "NameEn", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_group", "NameAr", Globals.RmSpace(textBox2.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                             return;
                         }
-                        SQL = @"INSERT INTO emp_group (EmpGroupNameEN, EmpGroupNameAR) VALUES(@EmpGroupNameEN, @EmpGroupNameAR);";
+                        SQL = @"INSERT INTO emp_group (NameEn, NameAr) VALUES(@NameEn, @NameAr);";
                     }
                     else
-                        SQL = $@"UPDATE emp_group SET EmpGroupNameEN=@EmpGroupNameEN, EmpGroupNameAR=@EmpGroupNameAR WHERE EmpGroupID={SelctedID};";
+                        SQL = $@"UPDATE emp_group SET NameEn=@NameEn, NameAr=@NameAr WHERE ID={SelctedID};";
 
-                    myPara.Add("@EmpGroupNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@EmpGroupNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
@@ -454,21 +515,22 @@ namespace Market
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
+                        return;
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("emp_permissions", "PermissionNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_permissions", "PermissionNameAr", Globals.RmSpace(textBox2.Text)))
+                        if (Globals.ifExist("emp_permissions", "NameEn", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("emp_permissions", "NameAr", Globals.RmSpace(textBox2.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                             return;
                         }
-                        SQL = @"INSERT INTO emp_permissions (PermissionNameEN, PermissionNameAr) VALUES(@PermissionNameEN, @PermissionNameAr);";
+                        SQL = @"INSERT INTO emp_permissions (NameEn, NameAr) VALUES(@NameEn, @NameAr);";
                     }
                     else
-                        SQL = $@"UPDATE emp_permissions SET PermissionNameEN=@PermissionNameEN, PermissionNameAr=@PermissionNameAr WHERE PermissionID={SelctedID};";
+                        SQL = $@"UPDATE emp_permissions SET NameEn=@NameEn, NameAr=@NameAr WHERE ID={SelctedID};";
 
-                    myPara.Add("@PermissionNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@PermissionNameAr", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
@@ -477,21 +539,22 @@ namespace Market
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
+                        return;
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("invoice_type", "InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("invoice_type", "InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text)))
+                        if (Globals.ifExist("invoice_type", "NameEn", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("invoice_type", "NameAr", Globals.RmSpace(textBox2.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                             return;
-                            SQL = @"INSERT INTO invoice_type (InvoiceTypeNameEN, InvoiceTypeNameAR) VALUES(@InvoiceTypeNameEN, @InvoiceTypeNameAR);";
                         }
+                            SQL = @"INSERT INTO invoice_type (NameEn, NameAr) VALUES(@NameEn, @NameAr);";
                     }
                     else
-                        SQL = $@"UPDATE invoice_type SET InvoiceTypeNameEN=@InvoiceTypeNameEN, InvoiceTypeNameAR=@InvoiceTypeNameAR WHERE InvoiceTypeID={SelctedID};";
+                        SQL = $@"UPDATE invoice_type SET NameEn=@NameEn, NameAr=@NameAr WHERE ID={SelctedID};";
 
-                    myPara.Add("@InvoiceTypeNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@InvoiceTypeNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;
@@ -500,22 +563,23 @@ namespace Market
                     if (textBox1.Text == "" || textBox2.Text == "")
                     {
                         MessageBox.Show("Please fill the feilds");
+                        return;
                     }
                     if (command == "add")
                     {
-                        if (Globals.ifExist("contact_type", "ContactNameEN", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("contact_type", "ContactNameAR", Globals.RmSpace(textBox2.Text)))
+                        if (Globals.ifExist("contact_type", "NameEn", Globals.RmSpace(textBox1.Text)) || Globals.ifExist("contact_type", "NameAr", Globals.RmSpace(textBox2.Text)))
                         {
                             MessageBox.Show("Entry is alredy exist");
                             return;
-                            SQL = @"INSERT INTO contact_type (ContactNameEN, ContactNameAR) VALUES(@ContactNameEN, @ContactNameAR);";
                         }
+                            SQL = @"INSERT INTO contact_type (NameEn, NameAr) VALUES(@NameEn, @NameAr);";
                     }
                     else
-                        SQL = $@"UPDATE contact_type SET ContactNameEN=@ContactNameEN, ContactNameAR=@ContactNameAR WHERE ContactTypeID={SelctedID};";
+                        SQL = $@"UPDATE contact_type SET NameEn=@NameEn, NameAr=@NameAr WHERE ID={SelctedID};";
 
                     MessageBox.Show("Entry is alredy exist");
-                    myPara.Add("@ContactNameEN", Globals.RmSpace(textBox1.Text));
-                    myPara.Add("@ContactNameAR", Globals.RmSpace(textBox2.Text));
+                    myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
+                    myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));
                     Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
                     break;

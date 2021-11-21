@@ -2,181 +2,181 @@ CREATE DATABASE market DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
 USE market;
 
 CREATE TABLE continents(
-	ContinentID INT NOT NULL AUTO_INCREMENT,
-    ContinentNameEN VARCHAR(50) NOT NULL,
-    ContinentNameAR VARCHAR(50) NOT NULL,
-    PRIMARY KEY (ContinentID)
+	ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE countries(
-	CountryID INT NOT NULL AUTO_INCREMENT,
+	ID INT NOT NULL AUTO_INCREMENT,
     ContinentID INT NOT NULL,
-    CountryCallingCodeID VARCHAR (6) NOT NULL,
-    CountryNameEN VARCHAR(50) NOT NULL,
-    CountryNameAR VARCHAR(50) NOT NULL,
+    CallingCode VARCHAR (6) NOT NULL,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50) NOT NULL,
     Shortcut VARCHAR (10) NOT NULL,
-    PRIMARY KEY (CountryID),
-    FOREIGN KEY (ContinentID) REFERENCES Continents(ContinentID),
-    UNIQUE (CountryCallingCodeID),
+    PRIMARY KEY (ID),
+    FOREIGN KEY (ContinentID) REFERENCES Continents(ID),
+    UNIQUE (CallingCode),
     UNIQUE (Shortcut)
 );
 
 CREATE TABLE cities(
-    CityID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	CountryID INT,
-    CityNameEN VARCHAR(50) NOT NULL,
-    CityNameAR VARCHAR(50) NOT NULL,
-    PRIMARY KEY (CityID),
-    FOREIGN KEY (CountryID) REFERENCES countries(CountryID)
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (CountryID) REFERENCES countries(ID)
 );
 
 CREATE TABLE contact_type(
-	ContactTypeID INT AUTO_INCREMENT,
-	ContactNameEN VARCHAR(50) NOT NULL,
-	ContactNameAR VARCHAR(50) NOT NULL,
-	PRIMARY KEY (ContactTypeID)
+	ID INT AUTO_INCREMENT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID)
 );
 
 CREATE TABLE hands(
-	HandID INT AUTO_INCREMENT,
-	HandNameEN VARCHAR(50) NOT NULL,
-	HandNameAR VARCHAR(50) NOT NULL,
-	PRIMARY KEY (HandID)
+	ID INT AUTO_INCREMENT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID)
 );
 
 CREATE TABLE hand_fingers(
-	FingerID INT AUTO_INCREMENT,
+	ID INT AUTO_INCREMENT,
 	HandID INT,
-	FingerNameEN VARCHAR(50) NOT NULL,
-	FingerNameAR VARCHAR(50) NOT NULL,
-	PRIMARY KEY (FingerID),
-    FOREIGN KEY (HandID) REFERENCES hands(HandID)
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID),
+    FOREIGN KEY (HandID) REFERENCES hands(ID)
 );
 
 CREATE TABLE currencies(
-	CurrencyID INT NOT NULL AUTO_INCREMENT,
-    CurrencyNameEN VARCHAR(100) NOT NULL,
-    CurrencyNameAR VARCHAR(100) NOT NULL,
-    CurrencyShortCut CHAR(6) NOT NULL,
-    PRIMARY KEY (CurrencyID)
+	ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(100) NOT NULL,
+    NameAr VARCHAR(100) NOT NULL,
+    Shortcut CHAR(6) NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE invoice_type(
-	InvoiceTypeID INT NOT NULL AUTO_INCREMENT,
-    InvoiceTypeNameEN VARCHAR(50) NOT NULL,
-    InvoiceTypeNameAR VARCHAR(50) NOT NULL,
-    PRIMARY KEY (InvoiceTypeID)
+	ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE payment_mechanisms(
-	PaymentMechanismeID INT NOT NULL AUTO_INCREMENT,
-    PaymentMechanismeNameEN VARCHAR(50) NOT NULL,
-    PaymentMechanismeNameAR VARCHAR(50) NOT NULL,
-    PRIMARY KEY (PaymentMechanismeID)
+	ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE payment_methods(
-	PaymentMethodID int NOT NULL AUTO_INCREMENT,
-    PaymentMethodNameEN VARCHAR(50) NOT NULL,
-    PaymentMethodNameAR VARCHAR(50) NOT NULL,
-    PRIMARY KEY (PaymentMethodID)
+	ID int NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE units_value(
-	UnitValueID INT NOT NULL AUTO_INCREMENT,
-	UnitValueNameEN VARCHAR(50) NOT NULL,
-    UnitValueNameAR VARCHAR(50) NOT NULL,
-	UnitsValueShortCut VARCHAR(10) NOT NULL,
-    PRIMARY KEY (UnitValueID)
+	ID INT NOT NULL AUTO_INCREMENT,
+	NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50) NOT NULL,
+	Shortcut VARCHAR(10) NOT NULL,
+    PRIMARY KEY (ID)
 );
 -- grobe like asprin or else
 CREATE TABLE products_groub(
-	ProductGroubID INT NOT NULL AUTO_INCREMENT,
-	ProductGroubNameEN VARCHAR(50) NOT NULL,
-	ProductGroubNameAR VARCHAR(50) NOT NULL,
-    PRIMARY KEY (ProductGroubID)
+	ID INT NOT NULL AUTO_INCREMENT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE products_type(
-	ProductTypeID INT NOT NULL AUTO_INCREMENT,
-	ProductTypeNameEN VARCHAR(50) NOT NULL,
-	ProductTypeNameAR VARCHAR(50) NOT NULL,
-    PRIMARY KEY (ProductTypeID)
+	ID INT NOT NULL AUTO_INCREMENT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
 );
 
 
 CREATE TABLE emp_group(
-	EmpGroupID INT NOT NULL AUTO_INCREMENT,
-    EmpGroupNameEN VARCHAR(50) NOT NULL,
-    EmpGroupNameAR VARCHAR(50),
-    PRIMARY KEY (EmpGroupID)
+	ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50),
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE emp_permissions(
-	PermissionID INT NOT NULL AUTO_INCREMENT,
-    PermissionNameEN VARCHAR(50) NOT NULL,
-    PermissionNameAr VARCHAR(50),
-    PRIMARY KEY (PermissionID)
+	ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50),
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE emp_group_permissions(
 	EmpGroupID INT,
     PermissionID INT,
     PermissionState BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (EmpGroupID) REFERENCES emp_group(EmpGroupID),
-    FOREIGN KEY (PermissionID) REFERENCES emp_permissions(PermissionID)
+    FOREIGN KEY (EmpGroupID) REFERENCES emp_group(ID),
+    FOREIGN KEY (PermissionID) REFERENCES emp_permissions(ID)
 );
 
 CREATE TABLE emp_employees(
-	EmpID INT NOT NULL AUTO_INCREMENT,
+	ID INT NOT NULL AUTO_INCREMENT,
 	EmpGroupID INT,
     UserName VARCHAR(50) NOT NULL,
 	EmpNameEN VARCHAR(50),
     EmpNameAR VARCHAR(50),
 	DateOfBirh DATE,
     Pass_word VARCHAR(255) NOT NULL,
-    PRIMARY KEY (EmpID),
-    FOREIGN KEY (EmpGroupID) REFERENCES emp_group(EmpGroupID),
+    PRIMARY KEY (ID),
+    FOREIGN KEY (EmpGroupID) REFERENCES emp_group(ID),
     UNIQUE (UserName)
 );
 
 CREATE TABLE emp_email_addresses(
-    EmailID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
-    PRIMARY KEY(EmailID),
-    FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
+    PRIMARY KEY(ID),
+    FOREIGN KEY (UserID) REFERENCES emp_employees(ID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE emp_contact_numbers(
-    ContactID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
-    PRIMARY KEY(ContactID),
-    FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
-    FOREIGN KEY (CountryID) REFERENCES countries(CountryID),
-    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
+    PRIMARY KEY(ID),
+    FOREIGN KEY (UserID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (CountryID) REFERENCES countries(ID),
+    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
     UNIQUE (ContactNumber)
 );
 
 CREATE TABLE emp_bank_accounts(
-    BankID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
-    BankNameAR VARCHAR(100) NOT NULL,
-    BankNameEN VARCHAR(100) NOT NULL,
-    BankIban VARCHAR(24) NOT NULL,
-    FullNameOnwer VARCHAR(100) NOT NULL,
+    NameEn VARCHAR(100) NOT NULL,
+    NameAr VARCHAR(100) NOT NULL,
+    Iban VARCHAR(24) NOT NULL,
+    FullNameOwner VARCHAR(100) NOT NULL,
     ExpiryDate DATE NOT NULL,
-    PRIMARY KEY (BankID),
-    FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
-    UNIQUE (BankIban)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES emp_employees(ID),
+    UNIQUE (Iban)
 );
 
 CREATE TABLE emp_addresses(
-    AddressID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     CityID INT NOT NULL,
@@ -184,10 +184,10 @@ CREATE TABLE emp_addresses(
     Street VARCHAR (45) NOT NULL,
     ZipCode INT,
     Description VARCHAR (100) NOT NULL,
-    PRIMARY KEY (AddressID),
-    FOREIGN KEY (UserID) REFERENCES emp_employees(EmpID),
-    FOREIGN KEY (CountryID) REFERENCES Countries(CountryID),
-    FOREIGN KEY (CityID) REFERENCES cities(CityID)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (CountryID) REFERENCES Countries(ID),
+    FOREIGN KEY (CityID) REFERENCES cities(ID)
 );
 
 CREATE TABLE emp_fingerprints(
@@ -195,9 +195,9 @@ CREATE TABLE emp_fingerprints(
     HandID INT,
     FingerID INT,
     FingerPrint BLOB NOT NULL,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID),
-    FOREIGN KEY (HandID) REFERENCES hands(HandID),
-    FOREIGN KEY (FingerID) REFERENCES hand_fingers(FingerID)
+    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (HandID) REFERENCES hands(ID),
+    FOREIGN KEY (FingerID) REFERENCES hand_fingers(ID)
 );
 
 -- CREATE TABLE jop_titles(
@@ -218,73 +218,73 @@ CREATE TABLE emp_history_login(
 	EmpID INT NOT NULL,
     DateOfLoging DATETIME NOT NULL,
     SourceIP VARCHAR (24),
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID)
+    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID)
 );
 
 CREATE TABLE emp_history_commands(
 	EmpID INT NOT NULL,
     Command VARCHAR(100) NOT NULL,
     RunTime DATETIME,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID)
+    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID)
 );
 
 CREATE TABLE emp_attendance(
 	EmpID INT NOT NULL,
     DateOfAttending DATETIME,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID)
+    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID)
 );
 
 CREATE TABLE suppliers(
-	SupplierID INT NOT NULL AUTO_INCREMENT,
-	SupplierNameEN VARCHAR(50) NOT NULL,
-    SupplierNameAR VARCHAR(50),
-    SupplierVatNumber VARCHAR(24),
-    Discrption VARCHAR (600),
-    PRIMARY KEY (SupplierID)
+	ID INT NOT NULL AUTO_INCREMENT,
+	NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50),
+    VatNumber VARCHAR(24),
+    Description VARCHAR (600),
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE suppliers_email_addresses(
-    EmailID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
-    PRIMARY KEY(EmailID),
-    FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
+    PRIMARY KEY(ID),
+    FOREIGN KEY (UserID) REFERENCES suppliers(ID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE suppliers_contact_numbers(
-    ContactID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
-    PRIMARY KEY(ContactID),
-    FOREIGN KEY (CountryID) REFERENCES countries(CountryID),
-    FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
-    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
+    PRIMARY KEY(ID),
+    FOREIGN KEY (CountryID) REFERENCES countries(ID),
+    FOREIGN KEY (UserID) REFERENCES suppliers(ID),
+    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
     UNIQUE (ContactNumber)
 );
 
 CREATE TABLE suppliers_bank_accounts(
-    BankID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
-    BankNameAR VARCHAR(100),
-    BankNameEN VARCHAR(100),
-    BankIban VARCHAR(24),
+    NameEn VARCHAR(100),
+    NameAr VARCHAR(100),
+    Iban VARCHAR(24),
     FullNameOwner VARCHAR(100),
     ExpiryDate DATE,
-    PRIMARY KEY (BankID),
-    FOREIGN KEY (UserID) REFERENCES suppliers(SupplierID),
-    UNIQUE (BankIban)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES suppliers(ID),
+    UNIQUE (Iban)
 );
 
 CREATE TABLE products(
-	ProductID INT NOT NULL AUTO_INCREMENT,
+	ID INT NOT NULL AUTO_INCREMENT,
     SupplierID INT NOT NULL,
     ProductGroubID INT NOT NULL,
     ProductTypeID INT NOT NULL,
-	ProductNameEn VARCHAR(100) NOT NULL,
-    ProductNameAr VARCHAR(100),
+	NameEn VARCHAR(100) NOT NULL,
+    NameAr VARCHAR(100),
     CostPrice FLOAT NOT NULL,
     Price FLOAT NOT NULL,
     ProfitMargin FLOAT NOT NULL,
@@ -299,25 +299,26 @@ CREATE TABLE products(
     SKU CHAR(20),
     ISBN CHAR(20),
     Available BOOLEAN DEFAULT TRUE,
-    PRIMARY KEY (ProductID),
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
-    FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ProductGroubID),
-    FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ProductGroubID),
-	FOREIGN KEY (UnitValueID) REFERENCES units_value(UnitValueID),
-    FOREIGN KEY (CurrencyID) REFERENCES currencies(CurrencyID)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (SupplierID) REFERENCES suppliers(ID),
+    FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ID),
+    FOREIGN KEY (ProductTypeID) REFERENCES products_type(ID),
+	FOREIGN KEY (UnitValueID) REFERENCES units_value(ID),
+    FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 
 CREATE TABLE products_stock(
     ProductID INT,
-    Discrption VARCHAR (600),
+    Description VARCHAR (600),
 	Size INT NOT NULL,
     UnitValueID INT NOT NULL,
 	Quantity INT NOT NULL,
-	FOREIGN KEY (ProductID) REFERENCES products(ProductID)
+	FOREIGN KEY (ProductID) REFERENCES products(ID),
+	FOREIGN KEY (UnitValueID) REFERENCES units_value(ID)
 );
 
 CREATE TABLE invoices(
-	InvoiceID INT NOT NULL AUTO_INCREMENT,
+	ID INT NOT NULL AUTO_INCREMENT,
     InvoiceTypeID INT NOT NULL,
     PaymentMethodID INT NOT NULL,
     PaymentMechanismeID INT NOT NULL,
@@ -331,13 +332,13 @@ CREATE TABLE invoices(
     Remain FLOAT NOT NULL,
     CurrencyID INT,
     Barcode VARCHAR(255),
-    Discrption VARCHAR (600),
-    PRIMARY KEY (InvoiceID),
-    FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(InvoiceTypeID),
-    FOREIGN KEY (PaymentMethodID) REFERENCES payment_methods(PaymentMethodID),
-    FOREIGN KEY (PaymentMechanismeID) REFERENCES payment_mechanisms(PaymentMechanismeID),
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID),
-    FOREIGN KEY (CurrencyID) REFERENCES currencies(CurrencyID)
+    Description VARCHAR (600),
+    PRIMARY KEY (ID),
+    FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(ID),
+    FOREIGN KEY (PaymentMethodID) REFERENCES payment_methods(ID),
+    FOREIGN KEY (PaymentMechanismeID) REFERENCES payment_mechanisms(ID),
+    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 
 CREATE TABLE sales(
@@ -346,12 +347,13 @@ CREATE TABLE sales(
     ProductID INT,
     Price FLOAT NOT NULL,
     Size INT,
-    UnitsValueID INT,
+    UnitValueID INT,
     Quantity INT,
-    Discrption VARCHAR (600),
-    FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
-    FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ProductGroubID),
-    FOREIGN KEY (ProductID) REFERENCES products(ProductID)
+    Description VARCHAR (600),
+    FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
+    FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ID),
+    FOREIGN KEY (UnitValueID) REFERENCES units_value(ID),
+    FOREIGN KEY (ProductID) REFERENCES products(ID)
 );
 
 CREATE TABLE sales_returns(
@@ -359,10 +361,11 @@ CREATE TABLE sales_returns(
 	ProductID INT,
     Price FLOAT NOT NULL,
     Size INT,
-    UnitsValueID INT,
+    UnitValueID INT,
     Quantity INT,
-    FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
-    FOREIGN KEY (ProductID) REFERENCES products(ProductID)
+    FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
+    FOREIGN KEY (ProductID) REFERENCES products(ID),
+    FOREIGN KEY (UnitValueID) REFERENCES units_value(ID)
 );
 
 CREATE TABLE purchases(
@@ -371,14 +374,15 @@ CREATE TABLE purchases(
 	ProductID INT,
     Price FLOAT NOT NULL,
     Size INT,
-    UnitsValueID INT,
+    UnitValueID INT,
     Quantity INT,
-    Discrption VARCHAR (600),
+    Description VARCHAR (600),
     InvoiceSupplierID VARCHAR(100) NOT NULL,
     InvoiceSupplierDate DATE NOT NULL,
-    FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID),
-    FOREIGN KEY (ProductID) REFERENCES products(ProductID)
+    FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
+    FOREIGN KEY (SupplierID) REFERENCES suppliers(ID),
+    FOREIGN KEY (ProductID) REFERENCES products(ID),
+    FOREIGN KEY (UnitValueID) REFERENCES units_value(ID)
 );
 
 
@@ -388,85 +392,86 @@ CREATE TABLE purchases_returns(
 	ProductID INT,
     Price FLOAT NOT NULL,
     Size INT,
-    UnitsValueID INT,
+    UnitValueID INT,
     Quantity INT,
-    FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
-    FOREIGN KEY (ProductID) REFERENCES products(ProductID)
+    FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
+    FOREIGN KEY (ProductID) REFERENCES products(ID),
+    FOREIGN KEY (UnitValueID) REFERENCES units_value(ID)
 );
 
 CREATE TABLE suppliers_financial_history(
 	InvoiceID INT,
     SupplierID INT,
     InvoiceTypeID INT,
-    FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(InvoiceTypeID),
-    FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(SupplierID)
+    FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(ID),
+    FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
+    FOREIGN KEY (SupplierID) REFERENCES suppliers(ID)
 );
 
 CREATE TABLE products_history(
     ProductID INT,
     InvoiceID INT,
     InvoiceTypeID INT,
-	FOREIGN KEY (ProductID) REFERENCES products(ProductID),
-	FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
-	FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(InvoiceTypeID)
+	FOREIGN KEY (ProductID) REFERENCES products(ID),
+	FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
+	FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(ID)
 );
 
 
 CREATE TABLE customer_groups(
-	CustomerGroupID INT NOT NULL AUTO_INCREMENT,
-    CustomerGroupNameEN VARCHAR(50) NOT NULL,
-    CustomerGroupNameAR VARCHAR(50),
-    PRIMARY KEY (CustomerGroupID)
+	ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50),
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE customers(
-	CustomerID INT NOT NULL AUTO_INCREMENT,
+	ID INT NOT NULL AUTO_INCREMENT,
 	CustomerGroupID INT,
     UserName VARCHAR(50),
-	CustomerNameEN VARCHAR(50) NOT NULL,
-    CustomerNameAR VARCHAR(50),
+	NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50),
 	DateOfBirh DATE,
-    CustomerNationalNumber INT,
+    NationalNumber INT,
     Pass_word VARCHAR(255),
-    PRIMARY KEY (CustomerID),
-    FOREIGN KEY (CustomerGroupID) REFERENCES customer_groups(CustomerGroupID),
+    PRIMARY KEY (ID),
+    FOREIGN KEY (CustomerGroupID) REFERENCES customer_groups(ID),
     UNIQUE (UserName)
 );
 
 CREATE TABLE customer_email_addresses(
-    EmailID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
-    PRIMARY KEY(EmailID),
-    FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
+    PRIMARY KEY(ID),
+    FOREIGN KEY (UserID) REFERENCES customers(ID),
     UNIQUE (EmailAddress)
 );
 
 CREATE TABLE customer_contact_numbers(
-    ContactID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
-    PRIMARY KEY(ContactID),
-    FOREIGN KEY (countryID) REFERENCES countries(countryID),
-    FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
-    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ContactTypeID),
+    PRIMARY KEY(ID),
+    FOREIGN KEY (CountryID) REFERENCES countries(ID),
+    FOREIGN KEY (UserID) REFERENCES customers(ID),
+    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
     UNIQUE (ContactNumber)
 );
 
 CREATE TABLE customer_bank_accounts(
-    BankID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
-    BankNameAR VARCHAR(100) NOT NULL,
-    BankNameEN VARCHAR(100) NOT NULL,
-    BankIban VARCHAR(24) NOT NULL,
-    FullNameOnwer VARCHAR(100) NOT NULL,
+    NameEn VARCHAR(100) NOT NULL,
+    NameAr VARCHAR(100) NOT NULL,
+    Iban VARCHAR(24) NOT NULL,
+    FullNameOwner VARCHAR(100) NOT NULL,
     ExpiryDate DATE NOT NULL,
-    PRIMARY KEY (BankID),
-    FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
-    UNIQUE (BankIban)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES customers(ID),
+    UNIQUE (Iban)
 );
 
 CREATE TABLE customer_fingerprints(
@@ -474,13 +479,13 @@ CREATE TABLE customer_fingerprints(
     HandID INT,
     FingerID INT,
     FingerPrint BLOB NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
-    FOREIGN KEY (HandID) REFERENCES hands(HandID),
-    FOREIGN KEY (FingerID) REFERENCES hand_fingers(FingerID)
+    FOREIGN KEY (CustomerID) REFERENCES customers(ID),
+    FOREIGN KEY (HandID) REFERENCES hands(ID),
+    FOREIGN KEY (FingerID) REFERENCES hand_fingers(ID)
 );
 
 CREATE TABLE customer_Addresses(
-    AddressID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     CityID INT NOT NULL,
@@ -488,10 +493,10 @@ CREATE TABLE customer_Addresses(
     Street VARCHAR (45) NOT NULL,
     ZipCode INT,
     Description VARCHAR (100) NOT NULL,
-    PRIMARY KEY (AddressID),
-    FOREIGN KEY (UserID) REFERENCES customers(CustomerID),
-    FOREIGN KEY (CountryID) REFERENCES Countries(CountryID),
-    FOREIGN KEY (CityID) REFERENCES cities(CityID)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES customers(ID),
+    FOREIGN KEY (CountryID) REFERENCES Countries(ID),
+    FOREIGN KEY (CityID) REFERENCES cities(ID)
 );
 
 CREATE TABLE customer_wallet(
@@ -500,7 +505,7 @@ CREATE TABLE customer_wallet(
     Cash FLOAT,
     PointsTakenDate DATE NOT NULL,
     PointsExpiryDate DATE NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID),
+    FOREIGN KEY (CustomerID) REFERENCES customers(ID),
     UNIQUE (CustomerID)
 );
 
@@ -508,14 +513,14 @@ CREATE TABLE customer_financial_history(
 	InvoiceID INT,
     CustomerID INT,
     InvoiceTypeID INT,
-    FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(InvoiceTypeID),
-    FOREIGN KEY (InvoiceID) REFERENCES invoices(InvoiceID),
-    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID)
+    FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(ID),
+    FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
+    FOREIGN KEY (CustomerID) REFERENCES customers(ID)
 );
 
 CREATE TABLE customer_login_history(
     CustomerID INT,
     SourceIP VARCHAR (24),
     DateOfLoging DATE,
-    FOREIGN KEY (CustomerID) REFERENCES customers(CustomerID)
+    FOREIGN KEY (CustomerID) REFERENCES customers(ID)
 );

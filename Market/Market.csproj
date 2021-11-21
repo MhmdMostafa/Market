@@ -51,7 +51,7 @@
     <Reference Include="MaterialSkin, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.0\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.1.6.1\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -107,10 +107,22 @@
     <Compile Include="AddEdit\AddEditDefaultsForm.Designer.cs">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\AddEditSup.cs">
+    <Compile Include="Gridviews\For3TB.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\AddEditSup.Designer.cs">
+    <Compile Include="Gridviews\For3TB.Designer.cs">
+      <DependentUpon>For3TB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gridviews\For2TB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gridviews\For2TB.Designer.cs">
+      <DependentUpon>For2TB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main Add Forms\AddEditSup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main Add Forms\AddEditSup.Designer.cs">
       <DependentUpon>AddEditSup.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Class1.cs" />
@@ -167,7 +179,13 @@
     <EmbeddedResource Include="AddEdit\AddEditDefaultsForm.resx">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\AddEditSup.resx">
+    <EmbeddedResource Include="Gridviews\For3TB.resx">
+      <DependentUpon>For3TB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gridviews\For2TB.resx">
+      <DependentUpon>For2TB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Add Forms\AddEditSup.resx">
       <DependentUpon>AddEditSup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">

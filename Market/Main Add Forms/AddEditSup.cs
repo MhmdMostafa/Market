@@ -49,13 +49,13 @@ namespace Market
                 CancelBack.Visible = false;
                 NextEnd.Text = "Done";
                 Text = "Edit Supplaier Wizerd";
-                SQLquary = $"SELECT * FROM suppliers WHERE SupplierID = {SelectedID}";
+                SQLquary = $"SELECT * FROM suppliers WHERE ID = {SelectedID}";
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQLquary))
                 {
                     dr.Read();
-                    GNameEnTB.Text = dr.IsDBNull(suppliersCol["SupplierNameEN"]) ? "" : dr.GetString("SupplierNameEN");
-                    GNameArTB.Text = dr.IsDBNull(suppliersCol["SupplierNameAR"]) ? "" : dr.GetString("SupplierNameAR");
-                    GVatTB.Text = dr.IsDBNull(suppliersCol["SupplierVatNumber"]) ? "":dr.GetString("SupplierVatNumber") ;
+                    GNameEnTB.Text = dr.IsDBNull(suppliersCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                    GNameArTB.Text = dr.IsDBNull(suppliersCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                    GVatTB.Text = dr.IsDBNull(suppliersCol["VatNumber"]) ? "":dr.GetString("VatNumber") ;
                     GDiscRTB.Text = dr.IsDBNull(suppliersCol["Discrption"]) ? "" : dr.GetString("Discrption");
                 }
             }
@@ -82,13 +82,13 @@ namespace Market
             switch (TapsPage.SelectedTab.Text)
             {
                 case "General":
-                    SQL = $"SELECT * FROM suppliers WHERE SupplierID = {SelectedID}";
+                    SQL = $"SELECT * FROM suppliers WHERE ID = {SelectedID}";
                     using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
                     {
                         dr.Read();
-                        GNameEnTB.Text = dr.IsDBNull(suppliersCol["SupplierNameEN"]) ? "" : dr.GetString("SupplierNameEN");
-                        GNameArTB.Text = dr.IsDBNull(suppliersCol["SupplierNameAR"]) ? "" : dr.GetString("SupplierNameAR");
-                        GVatTB.Text = dr.IsDBNull(suppliersCol["SupplierVatNumber"]) ? "" : dr.GetString("SupplierVatNumber");
+                        GNameEnTB.Text = dr.IsDBNull(suppliersCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                        GNameArTB.Text = dr.IsDBNull(suppliersCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                        GVatTB.Text = dr.IsDBNull(suppliersCol["VatNumber"]) ? "" : dr.GetString("VatNumber");
                         GDiscRTB.Text = dr.IsDBNull(suppliersCol["Discrption"]) ? "" : dr.GetString("Discrption");
                     }
                     break;

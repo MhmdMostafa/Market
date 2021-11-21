@@ -39,8 +39,8 @@ namespace Market
             this.ContryCB = new System.Windows.Forms.ComboBox();
             this.label_1 = new System.Windows.Forms.Label();
             this.CityCB = new System.Windows.Forms.ComboBox();
-            this.GDiscRTB = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.DiscRTB = new System.Windows.Forms.RichTextBox();
+            this.ZipCodeTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -149,22 +149,22 @@ namespace Market
             this.CityCB.Size = new System.Drawing.Size(204, 32);
             this.CityCB.TabIndex = 51;
             // 
-            // GDiscRTB
+            // DiscRTB
             // 
-            this.GDiscRTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.GDiscRTB.Location = new System.Drawing.Point(14, 306);
-            this.GDiscRTB.Name = "GDiscRTB";
-            this.GDiscRTB.Size = new System.Drawing.Size(324, 113);
-            this.GDiscRTB.TabIndex = 52;
-            this.GDiscRTB.Text = "";
+            this.DiscRTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.DiscRTB.Location = new System.Drawing.Point(14, 306);
+            this.DiscRTB.Name = "DiscRTB";
+            this.DiscRTB.Size = new System.Drawing.Size(324, 113);
+            this.DiscRTB.TabIndex = 52;
+            this.DiscRTB.Text = "";
             // 
-            // textBox1
+            // ZipCodeTB
             // 
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.textBox1.Location = new System.Drawing.Point(134, 238);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(204, 32);
-            this.textBox1.TabIndex = 54;
+            this.ZipCodeTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.ZipCodeTB.Location = new System.Drawing.Point(134, 238);
+            this.ZipCodeTB.Name = "ZipCodeTB";
+            this.ZipCodeTB.Size = new System.Drawing.Size(204, 32);
+            this.ZipCodeTB.TabIndex = 54;
             // 
             // label1
             // 
@@ -181,9 +181,9 @@ namespace Market
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 435);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ZipCodeTB);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.GDiscRTB);
+            this.Controls.Add(this.DiscRTB);
             this.Controls.Add(this.CityCB);
             this.Controls.Add(this.ContryCB);
             this.Controls.Add(this.label_1);
@@ -212,8 +212,8 @@ namespace Market
         private System.Windows.Forms.ComboBox ContryCB;
         private System.Windows.Forms.Label label_1;
         private System.Windows.Forms.ComboBox CityCB;
-        private System.Windows.Forms.RichTextBox GDiscRTB;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RichTextBox DiscRTB;
+        private System.Windows.Forms.TextBox ZipCodeTB;
         private System.Windows.Forms.Label label1;
     }
 }
