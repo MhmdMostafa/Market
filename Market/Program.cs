@@ -21,7 +21,7 @@ namespace Market
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddEditAddress("edit", "emp_addresses", 1,1));
+            Application.Run(new CountryDGV("countries"));
         }
 
 

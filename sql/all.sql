@@ -10,10 +10,10 @@ CREATE TABLE continents(
 
 CREATE TABLE countries(
 	ID INT NOT NULL AUTO_INCREMENT,
-    ContinentID INT NOT NULL,
-    CallingCode VARCHAR (6) NOT NULL,
     NameEn VARCHAR(50) NOT NULL,
     NameAr VARCHAR(50) NOT NULL,
+    ContinentID INT NOT NULL,
+    CallingCode VARCHAR (6) NOT NULL,
     Shortcut VARCHAR (10) NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (ContinentID) REFERENCES Continents(ID),
@@ -58,7 +58,8 @@ CREATE TABLE currencies(
     NameEn VARCHAR(100) NOT NULL,
     NameAr VARCHAR(100) NOT NULL,
     Shortcut CHAR(6) NOT NULL,
-    PRIMARY KEY (ID)
+    PRIMARY KEY (ID),
+    UNIQUE(Shortcut)
 );
 
 CREATE TABLE invoice_type(
@@ -87,7 +88,8 @@ CREATE TABLE units_value(
 	NameEn VARCHAR(50) NOT NULL,
     NameAr VARCHAR(50) NOT NULL,
 	Shortcut VARCHAR(10) NOT NULL,
-    PRIMARY KEY (ID)
+    PRIMARY KEY (ID),
+    UNIQUE(Shortcut)
 );
 -- grobe like asprin or else
 CREATE TABLE products_groub(

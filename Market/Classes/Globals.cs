@@ -55,6 +55,24 @@ namespace Market
             return columns;
         }
 
+        public static List<int> GetSelectedValues(DataGridView table)
+        {
+            List<int> Values = new List<int>();
+            foreach (DataGridViewRow row in table.Rows)
+            {
+
+                DataGridViewCheckBoxCell checkBox = (row.Cells[0] as DataGridViewCheckBoxCell);
+                if (Convert.ToBoolean(checkBox.Value))
+                {
+                    DataGridViewTextBoxCell value = (row.Cells[1] as DataGridViewTextBoxCell);
+                    Values.Add(Convert.ToInt32(value.Value));
+                }
+            }
+
+            return Values;
+
+        }
+
         public static void Clean_SelectCbList(CheckedListBox Cbs, bool ched)
         {
             if (ched)
@@ -89,7 +107,56 @@ namespace Market
             return false;
         }
 
-        public static void DeleteValue(string table, string columnName, string value)
+        public static void Clean_SelectCbList(DataGridView Cbs, bool ched)
+        {
+            if (ched)
+                foreach (DataGridViewRow row in Cbs.Rows)
+                {
+                    DataGridViewCheckBoxCell checkBox = (row.Cells[0] as DataGridViewCheckBoxCell);
+                    checkBox.Value = true;
+                }
+            else
+                foreach (DataGridViewRow row in Cbs.Rows)
+                {
+                    DataGridViewCheckBoxCell checkBox = (row.Cells[0] as DataGridViewCheckBoxCell);
+                    checkBox.Value = false;
+                }
+        }
+
+        public static bool CoutCbList(DataGridView Cbs)
+        {
+            int count = 0;
+            foreach (DataGridViewRow row in Cbs.Rows)
+            {
+                DataGridViewCheckBoxCell checkBox = (row.Cells[0] as DataGridViewCheckBoxCell);
+                if (Convert.ToBoolean(checkBox.Value))
+                {
+                    count += 1;
+                }
+            }
+
+            if (count > 1)
+            {
+                MessageBox.Show("Please Select One value");
+                return false;
+            }
+            else if (count == 0)
+            {
+                MessageBox.Show("Please Select at least One value");
+                return false;
+            }
+
+            else if (count == 1)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+
+
+        public static void DeleteValue(string table, string columnName, object value)
         {
             string SQL = $@"DELETE FROM {table} WHERE {columnName} = @value;";
             Dictionary<string, object> myPara = new Dictionary<string, object>();
@@ -101,7 +168,9 @@ namespace Market
         {
             string SQL = $"SELECT * FROM {table} WHERE @{columnName} = @value";
             Dictionary<string, object> myPara = new Dictionary<string, object>();
-            myPara.Add($"@{columnName}", value);
+            myPara.Add($"@{columnName}", columnName);
+            myPara.Add($"@value", value);
+
             MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara);
             if (dr.Read())
                 return true;

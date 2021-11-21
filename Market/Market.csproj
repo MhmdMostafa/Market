@@ -51,7 +51,7 @@
     <Reference Include="MaterialSkin, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.0\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.1.6.1\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -107,17 +107,41 @@
     <Compile Include="AddEdit\AddEditDefaultsForm.Designer.cs">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gridviews\For3TB.cs">
+    <Compile Include="AddEdit\NameArEn_Shorcut\NamesWithShortcut.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gridviews\For3TB.Designer.cs">
+    <Compile Include="AddEdit\NameArEn_Shorcut\NamesWithShortcut.Designer.cs">
+      <DependentUpon>NamesWithShortcut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit\NamesArEn\OnlyNames.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEdit\NamesArEn\OnlyNames.Designer.cs">
+      <DependentUpon>OnlyNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit\NameArEn_Shorcut\For3TB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEdit\NameArEn_Shorcut\For3TB.Designer.cs">
       <DependentUpon>For3TB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gridviews\For2TB.cs">
+    <Compile Include="AddEdit\NamesArEn\For2TB.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Gridviews\For2TB.Designer.cs">
+    <Compile Include="AddEdit\NamesArEn\For2TB.Designer.cs">
       <DependentUpon>For2TB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit\CountryDGV\CountryDGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEdit\CountryDGV\CountryDGV.Designer.cs">
+      <DependentUpon>CountryDGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEdit\CountryDGV\WithCb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEdit\CountryDGV\WithCb.Designer.cs">
+      <DependentUpon>WithCb.cs</DependentUpon>
     </Compile>
     <Compile Include="Main Add Forms\AddEditSup.cs">
       <SubType>Form</SubType>
@@ -179,11 +203,23 @@
     <EmbeddedResource Include="AddEdit\AddEditDefaultsForm.resx">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Gridviews\For3TB.resx">
+    <EmbeddedResource Include="AddEdit\CountryDGV\WithCb.resx">
+      <DependentUpon>WithCb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEdit\NameArEn_Shorcut\NamesWithShortcut.resx">
+      <DependentUpon>NamesWithShortcut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEdit\NamesArEn\OnlyNames.resx">
+      <DependentUpon>OnlyNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEdit\NameArEn_Shorcut\For3TB.resx">
       <DependentUpon>For3TB.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Gridviews\For2TB.resx">
+    <EmbeddedResource Include="AddEdit\NamesArEn\For2TB.resx">
       <DependentUpon>For2TB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEdit\CountryDGV\CountryDGV.resx">
+      <DependentUpon>CountryDGV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main Add Forms\AddEditSup.resx">
       <DependentUpon>AddEditSup.cs</DependentUpon>
@@ -238,6 +274,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Gridviews\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
