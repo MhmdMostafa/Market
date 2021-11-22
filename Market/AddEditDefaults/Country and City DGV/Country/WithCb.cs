@@ -15,11 +15,6 @@ namespace Market
         public static int ID;
         public static string SQLtable;
         public static string command;
-        public static string tempEn;
-        public static string tempAr;
-        public static string tempContinentID;
-        public static string tempCallingCode;
-        public static string tempShortcut;
         Dictionary<string, int> tableCol = new Dictionary<string, int>();
         Dictionary<string, int> ContinentCol = new Dictionary<string, int>();
         public WithCb()
@@ -57,11 +52,6 @@ namespace Market
                     CallingCodeTB.Text = dr.IsDBNull(tableCol["CallingCode"]) ? "" : dr.GetString("CallingCode");
                     ShortcutTB.Text = dr.IsDBNull(tableCol["Shortcut"]) ? "" : dr.GetString("Shortcut");
 
-                    tempContinentID = Globals.RmSpace(ContinentCB.Text);
-                    tempEn = Globals.RmSpace(NameEnTB.Text);
-                    tempAr = Globals.RmSpace(NameArTB.Text);
-                    tempShortcut = Globals.RmSpace(ShortcutTB.Text);
-                    tempCallingCode = Globals.RmSpace(CallingCodeTB.Text);
                 }
             }
         }
@@ -87,7 +77,7 @@ namespace Market
             }
             else
             {
-                if ((!Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text)) && tempEn == NameEnTB.Text) || (!Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)) && tempAr == NameArTB.Text) || (!Globals.ifExist(SQLtable, "CallingCode", Globals.RmSpace(CallingCodeTB.Text)) && tempCallingCode == CallingCodeTB.Text) || (!Globals.ifExist(SQLtable, "Shortcut", Globals.RmSpace(ShortcutTB.Text)) && tempShortcut == ShortcutTB.Text))
+                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text), ID) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text), ID) || Globals.ifExist(SQLtable, "CallingCode", Globals.RmSpace(CallingCodeTB.Text), ID) || Globals.ifExist(SQLtable, "Shortcut", Globals.RmSpace(ShortcutTB.Text), ID))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -105,6 +95,22 @@ namespace Market
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");
             this.Close();
+        }
+
+        private void CallingCodeTB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsControl(e.KeyChar))
+                return;
+
+            if ((!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)))
+            {
+                e.Handled = true;
+            }
+            if (CallingCodeTB.Text.Length == 2)
+            {
+                CallingCodeTB.Text += "/";
+                CallingCodeTB.SelectionStart = CallingCodeTB.Text.Length;
+            }
         }
     }
 }

@@ -10,32 +10,36 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace Market
 {
-
-    public partial class NamesWithShortcut : MaterialSkin.Controls.MaterialForm
+    public partial class TwoTbWithCb : MaterialSkin.Controls.MaterialForm
     {
         public static int ID;
         public static string SQLtable;
         public static string command;
-        public static string tempEn;
-        public static string tempAr;
-        public static string tempShortcut;
         Dictionary<string, int> tableCol = new Dictionary<string, int>();
-
-        public NamesWithShortcut()
+        Dictionary<string, int> CountryCol = new Dictionary<string, int>();
+        public TwoTbWithCb()
         {
             InitializeComponent();
         }
 
-        public NamesWithShortcut(string conf, string table, int SelectedId = 0)
+        public TwoTbWithCb(string conf, string table, int SelectedId = 0)
         {
             InitializeComponent();
             ID = SelectedId;
             SQLtable = table;
             command = conf;
             string SQL;
+            CountryCol = Globals.GetColumnsIndex("countries");
+            tableCol = Globals.GetColumnsIndex(table);
+
             Text = $"{command.ToUpper()} Wizerd";
             AddEditBT.Text = command.ToUpper();
-            tableCol = Globals.GetColumnsIndex(table);
+
+            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
+                while (dr.Read())
+                {
+                    CountryCB.Items.Add(dr.IsDBNull(CountryCol["NameEn"]) ? "" : dr.GetString("NameEn"));
+                }
             if (command == "edit")
             {
                 SQL = $@"SELECT * FROM {SQLtable} WHERE ID={ID}";
@@ -44,10 +48,8 @@ namespace Market
                     dr.Read();
                     NameEnTB.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
                     NameArTB.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
-                    ShortcutTB.Text = dr.IsDBNull(tableCol["Shortcut"]) ? "" : dr.GetString("Shortcut");
-                    tempEn = Globals.RmSpace(NameEnTB.Text);
-                    tempAr = Globals.RmSpace(NameArTB.Text);
-                    tempShortcut = Globals.RmSpace(ShortcutTB.Text);
+                    CountryCB.SelectedIndex = dr.IsDBNull(tableCol["CountryID"]) ? 0 : int.Parse(dr.GetString("CountryID")) - 1;
+
                 }
             }
         }
@@ -56,36 +58,36 @@ namespace Market
         {
             string SQL;
             Dictionary<string, object> myPara = new Dictionary<string, object>();
-            if (NameEnTB.Text == "" || NameArTB.Text == "" || ShortcutTB.Text == "")
+            if (NameEnTB.Text == "" || NameArTB.Text == "")
             {
                 MessageBox.Show("Please fill all the Feilds");
                 return;
             }
             if (command == "add")
             {
-                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text)) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)) || Globals.ifExist(SQLtable, "Shortcut", Globals.RmSpace(ShortcutTB.Text)))
+                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text)) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
                 }
-                SQL = $@"INSERT INTO {SQLtable} (NameEn, NameAr, Shortcut) VALUES(@NameEn, @NameAr, @Shortcut);";
+                SQL = $@"INSERT INTO {SQLtable} (NameEn, NameAr, CountryID) VALUES(@NameEn, @NameAr, @CountryID);";
 
             }
             else
             {
-                if ((!Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text)) && tempEn == NameEnTB.Text) || (!Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)) && tempAr == NameArTB.Text) || (!Globals.ifExist(SQLtable, "Shortcut", Globals.RmSpace(ShortcutTB.Text)) && tempShortcut == ShortcutTB.Text))
+                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text), ID) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text),ID))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
                 }
-                SQL = $@"UPDATE {SQLtable} SET NameEn=@NameEn, NameAr=@NameAr, Shortcut=@Shortcut WHERE ID=@ID;";
+                SQL = $@"UPDATE {SQLtable} SET NameEn=@NameEn, NameAr=@NameAr, CountryID=@CountryID WHERE ID=@ID;";
                 myPara.Add("@ID", ID);
 
             }
 
             myPara.Add("@NameEn", Globals.RmSpace(NameEnTB.Text));
             myPara.Add("@NameAr", Globals.RmSpace(NameArTB.Text));
-            myPara.Add("@Shortcut", Globals.RmSpace(ShortcutTB.Text));
+            myPara.Add("@CountryID", Globals.GetID("ID", "countries", "NameEn", CountryCB.Text));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");
             this.Close();

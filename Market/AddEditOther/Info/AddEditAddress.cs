@@ -15,7 +15,7 @@ namespace Market
 
         public string SQLtable;
         public int UserID;
-        public int AddressID;
+        public int ID;
         public string command;
         public Dictionary<string, int> CountryCol = new Dictionary<string, int>();
         public Dictionary<string, int> CityCol = new Dictionary<string, int>();
@@ -30,7 +30,7 @@ namespace Market
             InitializeComponent();
 
             UserID= selectedUser;
-            AddressID= selectedAddr;
+            ID= selectedAddr;
             command = cmd;
 
             SQLtable = table;
@@ -43,19 +43,19 @@ namespace Market
             using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
                 while (dr.Read())
                 {
-                    ContryCB.Items.Add(dr.IsDBNull(CountryCol["CountryNameEN"]) ? "" : dr.GetString("CountryNameEN"));
+                    ContryCB.Items.Add(dr.IsDBNull(CountryCol["NameEN"]) ? "" : dr.GetString("NameEN"));
                 }
             using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM cities;"))
                 while (dr.Read())
                 {
-                    CityCB.Items.Add(dr.IsDBNull(CityCol["CityNameEN"]) ? "" : dr.GetString("CityNameEN"));
+                    CityCB.Items.Add(dr.IsDBNull(CityCol["NameEN"]) ? "" : dr.GetString("NameEN"));
                 }
 
             if (command == "edit")
             {
-                string SQL = $@"SELECT * FROM {table} WHERE AddressID = @AddressID;";
+                string SQL = $@"SELECT * FROM {table} WHERE ID = @ID;";
                 Dictionary<string, object> myPara = new Dictionary<string, object>();
-                myPara.Add("@AddressID", AddressID);
+                myPara.Add("@ID", ID);
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
@@ -83,8 +83,8 @@ namespace Market
 
             if (command == "edit")
             {
-                SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, CityID= @CityID, District= @District, Street= @Street, ZipCode= @ZipCode, Description= @Description WHERE AddressID = @AddressID";
-                myPara.Add("@AddressID", AddressID);
+                SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, CityID= @CityID, District= @District, Street= @Street, ZipCode= @ZipCode, Description= @Description WHERE AddressID = @ID";
+                myPara.Add("@ID", ID);
             }
             else if (command == "add")
             {

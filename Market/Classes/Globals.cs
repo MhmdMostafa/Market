@@ -171,11 +171,30 @@ namespace Market
             myPara.Add($"@{columnName}", columnName);
             myPara.Add($"@value", value);
 
-            MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara);
-            if (dr.Read())
-                return true;
-            else
-                return false;
+            bool flag;
+            using (MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara))
+                if (dr.HasRows)
+                    flag = true;
+                else
+                    flag = false;
+
+            return flag;
+        }
+        public static bool ifExist(string table, string columnName, string value, int ID)
+        {
+            string SQL = $@"SELECT * FROM {table} WHERE {columnName} = @value and ID!=@ID";
+            Dictionary<string, object> myPara = new Dictionary<string, object>();
+            Dictionary<string, int> tableCol = GetColumnsIndex(table);
+            myPara.Add($"@value", value);
+            myPara.Add($"@ID", ID);
+            bool flag;
+            using (MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara))
+                if (dr.HasRows)
+
+                    flag = true;
+                else
+                    flag = false;
+            return flag;
         }
 
     }

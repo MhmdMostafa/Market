@@ -51,7 +51,7 @@
     <Reference Include="MaterialSkin, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.0\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.1.6.1\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -71,83 +71,95 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddEdit\AddContact.cs">
+    <Compile Include="AddEditOther\Info\AddContact.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\AddContact.Designer.cs">
+    <Compile Include="AddEditOther\Info\AddContact.Designer.cs">
       <DependentUpon>AddContact.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\AddEditAddress.cs">
+    <Compile Include="AddEditOther\Info\AddEditAddress.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\AddEditAddress.Designer.cs">
+    <Compile Include="AddEditOther\Info\AddEditAddress.Designer.cs">
       <DependentUpon>AddEditAddress.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\AddEditBank.cs">
+    <Compile Include="AddEditOther\Info\AddEditBank.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\AddEditBank.Designer.cs">
+    <Compile Include="AddEditOther\Info\AddEditBank.Designer.cs">
       <DependentUpon>AddEditBank.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\AddEditcu.cs">
+    <Compile Include="AddEditOther\Customers\MainCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\AddEditcu.Designer.cs">
-      <DependentUpon>AddEditcu.cs</DependentUpon>
+    <Compile Include="AddEditOther\Customers\MainCustomer.Designer.cs">
+      <DependentUpon>MainCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\AddEemail.cs">
+    <Compile Include="AddEditOther\Info\AddEemail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\AddEemail.Designer.cs">
+    <Compile Include="AddEditOther\Info\AddEemail.Designer.cs">
       <DependentUpon>AddEemail.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\AddEditDefaultsForm.cs">
+    <Compile Include="Trash\AddEditDefaultsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\AddEditDefaultsForm.Designer.cs">
+    <Compile Include="Trash\AddEditDefaultsForm.Designer.cs">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\NameArEn_Shorcut\NamesWithShortcut.cs">
+    <Compile Include="AddEditDefaults\Country and City DGV\City\CityDGV.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\NameArEn_Shorcut\NamesWithShortcut.Designer.cs">
+    <Compile Include="AddEditDefaults\Country and City DGV\City\CityDGV.Designer.cs">
+      <DependentUpon>CityDGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditDefaults\Country and City DGV\City\TwoTbWithCb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditDefaults\Country and City DGV\City\TwoTbWithCb.Designer.cs">
+      <DependentUpon>TwoTbWithCb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditDefaults\Defaults\NameArEn_Shorcut\NamesWithShortcut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditDefaults\Defaults\NameArEn_Shorcut\NamesWithShortcut.Designer.cs">
       <DependentUpon>NamesWithShortcut.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\NamesArEn\OnlyNames.cs">
+    <Compile Include="AddEditDefaults\Defaults\NamesArEn\OnlyNames.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\NamesArEn\OnlyNames.Designer.cs">
+    <Compile Include="AddEditDefaults\Defaults\NamesArEn\OnlyNames.Designer.cs">
       <DependentUpon>OnlyNames.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\NameArEn_Shorcut\For3TB.cs">
+    <Compile Include="AddEditDefaults\Defaults\NameArEn_Shorcut\DefaultsDGV1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\NameArEn_Shorcut\For3TB.Designer.cs">
-      <DependentUpon>For3TB.cs</DependentUpon>
+    <Compile Include="AddEditDefaults\Defaults\NameArEn_Shorcut\DefaultsDGV1.Designer.cs">
+      <DependentUpon>DefaultsDGV1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\NamesArEn\For2TB.cs">
+    <Compile Include="AddEditDefaults\Defaults\NamesArEn\DefaultsDGV2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\NamesArEn\For2TB.Designer.cs">
-      <DependentUpon>For2TB.cs</DependentUpon>
+    <Compile Include="AddEditDefaults\Defaults\NamesArEn\DefaultsDGV2.Designer.cs">
+      <DependentUpon>DefaultsDGV2.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\CountryDGV\CountryDGV.cs">
+    <Compile Include="AddEditDefaults\Country and City DGV\Country\CountryDGV.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\CountryDGV\CountryDGV.Designer.cs">
+    <Compile Include="AddEditDefaults\Country and City DGV\Country\CountryDGV.Designer.cs">
       <DependentUpon>CountryDGV.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEdit\CountryDGV\WithCb.cs">
+    <Compile Include="AddEditDefaults\Country and City DGV\Country\WithCb.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEdit\CountryDGV\WithCb.Designer.cs">
+    <Compile Include="AddEditDefaults\Country and City DGV\Country\WithCb.Designer.cs">
       <DependentUpon>WithCb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main Add Forms\AddEditSup.cs">
+    <Compile Include="AddEditOther\Suppliers\MainSupplier.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main Add Forms\AddEditSup.Designer.cs">
-      <DependentUpon>AddEditSup.cs</DependentUpon>
+    <Compile Include="AddEditOther\Suppliers\MainSupplier.Designer.cs">
+      <DependentUpon>MainSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Class1.cs" />
     <Compile Include="Classes\Globals.cs" />
@@ -185,44 +197,50 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\qr.cs" />
-    <EmbeddedResource Include="AddEdit\AddContact.resx">
+    <EmbeddedResource Include="AddEditOther\Info\AddContact.resx">
       <DependentUpon>AddContact.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\AddEditAddress.resx">
+    <EmbeddedResource Include="AddEditOther\Info\AddEditAddress.resx">
       <DependentUpon>AddEditAddress.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\AddEditBank.resx">
+    <EmbeddedResource Include="AddEditOther\Info\AddEditBank.resx">
       <DependentUpon>AddEditBank.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\AddEditcu.resx">
-      <DependentUpon>AddEditcu.cs</DependentUpon>
+    <EmbeddedResource Include="AddEditOther\Customers\MainCustomer.resx">
+      <DependentUpon>MainCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\AddEemail.resx">
+    <EmbeddedResource Include="AddEditOther\Info\AddEemail.resx">
       <DependentUpon>AddEemail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\AddEditDefaultsForm.resx">
+    <EmbeddedResource Include="Trash\AddEditDefaultsForm.resx">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\CountryDGV\WithCb.resx">
+    <EmbeddedResource Include="AddEditDefaults\Country and City DGV\City\CityDGV.resx">
+      <DependentUpon>CityDGV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditDefaults\Country and City DGV\City\TwoTbWithCb.resx">
+      <DependentUpon>TwoTbWithCb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditDefaults\Country and City DGV\Country\WithCb.resx">
       <DependentUpon>WithCb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\NameArEn_Shorcut\NamesWithShortcut.resx">
+    <EmbeddedResource Include="AddEditDefaults\Defaults\NameArEn_Shorcut\NamesWithShortcut.resx">
       <DependentUpon>NamesWithShortcut.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\NamesArEn\OnlyNames.resx">
+    <EmbeddedResource Include="AddEditDefaults\Defaults\NamesArEn\OnlyNames.resx">
       <DependentUpon>OnlyNames.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\NameArEn_Shorcut\For3TB.resx">
-      <DependentUpon>For3TB.cs</DependentUpon>
+    <EmbeddedResource Include="AddEditDefaults\Defaults\NameArEn_Shorcut\DefaultsDGV1.resx">
+      <DependentUpon>DefaultsDGV1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\NamesArEn\For2TB.resx">
-      <DependentUpon>For2TB.cs</DependentUpon>
+    <EmbeddedResource Include="AddEditDefaults\Defaults\NamesArEn\DefaultsDGV2.resx">
+      <DependentUpon>DefaultsDGV2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEdit\CountryDGV\CountryDGV.resx">
+    <EmbeddedResource Include="AddEditDefaults\Country and City DGV\Country\CountryDGV.resx">
       <DependentUpon>CountryDGV.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main Add Forms\AddEditSup.resx">
-      <DependentUpon>AddEditSup.cs</DependentUpon>
+    <EmbeddedResource Include="AddEditOther\Suppliers\MainSupplier.resx">
+      <DependentUpon>MainSupplier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -275,7 +293,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AddEditOther\Emp\" />
     <Folder Include="Gridviews\" />
+    <Folder Include="Main Add Forms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

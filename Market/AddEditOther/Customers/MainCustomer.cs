@@ -28,12 +28,12 @@ namespace Market
         public AddEditcu(string conf, int id = 0)
         {
             InitializeComponent();
+            command = conf;
+            SelctedID = id;
             suppliersCol = Globals.GetColumnsIndex("suppliers");
             suppliersEmailAddressesCol = Globals.GetColumnsIndex("Suppliers_email_addresses");
             suppliersContactNumbersCol = Globals.GetColumnsIndex("Suppliers_contact_numbers");
             suppliersBankAccountsCol = Globals.GetColumnsIndex("Suppliers_bank_accounts");
-            SelctedID = id;
-            command = conf;
             string SQLquary;
 
 
@@ -65,6 +65,36 @@ namespace Market
 
         }
 
+        private void refreshTap()
+        {
+            string SQLquary;
+            switch (TapsPage.SelectedTab.Text)
+            {
+                case "General":
+                    SQLquary = $"SELECT * FROM suppliers WHERE SupplierID = {SelctedID}";
+                    using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQLquary))
+                    {
+                        dr.Read();
+                        GNameEnTB.Text = dr.IsDBNull(suppliersCol["SupplierNameEN"]) ? "" : dr.GetString("SupplierNameEN");
+                        GNameArTB.Text = dr.IsDBNull(suppliersCol["SupplierNameAR"]) ? "" : dr.GetString("SupplierNameAR");
+                        GVatTB.Text = dr.IsDBNull(suppliersCol["SupplierVatNumber"]) ? "" : dr.GetString("SupplierVatNumber");
+                        GDiscRTB.Text = dr.IsDBNull(suppliersCol["Discrption"]) ? "" : dr.GetString("Discrption");
+                    }
+                    break;
+                case "Emails":
+
+                    break;
+                case "Address":
+
+                    break;
+                case "Contacts":
+
+                    break;
+                case "Bank Acconts":
+
+                    break;
+            }
+        }
         private void TabsPage_SelectedIndexChanged(Object sender, EventArgs e)
         {
             string SQL;

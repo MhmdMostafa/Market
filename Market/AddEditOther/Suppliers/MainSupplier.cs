@@ -28,18 +28,17 @@ namespace Market
         public AddEditSup(string conf, int id = 0)
         {
             InitializeComponent();
+            command = conf;
+            SelectedID = id;
             suppliersCol = Globals.GetColumnsIndex("suppliers");
             suppliersEmailAddressesCol = Globals.GetColumnsIndex("Suppliers_email_addresses");
             suppliersContactNumbersCol = Globals.GetColumnsIndex("Suppliers_contact_numbers");
             suppliersBankAccountsCol = Globals.GetColumnsIndex("Suppliers_bank_accounts");
-            SelectedID = id;
-            command = conf;
-            string SQLquary;
-
 
             
             ContactDGV.AutoGenerateColumns = false;
             BankDGV.AutoGenerateColumns = false;
+
             if (conf == "add")
             {
                 Text = "Add new Supplaier Wizerd";
@@ -49,18 +48,9 @@ namespace Market
                 CancelBack.Visible = false;
                 NextEnd.Text = "Done";
                 Text = "Edit Supplaier Wizerd";
-                SQLquary = $"SELECT * FROM suppliers WHERE ID = {SelectedID}";
-                using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQLquary))
-                {
-                    dr.Read();
-                    GNameEnTB.Text = dr.IsDBNull(suppliersCol["NameEn"]) ? "" : dr.GetString("NameEn");
-                    GNameArTB.Text = dr.IsDBNull(suppliersCol["NameAr"]) ? "" : dr.GetString("NameAr");
-                    GVatTB.Text = dr.IsDBNull(suppliersCol["VatNumber"]) ? "":dr.GetString("VatNumber") ;
-                    GDiscRTB.Text = dr.IsDBNull(suppliersCol["Discrption"]) ? "" : dr.GetString("Discrption");
-                }
             }
 
-            
+            refreshTap();
 
         }
 
@@ -92,22 +82,22 @@ namespace Market
                         GDiscRTB.Text = dr.IsDBNull(suppliersCol["Discrption"]) ? "" : dr.GetString("Discrption");
                     }
                     break;
+
                 case "Emails":
                     cleanCB(EmailsCBL);
                     using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM suppliers_email_addresses WHERE UserID = {SelectedID}"))
-                    {
                         while (dr.Read())
-                        {
                             EmailsCBL.Items.Add(dr.GetString("EmailAddress"));
-                        }
-                    }
                     break;
+
                 case "Contact":
-                    SQL = $"SELECT ContactID, ContactNumber, countries.Shortcut, contact_type.ContactNameEN FROM suppliers_contact_numbers INNER JOIN countries ON suppliers_contact_numbers.CountryID=countries.CountryID INNER JOIN contact_type ON suppliers_contact_numbers.ContactTypeID=contact_type.ContactTypeID WHERE UserID = {SelectedID};";
+                    SQL = $"SELECT ID, ContactNumber, countries.Shortcut, contact_type.NameEN as ContactType FROM suppliers_contact_numbers INNER JOIN countries ON suppliers_contact_numbers.CountryID=countries.CountryID INNER JOIN contact_type ON suppliers_contact_numbers.ContactTypeID=contact_type.ContactTypeID WHERE UserID = {SelectedID};";
                     ContactDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     break;
+
                 case "Bank Acconts":
-                    BankDGV.Rows.Clear();
+                    SQL = $"SELECT ID, NameEn, NameAr, Iban, FullNameOwner, ExpiryDate FROM suppliers_bank_accounts WHERE UserID = {SelectedID};";
+                    ContactDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     break;
             }
         }
@@ -116,7 +106,14 @@ namespace Market
 
         private void NextEnd_Click(object sender, EventArgs e)
         {
-
+            if (NextEnd.Text == "Done")
+            {
+                //update General info
+            }
+            else
+            {
+                //new supplier
+            }
         }
 
         private void EditEmailB_Click(object sender, EventArgs e)
