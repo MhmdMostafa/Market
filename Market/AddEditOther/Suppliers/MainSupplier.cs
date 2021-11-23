@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace Market
 {
-    public partial class AddEditSup : MaterialSkin.Controls.MaterialForm
+    public partial class MainSupplier : MaterialSkin.Controls.MaterialForm
     {
         
         public string command;
@@ -20,12 +20,12 @@ namespace Market
         public Dictionary<string, int> suppliersEmailAddressesCol = new Dictionary<string, int>();
         public Dictionary<string, int> suppliersContactNumbersCol = new Dictionary<string, int>();
         public Dictionary<string, int> suppliersBankAccountsCol = new Dictionary<string, int>();
-        public AddEditSup()
+        public MainSupplier()
         {
             InitializeComponent();
         }
 
-        public AddEditSup(string conf, int id = 0)
+        public MainSupplier(string conf, int id = 0)
         {
             InitializeComponent();
             command = conf;
@@ -79,7 +79,7 @@ namespace Market
                         GNameEnTB.Text = dr.IsDBNull(suppliersCol["NameEn"]) ? "" : dr.GetString("NameEn");
                         GNameArTB.Text = dr.IsDBNull(suppliersCol["NameAr"]) ? "" : dr.GetString("NameAr");
                         GVatTB.Text = dr.IsDBNull(suppliersCol["VatNumber"]) ? "" : dr.GetString("VatNumber");
-                        GDiscRTB.Text = dr.IsDBNull(suppliersCol["Discrption"]) ? "" : dr.GetString("Discrption");
+                        GDiscRTB.Text = dr.IsDBNull(suppliersCol["Description"]) ? "" : dr.GetString("Description");
                     }
                     break;
 
@@ -91,7 +91,7 @@ namespace Market
                     break;
 
                 case "Contact":
-                    SQL = $"SELECT ID, ContactNumber, countries.Shortcut, contact_type.NameEN as ContactType FROM suppliers_contact_numbers INNER JOIN countries ON suppliers_contact_numbers.CountryID=countries.CountryID INNER JOIN contact_type ON suppliers_contact_numbers.ContactTypeID=contact_type.ContactTypeID WHERE UserID = {SelectedID};";
+                    SQL = $"SELECT suppliers_contact_numbers.ID, ContactNumber, countries.Shortcut, contact_type.NameEn as ContactType FROM suppliers_contact_numbers INNER JOIN countries ON suppliers_contact_numbers.CountryID=countries.ID INNER JOIN contact_type ON suppliers_contact_numbers.ContactTypeID=contact_type.ID WHERE UserID ={SelectedID};";
                     ContactDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     break;
 
@@ -169,6 +169,58 @@ namespace Market
                
                     
             }
+        }
+
+        private void AddContactB_Click(object sender, EventArgs e)
+        {
+            AddContact window = new AddContact("add", "suppliers_contact_numbers", SelectedID);
+            window.ShowDialog();
+            refreshTap();
+        }
+
+        private void EditContactB_Click(object sender, EventArgs e)
+        {
+            List<int> selectedValues = Globals.GetSelectedValues(ContactDGV);
+            if (selectedValues.Count > 1)
+            {
+                MessageBox.Show("Please Select one value to edit");
+                return;
+            }
+            else if (selectedValues.Count == 0)
+            {
+                MessageBox.Show("Please Select one value to edit");
+                return;
+            }
+
+            AddContact window = new AddContact("edit", "suppliers_contact_numbers", SelectedID,selectedValues[0]);
+            window.ShowDialog();
+            refreshTap();
+        }
+
+        private void DeleteContactB_Click(object sender, EventArgs e)
+        {
+            List<int> selectedValues = Globals.GetSelectedValues(ContactDGV);
+            if (selectedValues.Count == 0)
+            {
+                MessageBox.Show("Please Select one value to Delete");
+                return;
+            }
+
+            foreach (int value in selectedValues)
+            {
+                Globals.DeleteValue("suppliers_contact_numbers", "ID", value);
+            }
+
+            MessageBox.Show("Done!!");
+            refreshTap();
+        }
+
+        private void ContactAllCb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ContactAllCb.Checked)
+                Globals.Clean_SelectCbList(ContactDGV, true);
+            else
+                Globals.Clean_SelectCbList(ContactDGV, false);
         }
     }
 }

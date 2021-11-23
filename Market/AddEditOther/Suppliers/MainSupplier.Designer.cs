@@ -1,7 +1,7 @@
 ﻿
 namespace Market
 {
-    partial class AddEditSup
+    partial class MainSupplier
     {
         /// <summary>
         /// Required designer variable.
@@ -48,17 +48,19 @@ namespace Market
             this.DeleteEmailB = new System.Windows.Forms.Button();
             this.AddEmailB = new System.Windows.Forms.Button();
             this.ContactTP = new System.Windows.Forms.TabPage();
-            this.CallCheckAllCb = new System.Windows.Forms.CheckBox();
+            this.ContactAllCb = new System.Windows.Forms.CheckBox();
             this.ContactDGV = new System.Windows.Forms.DataGridView();
+            this.CallCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CallIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contactNoGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CallCountryGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ContactTypeGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EditContactB = new System.Windows.Forms.Button();
             this.DeleteContactB = new System.Windows.Forms.Button();
             this.AddContactB = new System.Windows.Forms.Button();
             this.BankTP = new System.Windows.Forms.TabPage();
             this.BnCheckAllCb = new System.Windows.Forms.CheckBox();
             this.BankDGV = new System.Windows.Forms.DataGridView();
-            this.EditBankB = new System.Windows.Forms.Button();
-            this.DeleteBankB = new System.Windows.Forms.Button();
-            this.AddBankB = new System.Windows.Forms.Button();
             this.BnCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.BnIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnFullNameGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,11 +68,9 @@ namespace Market
             this.BnExpiryDateGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnNameEnGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnNameArGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CallCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CallIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contactNoGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CallCountryGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContactTypeGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EditBankB = new System.Windows.Forms.Button();
+            this.DeleteBankB = new System.Windows.Forms.Button();
+            this.AddBankB = new System.Windows.Forms.Button();
             this.TapsPage.SuspendLayout();
             this.GenralTP.SuspendLayout();
             this.EmailTP.SuspendLayout();
@@ -291,7 +291,7 @@ namespace Market
             // 
             // ContactTP
             // 
-            this.ContactTP.Controls.Add(this.CallCheckAllCb);
+            this.ContactTP.Controls.Add(this.ContactAllCb);
             this.ContactTP.Controls.Add(this.ContactDGV);
             this.ContactTP.Controls.Add(this.EditContactB);
             this.ContactTP.Controls.Add(this.DeleteContactB);
@@ -304,17 +304,20 @@ namespace Market
             this.ContactTP.Text = "Contact";
             this.ContactTP.UseVisualStyleBackColor = true;
             // 
-            // CallCheckAllCb
+            // ContactAllCb
             // 
-            this.CallCheckAllCb.AutoSize = true;
-            this.CallCheckAllCb.Location = new System.Drawing.Point(50, 16);
-            this.CallCheckAllCb.Name = "CallCheckAllCb";
-            this.CallCheckAllCb.Size = new System.Drawing.Size(15, 14);
-            this.CallCheckAllCb.TabIndex = 16;
-            this.CallCheckAllCb.UseVisualStyleBackColor = true;
+            this.ContactAllCb.AutoSize = true;
+            this.ContactAllCb.Location = new System.Drawing.Point(50, 16);
+            this.ContactAllCb.Name = "ContactAllCb";
+            this.ContactAllCb.Size = new System.Drawing.Size(15, 14);
+            this.ContactAllCb.TabIndex = 16;
+            this.ContactAllCb.UseVisualStyleBackColor = true;
+            this.ContactAllCb.CheckedChanged += new System.EventHandler(this.ContactAllCb_CheckedChanged);
             // 
             // ContactDGV
             // 
+            this.ContactDGV.AllowUserToAddRows = false;
+            this.ContactDGV.AllowUserToDeleteRows = false;
             this.ContactDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ContactDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CallCbGv,
@@ -327,6 +330,46 @@ namespace Market
             this.ContactDGV.Size = new System.Drawing.Size(553, 244);
             this.ContactDGV.TabIndex = 13;
             // 
+            // CallCbGv
+            // 
+            this.CallCbGv.Frozen = true;
+            this.CallCbGv.HeaderText = "";
+            this.CallCbGv.Name = "CallCbGv";
+            this.CallCbGv.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CallCbGv.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CallCbGv.Width = 20;
+            // 
+            // CallIdGv
+            // 
+            this.CallIdGv.DataPropertyName = "ID";
+            this.CallIdGv.HeaderText = "ID";
+            this.CallIdGv.Name = "CallIdGv";
+            this.CallIdGv.ReadOnly = true;
+            this.CallIdGv.Width = 50;
+            // 
+            // contactNoGv
+            // 
+            this.contactNoGv.DataPropertyName = "ContactNumber";
+            this.contactNoGv.HeaderText = "Contact Number";
+            this.contactNoGv.Name = "contactNoGv";
+            this.contactNoGv.ReadOnly = true;
+            this.contactNoGv.Width = 190;
+            // 
+            // CallCountryGv
+            // 
+            this.CallCountryGv.DataPropertyName = "Shortcut";
+            this.CallCountryGv.HeaderText = "Country";
+            this.CallCountryGv.Name = "CallCountryGv";
+            this.CallCountryGv.ReadOnly = true;
+            // 
+            // ContactTypeGv
+            // 
+            this.ContactTypeGv.DataPropertyName = "ContactType";
+            this.ContactTypeGv.HeaderText = "Contact Type";
+            this.ContactTypeGv.Name = "ContactTypeGv";
+            this.ContactTypeGv.ReadOnly = true;
+            this.ContactTypeGv.Width = 150;
+            // 
             // EditContactB
             // 
             this.EditContactB.Location = new System.Drawing.Point(439, 256);
@@ -335,6 +378,7 @@ namespace Market
             this.EditContactB.TabIndex = 7;
             this.EditContactB.Text = "Edit";
             this.EditContactB.UseVisualStyleBackColor = true;
+            this.EditContactB.Click += new System.EventHandler(this.EditContactB_Click);
             // 
             // DeleteContactB
             // 
@@ -344,6 +388,7 @@ namespace Market
             this.DeleteContactB.TabIndex = 6;
             this.DeleteContactB.Text = "Delete";
             this.DeleteContactB.UseVisualStyleBackColor = true;
+            this.DeleteContactB.Click += new System.EventHandler(this.DeleteContactB_Click);
             // 
             // AddContactB
             // 
@@ -353,6 +398,7 @@ namespace Market
             this.AddContactB.TabIndex = 5;
             this.AddContactB.Text = "Add";
             this.AddContactB.UseVisualStyleBackColor = true;
+            this.AddContactB.Click += new System.EventHandler(this.AddContactB_Click);
             // 
             // BankTP
             // 
@@ -393,33 +439,6 @@ namespace Market
             this.BankDGV.Name = "BankDGV";
             this.BankDGV.Size = new System.Drawing.Size(553, 244);
             this.BankDGV.TabIndex = 14;
-            // 
-            // EditBankB
-            // 
-            this.EditBankB.Location = new System.Drawing.Point(439, 256);
-            this.EditBankB.Name = "EditBankB";
-            this.EditBankB.Size = new System.Drawing.Size(61, 35);
-            this.EditBankB.TabIndex = 11;
-            this.EditBankB.Text = "Edit";
-            this.EditBankB.UseVisualStyleBackColor = true;
-            // 
-            // DeleteBankB
-            // 
-            this.DeleteBankB.Location = new System.Drawing.Point(350, 256);
-            this.DeleteBankB.Name = "DeleteBankB";
-            this.DeleteBankB.Size = new System.Drawing.Size(83, 35);
-            this.DeleteBankB.TabIndex = 10;
-            this.DeleteBankB.Text = "Delete";
-            this.DeleteBankB.UseVisualStyleBackColor = true;
-            // 
-            // AddBankB
-            // 
-            this.AddBankB.Location = new System.Drawing.Point(506, 256);
-            this.AddBankB.Name = "AddBankB";
-            this.AddBankB.Size = new System.Drawing.Size(53, 35);
-            this.AddBankB.TabIndex = 9;
-            this.AddBankB.Text = "Add";
-            this.AddBankB.UseVisualStyleBackColor = true;
             // 
             // BnCbGv
             // 
@@ -479,47 +498,34 @@ namespace Market
             this.BnNameArGv.ReadOnly = true;
             this.BnNameArGv.Width = 150;
             // 
-            // CallCbGv
+            // EditBankB
             // 
-            this.CallCbGv.Frozen = true;
-            this.CallCbGv.HeaderText = "";
-            this.CallCbGv.Name = "CallCbGv";
-            this.CallCbGv.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CallCbGv.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CallCbGv.Width = 20;
+            this.EditBankB.Location = new System.Drawing.Point(439, 256);
+            this.EditBankB.Name = "EditBankB";
+            this.EditBankB.Size = new System.Drawing.Size(61, 35);
+            this.EditBankB.TabIndex = 11;
+            this.EditBankB.Text = "Edit";
+            this.EditBankB.UseVisualStyleBackColor = true;
             // 
-            // CallIdGv
+            // DeleteBankB
             // 
-            this.CallIdGv.DataPropertyName = "ID";
-            this.CallIdGv.HeaderText = "ID";
-            this.CallIdGv.Name = "CallIdGv";
-            this.CallIdGv.ReadOnly = true;
-            this.CallIdGv.Width = 50;
+            this.DeleteBankB.Location = new System.Drawing.Point(350, 256);
+            this.DeleteBankB.Name = "DeleteBankB";
+            this.DeleteBankB.Size = new System.Drawing.Size(83, 35);
+            this.DeleteBankB.TabIndex = 10;
+            this.DeleteBankB.Text = "Delete";
+            this.DeleteBankB.UseVisualStyleBackColor = true;
             // 
-            // contactNoGv
+            // AddBankB
             // 
-            this.contactNoGv.DataPropertyName = "ContactNumber";
-            this.contactNoGv.HeaderText = "Contact Number";
-            this.contactNoGv.Name = "contactNoGv";
-            this.contactNoGv.ReadOnly = true;
-            this.contactNoGv.Width = 190;
+            this.AddBankB.Location = new System.Drawing.Point(506, 256);
+            this.AddBankB.Name = "AddBankB";
+            this.AddBankB.Size = new System.Drawing.Size(53, 35);
+            this.AddBankB.TabIndex = 9;
+            this.AddBankB.Text = "Add";
+            this.AddBankB.UseVisualStyleBackColor = true;
             // 
-            // CallCountryGv
-            // 
-            this.CallCountryGv.DataPropertyName = "Shortcut";
-            this.CallCountryGv.HeaderText = "Country";
-            this.CallCountryGv.Name = "CallCountryGv";
-            this.CallCountryGv.ReadOnly = true;
-            // 
-            // ContactTypeGv
-            // 
-            this.ContactTypeGv.DataPropertyName = "ContactType";
-            this.ContactTypeGv.HeaderText = "Contact Type";
-            this.ContactTypeGv.Name = "ContactTypeGv";
-            this.ContactTypeGv.ReadOnly = true;
-            this.ContactTypeGv.Width = 150;
-            // 
-            // AddEditSup
+            // MainSupplier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -527,7 +533,7 @@ namespace Market
             this.Controls.Add(this.TapsPage);
             this.Controls.Add(this.CancelBack);
             this.Controls.Add(this.NextEnd);
-            this.Name = "AddEditSup";
+            this.Name = "MainSupplier";
             this.Text = "Add New User";
             this.TapsPage.ResumeLayout(false);
             this.GenralTP.ResumeLayout(false);
@@ -573,7 +579,7 @@ namespace Market
         private System.Windows.Forms.Button AddBankB;
         private System.Windows.Forms.DataGridView ContactDGV;
         private System.Windows.Forms.DataGridView BankDGV;
-        private System.Windows.Forms.CheckBox CallCheckAllCb;
+        private System.Windows.Forms.CheckBox ContactAllCb;
         private System.Windows.Forms.CheckBox BnCheckAllCb;
         private System.Windows.Forms.CheckBox SelectAllEmailsCb;
         private System.Windows.Forms.CheckedListBox EmailsCBL;

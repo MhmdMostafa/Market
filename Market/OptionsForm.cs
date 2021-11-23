@@ -32,10 +32,6 @@ namespace Market
 
         private void AddUserB_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            AddEditSup MainWindow = new AddEditSup();
-            MainWindow.Closed += (s, args) => this.Close();
-            MainWindow.Show();
         }
     }
 }

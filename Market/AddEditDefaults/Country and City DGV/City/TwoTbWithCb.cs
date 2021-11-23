@@ -65,7 +65,7 @@ namespace Market
             }
             if (command == "add")
             {
-                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text)) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)))
+                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper())) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -75,7 +75,7 @@ namespace Market
             }
             else
             {
-                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text), ID) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text),ID))
+                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()), ID) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text),ID))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -85,9 +85,9 @@ namespace Market
 
             }
 
-            myPara.Add("@NameEn", Globals.RmSpace(NameEnTB.Text));
+            myPara.Add("@NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()));
             myPara.Add("@NameAr", Globals.RmSpace(NameArTB.Text));
-            myPara.Add("@CountryID", Globals.GetID("ID", "countries", "NameEn", CountryCB.Text));
+            myPara.Add("@CountryID", Globals.contactTypeCol("ID", "countries", "NameEn", CountryCB.Text));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");
             this.Close();

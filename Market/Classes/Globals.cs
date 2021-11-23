@@ -11,7 +11,27 @@ namespace Market
     class Globals
     {
         public static MySQL_CRUD myCrud = new MySQL_CRUD(@"mysql.cfg");
-        public static int GetID(string columnID, string SqlTable, string StrCol, string str)
+        public static int GetIdByString(string columnID, string SqlTable, string StrCol, string str)
+        {
+            Dictionary<string, object> myPara = new Dictionary<string, object>();
+            string SQL = $@"SELECT {columnID} From {SqlTable} WHERE {StrCol} = @str";
+            myPara.Add("@str", str); ;
+            MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara);
+            dr.Read();
+            return int.Parse(dr.GetString(columnID));
+        }
+
+        public static int GetStringById(string columnString, string SqlTable, string StrCol, string str)
+        {
+            Dictionary<string, object> myPara = new Dictionary<string, object>();
+            string SQL = $@"SELECT {columnString} From {SqlTable} WHERE {StrCol} = @str";
+            myPara.Add("@str", str); ;
+            MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara);
+            dr.Read();
+            return int.Parse(dr.GetString(columnString));
+        }
+
+        public static int contactTypeCol(string columnID, string SqlTable, string StrCol, string str)
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = $@"SELECT {columnID} From {SqlTable} WHERE {StrCol} = @str";
@@ -184,13 +204,11 @@ namespace Market
         {
             string SQL = $@"SELECT * FROM {table} WHERE {columnName} = @value and ID!=@ID";
             Dictionary<string, object> myPara = new Dictionary<string, object>();
-            Dictionary<string, int> tableCol = GetColumnsIndex(table);
             myPara.Add($"@value", value);
             myPara.Add($"@ID", ID);
             bool flag;
             using (MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara))
                 if (dr.HasRows)
-
                     flag = true;
                 else
                     flag = false;

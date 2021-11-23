@@ -92,8 +92,8 @@ namespace Market
             }
 
             myPara.Add("@UserID", UserID);
-            myPara.Add("@CountryID", Globals.GetID("CountryID", "countries", "CountryNameEN", ContryCB.Text));
-            myPara.Add("@CityID", Globals.GetID("CityID", "cities", "CityNameEN", CityCB.Text));
+            myPara.Add("@CountryID", Globals.GetIdByString("CountryID", "countries", "CountryNameEN", ContryCB.Text));
+            myPara.Add("@CityID", Globals.GetIdByString("CityID", "cities", "CityNameEN", CityCB.Text));
             myPara.Add("@District", Globals.RmSpace(DistrictTB.Text));
             myPara.Add("@Street", Globals.RmSpace(StreetTB.Text));
             myPara.Add("@ZipCode", Globals.RmSpace(ZipCodeTB.Text));

@@ -334,7 +334,7 @@ namespace Market
                     else
                         SQL = $@"UPDATE countries SET ContinentID=@ContinentID, CallingCode=@CallingCode, NameEn= @NameEn, NameAr=@NameAr, Shortcut=@Shortcut WHERE ID={SelctedID};";
 
-                    myPara.Add("@ContinentID", Globals.GetID("ContinentID", "continents", "NameEn", comboBox1.Text));
+                    myPara.Add("@ContinentID", Globals.GetIdByString("ContinentID", "continents", "NameEn", comboBox1.Text));
                     myPara.Add("@CallingCode", Globals.RmSpace(textBox3.Text));
                     myPara.Add("@NameEn", Globals.RmSpace(textBox1.Text));
                     myPara.Add("@NameAr", Globals.RmSpace(textBox2.Text));

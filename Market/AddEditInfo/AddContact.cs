@@ -13,51 +13,47 @@ namespace Market
     public partial class AddContact : MaterialSkin.Controls.MaterialForm
     {
         public string SQLtable;
-        public string phoneOld;
-        public int selectedID;
+        public int UserID;
+        public int phoneID;
         public string command;
-        public Dictionary<string, int> CountryIDCol = new Dictionary<string, int>();
-        public Dictionary<string, int> ContactTypeIDCol = new Dictionary<string, int>();
+        public Dictionary<string, int> countryCol = new Dictionary<string, int>();
+        public Dictionary<string, int> contactTypeCol = new Dictionary<string, int>();
+        Dictionary<string, int> tableCol = new Dictionary<string, int>();
 
         public AddContact()
         {
             InitializeComponent();
         }
 
-        public AddContact(string cmd, string table, int id, string ph = "")
+        public AddContact(string cmd, string table, int id, int phID = 0)
         {
             InitializeComponent();
-            phoneOld = ph;
-            selectedID = id;
+            UserID = id;
+            phoneID = phID;
             command = cmd;
             SQLtable = table;
-            CountryIDCol = Globals.GetColumnsIndex("countries");
+            countryCol = Globals.GetColumnsIndex("countries");
+            contactTypeCol = Globals.GetColumnsIndex("contact_type");
+            tableCol = Globals.GetColumnsIndex(table);
             using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
                 while (dr.Read())
-                {
-                    CountryCB.Items.Add(dr.IsDBNull(CountryIDCol["CountryCallingCodeID"]) ? "" : dr.GetString("CountryCallingCodeID"));
-                }
+                    CountryCB.Items.Add(dr.IsDBNull(countryCol["CallingCode"]) ? "" : dr.GetString("CallingCode"));
 
-            ContactTypeIDCol = Globals.GetColumnsIndex("contact_type");
             using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM contact_type;"))
                 while (dr.Read())
-                {
-                    typeCB.Items.Add(dr.IsDBNull(ContactTypeIDCol["ContactNameEN"]) ? "" : dr.GetString("ContactNameEN"));
-                }
-
+                    typeCB.Items.Add(dr.IsDBNull(contactTypeCol["NameEn"]) ? "" : dr.GetString("NameEn"));
 
             if (command == "edit")
             {
-                string SQL = $@"SELECT * FROM {table} WHERE ContactNumber = @ContactNumberOld AND UserID=@UserID;";
+                string SQL = $@"SELECT * FROM {table} WHERE ID = @ID;";
                 Dictionary<string, object> myPara = new Dictionary<string, object>();
-                myPara.Add("@UserID", selectedID);
-                myPara.Add("@ContactNumberOld", Globals.RmSpace(phoneOld));
+                myPara.Add("@ID", (phoneID));
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
-                    CountryCB.SelectedIndex = int.Parse(dr.IsDBNull(CountryIDCol["CountryID"]) ? "" : dr.GetString("CountryID")) - 1;
-                    typeCB.SelectedIndex = int.Parse(dr.IsDBNull(ContactTypeIDCol["ContactTypeID"]) ? "" : dr.GetString("ContactTypeID")) - 1;
-                    PhoneTB.Text = phoneOld;
+                    CountryCB.SelectedItem = dr.IsDBNull(tableCol["CallingCode"]) ? "" : dr.GetString("CallingCode");
+                    typeCB.SelectedItem = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                    PhoneTB.Text = dr.IsDBNull(tableCol["ContactNumber"]) ? "" : dr.GetString("ContactNumber") ;
                 }
             }
 
@@ -82,9 +78,9 @@ namespace Market
 
             if (command == "edit")
             {
-                SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, ContactTypeID= @ContactTypeID, ContactNumber= @ContactNumber WHERE ContactNumber = @ContactNumberOld AND UserID=@UserID";
+                SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, ContactTypeID= @ContactTypeID, ContactNumber= @ContactNumber WHERE ID = @ID";
 
-                myPara.Add("@ContactNumberOld", Globals.RmSpace(phoneOld));
+                myPara.Add("@ID", phoneID);
             }
             else if (command == "add")
             {
@@ -92,18 +88,12 @@ namespace Market
 
             }
 
-
-
-            DialogResult d = MessageBox.Show("are you sure", command.ToUpper(), MessageBoxButtons.YesNo);
-            if (d == DialogResult.Yes)
-            {
-                myPara.Add("@UserID", selectedID);
-                myPara.Add("@CountryID", Globals.GetID("CountryID", "countries", "CountryCallingCodeID", CountryCB.Text));
-                myPara.Add("@ContactTypeID", Globals.GetID("ContactTypeID", "contact_type", "ContactNameEN", typeCB.Text));
+                myPara.Add("@UserID", UserID);
+                myPara.Add("@CountryID", Globals.GetIdByString("ID", "countries", "CallingCode", CountryCB.Text));
+                myPara.Add("@ContactTypeID", Globals.GetIdByString("ID", "contact_type", "NameEn", typeCB.Text));
                 myPara.Add("@ContactNumber", PhoneTB.Text);
                 Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                 this.Close();
-            }
         }
 
         private void PhoneTB_KeyPress(object sender, KeyPressEventArgs e)

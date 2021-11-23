@@ -15,8 +15,6 @@ namespace Market
         public static int ID;
         public static string SQLtable;
         public static string command;
-        public static string tempEn;
-        public static string tempAr;
         Dictionary<string, int> tableCol = new Dictionary<string, int>();
         public OnlyNames()
         {
@@ -41,8 +39,6 @@ namespace Market
                     dr.Read();
                     NameEnTB.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
                     NameArTB.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
-                    tempEn = Globals.RmSpace(NameEnTB.Text);
-                    tempAr = Globals.RmSpace(NameArTB.Text);
                 }
             }
 
@@ -58,7 +54,7 @@ namespace Market
             }
             if (command == "add")
             {
-                if (!Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text)) || !Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)))
+                if (!Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper())) || !Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -68,7 +64,7 @@ namespace Market
             }
             else
             {
-                if ((!Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text)) && tempEn == NameEnTB.Text) || (!Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)) && tempAr == NameArTB.Text))
+                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()) , ID) || (!Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text), ID)))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -78,7 +74,7 @@ namespace Market
 
             }
 
-            myPara.Add("@NameEn", Globals.RmSpace(NameEnTB.Text));
+            myPara.Add("@NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()));
             myPara.Add("@NameAr", Globals.RmSpace(NameArTB.Text));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");
