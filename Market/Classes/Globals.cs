@@ -18,17 +18,15 @@ namespace Market
             myPara.Add("@str", str); ;
             MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara);
             dr.Read();
-            return int.Parse(dr.GetString(columnID));
+            return dr.GetInt32(columnID);
         }
 
-        public static int GetStringById(string columnString, string SqlTable, string StrCol, string str)
+        public static string GetStringById(string columnString, string SqlTable, string StrCol, int Id)
         {
-            Dictionary<string, object> myPara = new Dictionary<string, object>();
-            string SQL = $@"SELECT {columnString} From {SqlTable} WHERE {StrCol} = @str";
-            myPara.Add("@str", str); ;
-            MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara);
+            string SQL = $@"SELECT {columnString} From {SqlTable} WHERE {StrCol} = {Id}";
+            MySqlDataReader dr = myCrud.getDrPassSql(SQL);
             dr.Read();
-            return int.Parse(dr.GetString(columnString));
+            return dr.GetString(columnString);
         }
 
         public static int contactTypeCol(string columnID, string SqlTable, string StrCol, string str)
