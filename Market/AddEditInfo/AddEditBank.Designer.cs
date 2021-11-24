@@ -39,7 +39,9 @@ namespace Market
             this.label3 = new System.Windows.Forms.Label();
             this.applyB = new MaterialSkin.Controls.MaterialButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.DateTB = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // BankArTB
@@ -86,6 +88,7 @@ namespace Market
             this.IbanTB.Name = "IbanTB";
             this.IbanTB.Size = new System.Drawing.Size(300, 32);
             this.IbanTB.TabIndex = 32;
+            this.IbanTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IbanTB_keyPress);
             // 
             // label2
             // 
@@ -145,21 +148,106 @@ namespace Market
             this.label1.TabIndex = 36;
             this.label1.Text = "Date:";
             // 
-            // DateTB
+            // comboBox1
             // 
-            this.DateTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.DateTB.Location = new System.Drawing.Point(82, 241);
-            this.DateTB.Name = "DateTB";
-            this.DateTB.Size = new System.Drawing.Size(90, 32);
-            this.DateTB.TabIndex = 37;
-            this.DateTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DateTB_KeyPress);
+            this.comboBox1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
+            this.comboBox1.Location = new System.Drawing.Point(82, 241);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(59, 32);
+            this.comboBox1.TabIndex = 37;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "57",
+            "58",
+            "59",
+            "60",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65",
+            "66",
+            "67",
+            "68",
+            "69"});
+            this.comboBox2.Location = new System.Drawing.Point(178, 241);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(81, 32);
+            this.comboBox2.TabIndex = 38;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(147, 244);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(22, 24);
+            this.label4.TabIndex = 39;
+            this.label4.Text = "/";
             // 
             // AddEditBank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 297);
-            this.Controls.Add(this.DateTB);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.applyB);
             this.Controls.Add(this.FullNameTB);
@@ -189,6 +277,8 @@ namespace Market
         private System.Windows.Forms.Label label3;
         private MaterialSkin.Controls.MaterialButton applyB;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox DateTB;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label4;
     }
 }

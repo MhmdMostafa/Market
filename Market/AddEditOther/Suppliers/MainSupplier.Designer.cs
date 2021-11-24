@@ -61,6 +61,9 @@ namespace Market
             this.BankTP = new System.Windows.Forms.TabPage();
             this.BnCheckAllCb = new System.Windows.Forms.CheckBox();
             this.BankDGV = new System.Windows.Forms.DataGridView();
+            this.EditBankB = new System.Windows.Forms.Button();
+            this.DeleteBankB = new System.Windows.Forms.Button();
+            this.AddBankB = new System.Windows.Forms.Button();
             this.BnCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.BnIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnFullNameGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,9 +71,6 @@ namespace Market
             this.BnExpiryDateGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnNameEnGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnNameArGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EditBankB = new System.Windows.Forms.Button();
-            this.DeleteBankB = new System.Windows.Forms.Button();
-            this.AddBankB = new System.Windows.Forms.Button();
             this.TapsPage.SuspendLayout();
             this.GenralTP.SuspendLayout();
             this.EmailTP.SuspendLayout();
@@ -423,9 +423,12 @@ namespace Market
             this.BnCheckAllCb.Size = new System.Drawing.Size(15, 14);
             this.BnCheckAllCb.TabIndex = 15;
             this.BnCheckAllCb.UseVisualStyleBackColor = true;
+            this.BnCheckAllCb.CheckedChanged += new System.EventHandler(this.BnCheckAllCb_CheckedChanged);
             // 
             // BankDGV
             // 
+            this.BankDGV.AllowUserToAddRows = false;
+            this.BankDGV.AllowUserToDeleteRows = false;
             this.BankDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BankDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.BnCbGv,
@@ -439,6 +442,36 @@ namespace Market
             this.BankDGV.Name = "BankDGV";
             this.BankDGV.Size = new System.Drawing.Size(553, 244);
             this.BankDGV.TabIndex = 14;
+            // 
+            // EditBankB
+            // 
+            this.EditBankB.Location = new System.Drawing.Point(439, 256);
+            this.EditBankB.Name = "EditBankB";
+            this.EditBankB.Size = new System.Drawing.Size(61, 35);
+            this.EditBankB.TabIndex = 11;
+            this.EditBankB.Text = "Edit";
+            this.EditBankB.UseVisualStyleBackColor = true;
+            this.EditBankB.Click += new System.EventHandler(this.EditBankB_Click);
+            // 
+            // DeleteBankB
+            // 
+            this.DeleteBankB.Location = new System.Drawing.Point(350, 256);
+            this.DeleteBankB.Name = "DeleteBankB";
+            this.DeleteBankB.Size = new System.Drawing.Size(83, 35);
+            this.DeleteBankB.TabIndex = 10;
+            this.DeleteBankB.Text = "Delete";
+            this.DeleteBankB.UseVisualStyleBackColor = true;
+            this.DeleteBankB.Click += new System.EventHandler(this.DeleteBankB_Click);
+            // 
+            // AddBankB
+            // 
+            this.AddBankB.Location = new System.Drawing.Point(506, 256);
+            this.AddBankB.Name = "AddBankB";
+            this.AddBankB.Size = new System.Drawing.Size(53, 35);
+            this.AddBankB.TabIndex = 9;
+            this.AddBankB.Text = "Add";
+            this.AddBankB.UseVisualStyleBackColor = true;
+            this.AddBankB.Click += new System.EventHandler(this.AddBankB_Click);
             // 
             // BnCbGv
             // 
@@ -460,7 +493,7 @@ namespace Market
             // BnFullNameGv
             // 
             this.BnFullNameGv.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.BnFullNameGv.DataPropertyName = "noneFullNameOwner";
+            this.BnFullNameGv.DataPropertyName = "FullNameOwner";
             this.BnFullNameGv.HeaderText = "Full Name";
             this.BnFullNameGv.Name = "BnFullNameGv";
             this.BnFullNameGv.ReadOnly = true;
@@ -497,33 +530,6 @@ namespace Market
             this.BnNameArGv.Name = "BnNameArGv";
             this.BnNameArGv.ReadOnly = true;
             this.BnNameArGv.Width = 150;
-            // 
-            // EditBankB
-            // 
-            this.EditBankB.Location = new System.Drawing.Point(439, 256);
-            this.EditBankB.Name = "EditBankB";
-            this.EditBankB.Size = new System.Drawing.Size(61, 35);
-            this.EditBankB.TabIndex = 11;
-            this.EditBankB.Text = "Edit";
-            this.EditBankB.UseVisualStyleBackColor = true;
-            // 
-            // DeleteBankB
-            // 
-            this.DeleteBankB.Location = new System.Drawing.Point(350, 256);
-            this.DeleteBankB.Name = "DeleteBankB";
-            this.DeleteBankB.Size = new System.Drawing.Size(83, 35);
-            this.DeleteBankB.TabIndex = 10;
-            this.DeleteBankB.Text = "Delete";
-            this.DeleteBankB.UseVisualStyleBackColor = true;
-            // 
-            // AddBankB
-            // 
-            this.AddBankB.Location = new System.Drawing.Point(506, 256);
-            this.AddBankB.Name = "AddBankB";
-            this.AddBankB.Size = new System.Drawing.Size(53, 35);
-            this.AddBankB.TabIndex = 9;
-            this.AddBankB.Text = "Add";
-            this.AddBankB.UseVisualStyleBackColor = true;
             // 
             // MainSupplier
             // 
@@ -583,6 +589,11 @@ namespace Market
         private System.Windows.Forms.CheckBox BnCheckAllCb;
         private System.Windows.Forms.CheckBox SelectAllEmailsCb;
         private System.Windows.Forms.CheckedListBox EmailsCBL;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CallCbGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CallIdGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contactNoGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CallCountryGv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ContactTypeGv;
         private System.Windows.Forms.DataGridViewCheckBoxColumn BnCbGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn BnIdGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn BnFullNameGv;
@@ -590,10 +601,5 @@ namespace Market
         private System.Windows.Forms.DataGridViewTextBoxColumn BnExpiryDateGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn BnNameEnGv;
         private System.Windows.Forms.DataGridViewTextBoxColumn BnNameArGv;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CallCbGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CallIdGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contactNoGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CallCountryGv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ContactTypeGv;
     }
 }

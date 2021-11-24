@@ -14,7 +14,8 @@ namespace Market
     {
         public string SQLtable;
         public string OldIban;
-        public int selectedID;
+        public int UserID;
+        public int BankID;
         public string command;
         public Dictionary<string, int> tableCol = new Dictionary<string, int>();
         public AddEditBank()
@@ -22,13 +23,13 @@ namespace Market
             InitializeComponent();
         }
 
-        public AddEditBank(string cmd, string table, int id, string Iban = "")
+        public AddEditBank(string cmd, string table, int User_Id, int bank_ID = 0)
         {
             InitializeComponent();
-
-            selectedID = id;
+            string []date;
+            UserID = User_Id;
             command = cmd;
-
+            BankID = bank_ID;
             SQLtable = table;
             applyB.Text = command.ToUpper();
             Text = $"{command.ToUpper()} Bank Wizerd";
@@ -36,20 +37,22 @@ namespace Market
             tableCol = Globals.GetColumnsIndex(table);
             if (command == "edit")
             {
-                string SQL = $@"SELECT * FROM {table} WHERE Iban = @Iban AND UserID=@UserID;";
+                string SQL = $@"SELECT * FROM {table} WHERE ID = @ID AND UserID=@UserID;";
                 Dictionary<string, object> myPara = new Dictionary<string, object>();
-                myPara.Add("@UserID", selectedID);
-                myPara.Add("@Iban", Globals.RmSpace(Iban));
+                myPara.Add("@UserID", UserID);
+                myPara.Add("@ID", BankID);
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
-                    FullNameTB.Text = dr.IsDBNull(tableCol["FullNameOnwer"]) ? "" : dr.GetString("FullNameOnwer");
+                    date = dr.GetString("ExpiryDate").Split('/');
+                    MessageBox.Show(date.Length.ToString()+$"\n{date[0]}\n{date[1]}\n{date[2]}");
+                    FullNameTB.Text = dr.IsDBNull(tableCol["FullNameOwner"]) ? "" : dr.GetString("FullNameOwner");
                     BankEnTB.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
                     BankArTB.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                     IbanTB.Text = dr.IsDBNull(tableCol["Iban"]) ? "" : dr.GetString("Iban");
-                    DateTB.Text = dr.IsDBNull(tableCol["ExpiryDate"]) ? "" : dr.GetString("ExpiryDate");
+                    comboBox1.SelectedItem=date[1];
+                    comboBox2.SelectedItem = date[2];
 
-                    OldIban = dr.GetString("Iban");
 
                 }
             }
@@ -63,7 +66,7 @@ namespace Market
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = "";
 
-            if (FullNameTB.Text == "" || BankArTB.Text == "" || BankEnTB.Text == "" || IbanTB.Text == "" || DateTB.Text == "")
+            if (FullNameTB.Text == "" || BankArTB.Text == "" || BankEnTB.Text == "" || IbanTB.Text == "" || comboBox1.Text == "" || comboBox2.Text == "")
             {
                 MessageBox.Show("Please fill all feilds");
                 return;
@@ -71,45 +74,43 @@ namespace Market
 
             if (command == "edit")
             {
-                SQL = $"UPDATE {SQLtable} SET FullNameOnwer= @FullNameOnwer, NameEn= @NameEn, NameAr= @BankNameA, Iban= @Iban, ExpiryDate= @ExpiryDate WHERE Iban = @Iban AND UserID=@selectedID";
+                SQL = $"UPDATE {SQLtable} SET FullNameOnwer= @FullNameOwner, NameEn= @NameEn, NameAr= @BankNameA, Iban= @Iban, ExpiryDate= STR_TO_DATE(concat('1-',@ExpiryDate), '%d-%m-%y') WHERE ID = @ID AND UserID=@UserID";
 
-                myPara.Add("@Iban", Globals.RmSpace(OldIban));
+                myPara.Add("@ID", BankID);
             }
             else if (command == "add")
             {
-                if (Globals.ifExist(SQLtable, "Iban", Globals.RmSpace(IbanTB.Text)))
+                if (Globals.ifExist(SQLtable, "Iban", Globals.RmSpace(IbanTB.Text.ToUpper())))
                 {
                     MessageBox.Show("This Iban is alredy Exist");
                     return;
                 }
-                SQL = $@"INSERT INTO {SQLtable} (UserID, FullNameOnwer, NameEn, NameAr, Iban, ExpiryDate) VALUES(@UserID, @FullNameOnwer, @NameEn, @NameAr, @Iban, ExpiryDate);";
+                SQL = $@"INSERT INTO {SQLtable} (UserID, FullNameOwner, NameEn, NameAr, Iban, ExpiryDate) VALUES(@UserID, @FullNameOwner, @NameEn, @NameAr, @Iban, STR_TO_DATE(concat('1-',@ExpiryDate), '%d-%m-%y'));";
 
             }
-            myPara.Add("@UserID", selectedID);
-            myPara.Add("@FullNameOnwer", Globals.RmSpace(FullNameTB.Text));
+            myPara.Add("@UserID", UserID);
+            myPara.Add("@FullNameOwner", Globals.RmSpace(FullNameTB.Text));
             myPara.Add("@NameEn", Globals.RmSpace(BankEnTB.Text));
             myPara.Add("@NameAr", Globals.RmSpace(BankArTB.Text));
-            myPara.Add("@Iban", Globals.RmSpace(IbanTB.Text));
-            myPara.Add("@ExpiryDate", Globals.RmSpace(DateTB.Text));
+            myPara.Add("@Iban", Globals.RmSpace(IbanTB.Text.ToUpper()));
+            myPara.Add("@ExpiryDate", (comboBox1.Text+"-"+comboBox2.Text));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");
             this.Close();
 
         }
-        private void DateTB_KeyPress(object sender, KeyPressEventArgs e)
+
+
+        private void IbanTB_keyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsControl(e.KeyChar))
                 return;
 
-            if ((!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)) || DateTB.Text.Length > 4)
+            if (IbanTB.Text.Length > 23)
             {
                 e.Handled = true;
             }
-            if (DateTB.Text.Length == 2)
-            {
-                DateTB.Text += "/";
-                DateTB.SelectionStart = DateTB.Text.Length;
-            }
         }
+
     }
 }

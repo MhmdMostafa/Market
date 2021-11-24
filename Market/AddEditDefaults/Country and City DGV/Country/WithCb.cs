@@ -48,7 +48,7 @@ namespace Market
                     dr.Read();
                     NameEnTB.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
                     NameArTB.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
-                    ContinentCB.SelectedIndex = dr.IsDBNull(tableCol["ContinentID"]) ? 0 : int.Parse(dr.GetString("ContinentID")) - 1;
+                    ContinentCB.SelectedItem = dr.IsDBNull(tableCol["ContinentID"]) ? "" : Globals.GetStringById("NameEn", "continents", dr.GetInt32("ContinentID"));
                     CallingCodeTB.Text = dr.IsDBNull(tableCol["CallingCode"]) ? "" : dr.GetString("CallingCode");
                     ShortcutTB.Text = dr.IsDBNull(tableCol["Shortcut"]) ? "" : dr.GetString("Shortcut");
 

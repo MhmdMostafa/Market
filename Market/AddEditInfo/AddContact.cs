@@ -14,7 +14,7 @@ namespace Market
     {
         public string SQLtable;
         public int UserID;
-        public int phoneID;
+        public int contactId;
         public string command;
         public Dictionary<string, int> countryCol = new Dictionary<string, int>();
         public Dictionary<string, int> contactTypeCol = new Dictionary<string, int>();
@@ -29,7 +29,7 @@ namespace Market
         {
             InitializeComponent();
             UserID = id;
-            phoneID = phID;
+            contactId = phID;
             command = cmd;
             SQLtable = table;
             countryCol = Globals.GetColumnsIndex("countries");
@@ -47,13 +47,13 @@ namespace Market
             {
                 string SQL = $@"SELECT * FROM {table} WHERE ID = @ID;";
                 Dictionary<string, object> myPara = new Dictionary<string, object>();
-                myPara.Add("@ID", (phoneID));
+                myPara.Add("@ID", (contactId));
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
-                    CountryCB.SelectedItem = dr.IsDBNull(tableCol["CallingCode"]) ? "" : dr.GetString("CallingCode");
-                    typeCB.SelectedItem = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
-                    PhoneTB.Text = dr.IsDBNull(tableCol["ContactNumber"]) ? "" : dr.GetString("ContactNumber") ;
+                    CountryCB.SelectedItem = dr.IsDBNull(tableCol["CountryID"]) ? "" : Globals.GetStringById("CallingCode", "countries", dr.GetInt32("CountryID"));
+                    typeCB.SelectedItem = dr.IsDBNull(tableCol["ContactTypeID"]) ? "" : Globals.GetStringById("NameEn", "contact_type", dr.GetInt32("ContactTypeID"));
+                    PhoneTB.Text = dr.IsDBNull(tableCol["ContactNumber"]) ? "" : dr.GetString("ContactNumber");
                 }
             }
 
@@ -78,22 +78,32 @@ namespace Market
 
             if (command == "edit")
             {
-                SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, ContactTypeID= @ContactTypeID, ContactNumber= @ContactNumber WHERE ID = @ID";
+                if (Globals.ifExist(SQLtable, "ContactNumber", PhoneTB.Text, contactId))
+                {
+                    MessageBox.Show("Entry is alredy exist");
+                    return;
+                }
+                    SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, ContactTypeID= @ContactTypeID, ContactNumber= @ContactNumber WHERE ID = @ID";
 
-                myPara.Add("@ID", phoneID);
+                myPara.Add("@ID", contactId);
             }
             else if (command == "add")
             {
+                if (Globals.ifExist(SQLtable, "ContactNumber", PhoneTB.Text))
+                {
+                    MessageBox.Show("Entry is alredy exist");
+                    return;
+                }
                 SQL = $@"INSERT INTO {SQLtable} (UserID, CountryID, ContactTypeID, ContactNumber) VALUES(@UserID, @CountryID, @ContactTypeID, @ContactNumber);";
 
             }
 
-                myPara.Add("@UserID", UserID);
-                myPara.Add("@CountryID", Globals.GetIdByString("ID", "countries", "CallingCode", CountryCB.Text));
-                myPara.Add("@ContactTypeID", Globals.GetIdByString("ID", "contact_type", "NameEn", typeCB.Text));
-                myPara.Add("@ContactNumber", PhoneTB.Text);
-                Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-                this.Close();
+            myPara.Add("@UserID", UserID);
+            myPara.Add("@CountryID", Globals.GetIdByString("ID", "countries", "CallingCode", CountryCB.Text));
+            myPara.Add("@ContactTypeID", Globals.GetIdByString("ID", "contact_type", "NameEn", typeCB.Text));
+            myPara.Add("@ContactNumber", PhoneTB.Text);
+            Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+            this.Close();
         }
 
         private void PhoneTB_KeyPress(object sender, KeyPressEventArgs e)

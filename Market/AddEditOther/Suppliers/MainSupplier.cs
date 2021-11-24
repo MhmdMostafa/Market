@@ -95,9 +95,9 @@ namespace Market
                     ContactDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     break;
 
-                case "Bank Acconts":
+                case "Bank Accounts":
                     SQL = $"SELECT ID, NameEn, NameAr, Iban, FullNameOwner, ExpiryDate FROM suppliers_bank_accounts WHERE UserID = {SelectedID};";
-                    ContactDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
+                    BankDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     break;
             }
         }
@@ -221,6 +221,58 @@ namespace Market
                 Globals.Clean_SelectCbList(ContactDGV, true);
             else
                 Globals.Clean_SelectCbList(ContactDGV, false);
+        }
+
+        private void AddBankB_Click(object sender, EventArgs e)
+        {
+            AddEditBank window = new AddEditBank("add", "suppliers_bank_accounts", SelectedID);
+            window.ShowDialog();
+            refreshTap();
+        }
+
+        private void EditBankB_Click(object sender, EventArgs e)
+        {
+            List<int> selectedValues = Globals.GetSelectedValues(BankDGV);
+            if (selectedValues.Count > 1)
+            {
+                MessageBox.Show("Please Select one value to edit");
+                return;
+            }
+            else if (selectedValues.Count == 0)
+            {
+                MessageBox.Show("Please Select one value to edit");
+                return;
+            }
+
+            AddEditBank window = new AddEditBank("edit", "suppliers_bank_accounts", SelectedID, selectedValues[0]);
+            window.ShowDialog();
+            refreshTap();
+        }
+
+        private void DeleteBankB_Click(object sender, EventArgs e)
+        {
+            List<int> selectedValues = Globals.GetSelectedValues(BankDGV);
+            if (selectedValues.Count == 0)
+            {
+                MessageBox.Show("Please Select one value to Delete");
+                return;
+            }
+
+            foreach (int value in selectedValues)
+            {
+                Globals.DeleteValue("suppliers_bank_accounts", "ID", value);
+            }
+
+            MessageBox.Show("Done!!");
+            refreshTap();
+        }
+
+        private void BnCheckAllCb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BnCheckAllCb.Checked)
+                Globals.Clean_SelectCbList(BankDGV, true);
+            else
+                Globals.Clean_SelectCbList(BankDGV, false);
         }
     }
 }

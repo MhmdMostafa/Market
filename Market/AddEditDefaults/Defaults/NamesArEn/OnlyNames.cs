@@ -54,7 +54,7 @@ namespace Market
             }
             if (command == "add")
             {
-                if (!Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper())) || !Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)))
+                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper())) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -64,7 +64,7 @@ namespace Market
             }
             else
             {
-                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()) , ID) || (!Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text), ID)))
+                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()) , ID) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text), ID))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;

@@ -21,23 +21,14 @@ namespace Market
             return dr.GetInt32(columnID);
         }
 
-        public static string GetStringById(string columnString, string SqlTable, string StrCol, int Id)
+        public static string GetStringById(string columnString, string SqlTable, int Id)
         {
-            string SQL = $@"SELECT {columnString} From {SqlTable} WHERE {StrCol} = {Id}";
+            string SQL = $@"SELECT {columnString} From {SqlTable} WHERE ID = {Id}";
             MySqlDataReader dr = myCrud.getDrPassSql(SQL);
             dr.Read();
             return dr.GetString(columnString);
         }
 
-        public static int contactTypeCol(string columnID, string SqlTable, string StrCol, string str)
-        {
-            Dictionary<string, object> myPara = new Dictionary<string, object>();
-            string SQL = $@"SELECT {columnID} From {SqlTable} WHERE {StrCol} = @str";
-            myPara.Add("@str", str); ;
-            MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara);
-            dr.Read();
-            return int.Parse(dr.GetString(columnID));
-        }
         public static string RmSpace(string name)
         {
             if (name.Length == 0 || name == null)
@@ -184,9 +175,8 @@ namespace Market
 
         public static bool ifExist(string table, string columnName, string value)
         {
-            string SQL = $"SELECT * FROM {table} WHERE @{columnName} = @value";
+            string SQL = $"SELECT * FROM {table} WHERE {columnName} = @value";
             Dictionary<string, object> myPara = new Dictionary<string, object>();
-            myPara.Add($"@{columnName}", columnName);
             myPara.Add($"@value", value);
 
             bool flag;
