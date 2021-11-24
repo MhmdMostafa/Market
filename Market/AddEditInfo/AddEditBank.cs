@@ -13,7 +13,6 @@ namespace Market
     public partial class AddEditBank : MaterialSkin.Controls.MaterialForm
     {
         public string SQLtable;
-        public string OldIban;
         public int UserID;
         public int BankID;
         public string command;
@@ -26,7 +25,7 @@ namespace Market
         public AddEditBank(string cmd, string table, int User_Id, int bank_ID = 0)
         {
             InitializeComponent();
-            string []date;
+            string[] date;
             UserID = User_Id;
             command = cmd;
             BankID = bank_ID;
@@ -45,12 +44,12 @@ namespace Market
                 {
                     dr.Read();
                     date = dr.GetString("ExpiryDate").Split('/');
-                    MessageBox.Show(date.Length.ToString()+$"\n{date[0]}\n{date[1]}\n{date[2]}");
+                    MessageBox.Show(date.Length.ToString() + $"\n{date[0]}\n{date[1]}\n{date[2]}");
                     FullNameTB.Text = dr.IsDBNull(tableCol["FullNameOwner"]) ? "" : dr.GetString("FullNameOwner");
                     BankEnTB.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
                     BankArTB.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                     IbanTB.Text = dr.IsDBNull(tableCol["Iban"]) ? "" : dr.GetString("Iban");
-                    comboBox1.SelectedItem=date[1];
+                    comboBox1.SelectedItem = date[1];
                     comboBox2.SelectedItem = date[2];
 
 
@@ -74,6 +73,11 @@ namespace Market
 
             if (command == "edit")
             {
+                if (Globals.ifExist(SQLtable, "Iban", Globals.RmSpace(IbanTB.Text.ToUpper()), BankID))
+                {
+                    MessageBox.Show("This Iban is alredy Exist");
+                    return;
+                }
                 SQL = $"UPDATE {SQLtable} SET FullNameOnwer= @FullNameOwner, NameEn= @NameEn, NameAr= @BankNameA, Iban= @Iban, ExpiryDate= STR_TO_DATE(concat('1-',@ExpiryDate), '%d-%m-%y') WHERE ID = @ID AND UserID=@UserID";
 
                 myPara.Add("@ID", BankID);
@@ -93,7 +97,7 @@ namespace Market
             myPara.Add("@NameEn", Globals.RmSpace(BankEnTB.Text));
             myPara.Add("@NameAr", Globals.RmSpace(BankArTB.Text));
             myPara.Add("@Iban", Globals.RmSpace(IbanTB.Text.ToUpper()));
-            myPara.Add("@ExpiryDate", (comboBox1.Text+"-"+comboBox2.Text));
+            myPara.Add("@ExpiryDate", (comboBox1.Text + "-" + comboBox2.Text));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");
             this.Close();
@@ -103,13 +107,10 @@ namespace Market
 
         private void IbanTB_keyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsControl(e.KeyChar))
-                return;
 
-            if (IbanTB.Text.Length > 23)
-            {
+            if (IbanTB.Text.Length > 23 && !Char.IsControl(e.KeyChar))
                 e.Handled = true;
-            }
+
         }
 
     }

@@ -61,9 +61,6 @@ namespace Market
             this.BankTP = new System.Windows.Forms.TabPage();
             this.BnCheckAllCb = new System.Windows.Forms.CheckBox();
             this.BankDGV = new System.Windows.Forms.DataGridView();
-            this.EditBankB = new System.Windows.Forms.Button();
-            this.DeleteBankB = new System.Windows.Forms.Button();
-            this.AddBankB = new System.Windows.Forms.Button();
             this.BnCbGv = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.BnIdGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnFullNameGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,6 +68,9 @@ namespace Market
             this.BnExpiryDateGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnNameEnGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BnNameArGv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EditBankB = new System.Windows.Forms.Button();
+            this.DeleteBankB = new System.Windows.Forms.Button();
+            this.AddBankB = new System.Windows.Forms.Button();
             this.TapsPage.SuspendLayout();
             this.GenralTP.SuspendLayout();
             this.EmailTP.SuspendLayout();
@@ -107,17 +107,18 @@ namespace Market
             this.CancelBack.Depth = 0;
             this.CancelBack.HighEmphasis = true;
             this.CancelBack.Icon = null;
-            this.CancelBack.Location = new System.Drawing.Point(427, 405);
+            this.CancelBack.Location = new System.Drawing.Point(440, 405);
             this.CancelBack.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.CancelBack.MouseState = MaterialSkin.MouseState.HOVER;
             this.CancelBack.Name = "CancelBack";
             this.CancelBack.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.CancelBack.Size = new System.Drawing.Size(77, 36);
+            this.CancelBack.Size = new System.Drawing.Size(64, 36);
             this.CancelBack.TabIndex = 6;
-            this.CancelBack.Text = "Cancel";
+            this.CancelBack.Text = "BACK";
             this.CancelBack.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.CancelBack.UseAccentColor = false;
             this.CancelBack.UseVisualStyleBackColor = true;
+            this.CancelBack.Click += new System.EventHandler(this.CancelBack_Click);
             // 
             // TapsPage
             // 
@@ -168,6 +169,7 @@ namespace Market
             this.GVatTB.Name = "GVatTB";
             this.GVatTB.Size = new System.Drawing.Size(346, 32);
             this.GVatTB.TabIndex = 25;
+            this.GVatTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GVatTB_KeyPress);
             // 
             // GNameArTB
             // 
@@ -443,36 +445,6 @@ namespace Market
             this.BankDGV.Size = new System.Drawing.Size(553, 244);
             this.BankDGV.TabIndex = 14;
             // 
-            // EditBankB
-            // 
-            this.EditBankB.Location = new System.Drawing.Point(439, 256);
-            this.EditBankB.Name = "EditBankB";
-            this.EditBankB.Size = new System.Drawing.Size(61, 35);
-            this.EditBankB.TabIndex = 11;
-            this.EditBankB.Text = "Edit";
-            this.EditBankB.UseVisualStyleBackColor = true;
-            this.EditBankB.Click += new System.EventHandler(this.EditBankB_Click);
-            // 
-            // DeleteBankB
-            // 
-            this.DeleteBankB.Location = new System.Drawing.Point(350, 256);
-            this.DeleteBankB.Name = "DeleteBankB";
-            this.DeleteBankB.Size = new System.Drawing.Size(83, 35);
-            this.DeleteBankB.TabIndex = 10;
-            this.DeleteBankB.Text = "Delete";
-            this.DeleteBankB.UseVisualStyleBackColor = true;
-            this.DeleteBankB.Click += new System.EventHandler(this.DeleteBankB_Click);
-            // 
-            // AddBankB
-            // 
-            this.AddBankB.Location = new System.Drawing.Point(506, 256);
-            this.AddBankB.Name = "AddBankB";
-            this.AddBankB.Size = new System.Drawing.Size(53, 35);
-            this.AddBankB.TabIndex = 9;
-            this.AddBankB.Text = "Add";
-            this.AddBankB.UseVisualStyleBackColor = true;
-            this.AddBankB.Click += new System.EventHandler(this.AddBankB_Click);
-            // 
             // BnCbGv
             // 
             this.BnCbGv.Frozen = true;
@@ -530,6 +502,36 @@ namespace Market
             this.BnNameArGv.Name = "BnNameArGv";
             this.BnNameArGv.ReadOnly = true;
             this.BnNameArGv.Width = 150;
+            // 
+            // EditBankB
+            // 
+            this.EditBankB.Location = new System.Drawing.Point(439, 256);
+            this.EditBankB.Name = "EditBankB";
+            this.EditBankB.Size = new System.Drawing.Size(61, 35);
+            this.EditBankB.TabIndex = 11;
+            this.EditBankB.Text = "Edit";
+            this.EditBankB.UseVisualStyleBackColor = true;
+            this.EditBankB.Click += new System.EventHandler(this.EditBankB_Click);
+            // 
+            // DeleteBankB
+            // 
+            this.DeleteBankB.Location = new System.Drawing.Point(350, 256);
+            this.DeleteBankB.Name = "DeleteBankB";
+            this.DeleteBankB.Size = new System.Drawing.Size(83, 35);
+            this.DeleteBankB.TabIndex = 10;
+            this.DeleteBankB.Text = "Delete";
+            this.DeleteBankB.UseVisualStyleBackColor = true;
+            this.DeleteBankB.Click += new System.EventHandler(this.DeleteBankB_Click);
+            // 
+            // AddBankB
+            // 
+            this.AddBankB.Location = new System.Drawing.Point(506, 256);
+            this.AddBankB.Name = "AddBankB";
+            this.AddBankB.Size = new System.Drawing.Size(53, 35);
+            this.AddBankB.TabIndex = 9;
+            this.AddBankB.Text = "Add";
+            this.AddBankB.UseVisualStyleBackColor = true;
+            this.AddBankB.Click += new System.EventHandler(this.AddBankB_Click);
             // 
             // MainSupplier
             // 
