@@ -89,7 +89,7 @@ namespace Market
 
             myPara.Add("@NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()));
             myPara.Add("@NameAr", Globals.RmSpace(NameArTB.Text));
-            myPara.Add("@ContinentID", Globals.GetIdByString("ID", "continents", "NameEn", ContinentCB.Text));
+            myPara.Add("@ContinentID", Globals.GetIdByString("continents", "NameEn", ContinentCB.Text));
             myPara.Add("@CallingCode", Globals.RmSpace(CallingCodeTB.Text));
             myPara.Add("@Shortcut", Globals.RmSpace(ShortcutTB.Text.ToUpper()));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);

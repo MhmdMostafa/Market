@@ -21,7 +21,7 @@ namespace Market
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainSupplier("add"));
+            Application.Run(new MainEmp("edit",1));
         }
 
 

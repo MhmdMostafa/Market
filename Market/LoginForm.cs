@@ -24,15 +24,8 @@ namespace Market
             bool flag = false;
             MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM emp_employees");
 
-            StringBuilder hash = new StringBuilder();
-            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(UserPasswordTB.Text));
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                hash.Append(bytes[i].ToString("x2"));
-            }
-            string pass = hash.ToString();
-
+            string pass=Globals.encrypt(UserPasswordTB.Text);
+            
             while (dr.Read())
             {
                 if (dr.GetString("UserName") == UserNameTB.Text)

@@ -50,7 +50,7 @@ namespace Market
                     BankArTB.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                     IbanTB.Text = dr.IsDBNull(tableCol["Iban"]) ? "" : dr.GetString("Iban");
                     comboBox1.SelectedItem = date[1];
-                    comboBox2.SelectedItem = date[2];
+                    comboBox2.SelectedItem = (int.Parse(date[2].Split(' ')[0]) - 2000).ToString(); ;
 
 
                 }

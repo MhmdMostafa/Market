@@ -43,12 +43,12 @@ namespace Market
             using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
                 while (dr.Read())
                 {
-                    ContryCB.Items.Add(dr.IsDBNull(CountryCol["NameEN"]) ? "" : dr.GetString("NameEN"));
+                    ContryCB.Items.Add(dr.IsDBNull(CountryCol["NameEn"]) ? "" : dr.GetString("NameEn"));
                 }
             using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM cities;"))
                 while (dr.Read())
                 {
-                    CityCB.Items.Add(dr.IsDBNull(CityCol["NameEN"]) ? "" : dr.GetString("NameEN"));
+                    CityCB.Items.Add(dr.IsDBNull(CityCol["NameEn"]) ? "" : dr.GetString("NameEn"));
                 }
 
             if (command == "edit")
@@ -59,8 +59,8 @@ namespace Market
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
-                    ContryCB.SelectedIndex = dr.IsDBNull(tableCol["CountryID"]) ? 0 : int.Parse(dr.GetString("CountryID")) - 1;
-                    CityCB.SelectedIndex = dr.IsDBNull(tableCol["CityID"]) ? 0 : int.Parse(dr.GetString("CityID")) - 1;
+                    ContryCB.SelectedItem = dr.IsDBNull(tableCol["CountryID"]) ? "" : Globals.GetStringById("NameEn", "countries", dr.GetInt32("CountryID") );
+                    CityCB.SelectedItem = dr.IsDBNull(tableCol["CityID"]) ? "" : Globals.GetStringById("NameEn", "cities", dr.GetInt32("CityID"));
                     DistrictTB.Text = dr.IsDBNull(tableCol["District"]) ? "" : dr.GetString("District");
                     StreetTB.Text = dr.IsDBNull(tableCol["Street"]) ? "" : dr.GetString("Street");
                     ZipCodeTB.Text = dr.IsDBNull(tableCol["ZipCode"]) ? "" : dr.GetString("ZipCode");
@@ -83,7 +83,7 @@ namespace Market
 
             if (command == "edit")
             {
-                SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, CityID= @CityID, District= @District, Street= @Street, ZipCode= @ZipCode, Description= @Description WHERE AddressID = @ID";
+                SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, CityID= @CityID, District= @District, Street= @Street, ZipCode= @ZipCode, Description= @Description WHERE ID = @ID";
                 myPara.Add("@ID", ID);
             }
             else if (command == "add")
@@ -92,14 +92,15 @@ namespace Market
             }
 
             myPara.Add("@UserID", UserID);
-            myPara.Add("@CountryID", Globals.GetIdByString("CountryID", "countries", "CountryNameEN", ContryCB.Text));
-            myPara.Add("@CityID", Globals.GetIdByString("CityID", "cities", "CityNameEN", CityCB.Text));
+            myPara.Add("@CountryID", Globals.GetIdByString("countries", "NameEn", ContryCB.Text));
+            myPara.Add("@CityID", Globals.GetIdByString("cities", "NameEn", CityCB.Text));
             myPara.Add("@District", Globals.RmSpace(DistrictTB.Text));
             myPara.Add("@Street", Globals.RmSpace(StreetTB.Text));
             myPara.Add("@ZipCode", Globals.RmSpace(ZipCodeTB.Text));
             myPara.Add("@Description", Globals.RmSpace(DiscRTB.Text));
 
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+            MessageBox.Show("Done");
             this.Close();
         }
     }

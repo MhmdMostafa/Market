@@ -122,6 +122,9 @@ CREATE TABLE emp_permissions(
 );
 
 CREATE TABLE emp_group_permissions(
+    ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50),
 	EmpGroupID INT,
     PermissionID INT,
     PermissionState BOOLEAN DEFAULT FALSE,
@@ -129,12 +132,12 @@ CREATE TABLE emp_group_permissions(
     FOREIGN KEY (PermissionID) REFERENCES emp_permissions(ID)
 );
 
-CREATE TABLE emp_employees(
+CREATE TABLE employees(
 	ID INT NOT NULL AUTO_INCREMENT,
 	EmpGroupID INT,
     UserName VARCHAR(50) NOT NULL,
-	EmpNameEN VARCHAR(50),
-    EmpNameAR VARCHAR(50),
+	NameEn VARCHAR(50),
+    NameAr VARCHAR(50),
 	DateOfBirh DATE,
     Pass_word VARCHAR(255) NOT NULL,
     PRIMARY KEY (ID),
@@ -147,7 +150,7 @@ CREATE TABLE emp_email_addresses(
 	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
     PRIMARY KEY(ID),
-    FOREIGN KEY (UserID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (UserID) REFERENCES employees(ID),
     UNIQUE (EmailAddress)
 );
 
@@ -158,7 +161,7 @@ CREATE TABLE emp_contact_numbers(
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
     PRIMARY KEY(ID),
-    FOREIGN KEY (UserID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (UserID) REFERENCES employees(ID),
     FOREIGN KEY (CountryID) REFERENCES countries(ID),
     FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
     UNIQUE (ContactNumber)
@@ -173,7 +176,7 @@ CREATE TABLE emp_bank_accounts(
     FullNameOwner VARCHAR(100) NOT NULL,
     ExpiryDate DATE NOT NULL,
     PRIMARY KEY (ID),
-    FOREIGN KEY (UserID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (UserID) REFERENCES employees(ID),
     UNIQUE (Iban)
 );
 
@@ -187,7 +190,7 @@ CREATE TABLE emp_addresses(
     ZipCode INT,
     Description VARCHAR (100) NOT NULL,
     PRIMARY KEY (ID),
-    FOREIGN KEY (UserID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (UserID) REFERENCES employees(ID),
     FOREIGN KEY (CountryID) REFERENCES Countries(ID),
     FOREIGN KEY (CityID) REFERENCES cities(ID)
 );
@@ -197,7 +200,7 @@ CREATE TABLE emp_fingerprints(
     HandID INT,
     FingerID INT,
     FingerPrint BLOB NOT NULL,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (EmpID) REFERENCES employees(ID),
     FOREIGN KEY (HandID) REFERENCES hands(ID),
     FOREIGN KEY (FingerID) REFERENCES hand_fingers(ID)
 );
@@ -212,7 +215,7 @@ CREATE TABLE emp_fingerprints(
 -- CREATE TABLE emp_jop_titles(
 -- 	EmpID INT NOT NULL,
 --     JopTitleID INT NOT NULL,
---     FOREIGN KEY (EmpID) REFERENCES emp_employees(EmpID),
+--     FOREIGN KEY (EmpID) REFERENCES employees(EmpID),
 --     FOREIGN KEY (JopTitleID) REFERENCES jop_titles(JopTitleID)
 -- );
 
@@ -220,20 +223,20 @@ CREATE TABLE emp_history_login(
 	EmpID INT NOT NULL,
     DateOfLoging DATETIME NOT NULL,
     SourceIP VARCHAR (24),
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID)
+    FOREIGN KEY (EmpID) REFERENCES employees(ID)
 );
 
 CREATE TABLE emp_history_commands(
 	EmpID INT NOT NULL,
     Command VARCHAR(100) NOT NULL,
     RunTime DATETIME,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID)
+    FOREIGN KEY (EmpID) REFERENCES employees(ID)
 );
 
 CREATE TABLE emp_attendance(
 	EmpID INT NOT NULL,
     DateOfAttending DATETIME,
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID)
+    FOREIGN KEY (EmpID) REFERENCES employees(ID)
 );
 
 CREATE TABLE suppliers(
@@ -339,7 +342,7 @@ CREATE TABLE invoices(
     FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(ID),
     FOREIGN KEY (PaymentMethodID) REFERENCES payment_methods(ID),
     FOREIGN KEY (PaymentMechanismeID) REFERENCES payment_mechanisms(ID),
-    FOREIGN KEY (EmpID) REFERENCES emp_employees(ID),
+    FOREIGN KEY (EmpID) REFERENCES employees(ID),
     FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 
@@ -434,7 +437,7 @@ CREATE TABLE customers(
 	NameEn VARCHAR(50) NOT NULL,
     NameAr VARCHAR(50),
 	DateOfBirh DATE,
-    NationalNumber INT,
+    NationalNumber VARCHAR(12),
     Pass_word VARCHAR(255),
     PRIMARY KEY (ID),
     FOREIGN KEY (CustomerGroupID) REFERENCES customer_groups(ID),
@@ -493,7 +496,7 @@ CREATE TABLE customer_Addresses(
     CityID INT NOT NULL,
     District VARCHAR (45) NOT NULL,
     Street VARCHAR (45) NOT NULL,
-    ZipCode INT,
+    ZipCode VARCHAR (12),
     Description VARCHAR (100) NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (UserID) REFERENCES customers(ID),

@@ -51,7 +51,7 @@
     <Reference Include="MaterialSkin, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.0\lib\net461\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.1.6.1\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -89,17 +89,23 @@
     <Compile Include="AddEditInfo\AddEditBank.Designer.cs">
       <DependentUpon>AddEditBank.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddEditInfo\AddEemail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditInfo\AddEemail.Designer.cs">
+      <DependentUpon>AddEemail.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddEditOther\Customers\MainCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AddEditOther\Customers\MainCustomer.Designer.cs">
       <DependentUpon>MainCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEditInfo\AddEemail.cs">
+    <Compile Include="AddEditOther\Emp\MainEmp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEditInfo\AddEemail.Designer.cs">
-      <DependentUpon>AddEemail.cs</DependentUpon>
+    <Compile Include="AddEditOther\Emp\MainEmp.Designer.cs">
+      <DependentUpon>MainEmp.cs</DependentUpon>
     </Compile>
     <Compile Include="Trash\AddEditDefaultsForm.cs">
       <SubType>Form</SubType>
@@ -206,11 +212,14 @@
     <EmbeddedResource Include="AddEditInfo\AddEditBank.resx">
       <DependentUpon>AddEditBank.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddEditInfo\AddEemail.resx">
+      <DependentUpon>AddEemail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddEditOther\Customers\MainCustomer.resx">
       <DependentUpon>MainCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEditInfo\AddEemail.resx">
-      <DependentUpon>AddEemail.cs</DependentUpon>
+    <EmbeddedResource Include="AddEditOther\Emp\MainEmp.resx">
+      <DependentUpon>MainEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trash\AddEditDefaultsForm.resx">
       <DependentUpon>AddEditDefaultsForm.cs</DependentUpon>
@@ -293,7 +302,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AddEditOther\Emp\" />
     <Folder Include="AddEditOther\Product\" />
     <Folder Include="Gridviews\" />
     <Folder Include="Main Add Forms\" />

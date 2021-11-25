@@ -13,9 +13,9 @@ namespace Market
     public partial class AddEemail : MaterialSkin.Controls.MaterialForm
     {
         public string SQLtable;
-        public string oldEmail;
         public int selectedID;
         public string command;
+        public string Email;
         public AddEemail()
         {
             InitializeComponent();
@@ -25,16 +25,10 @@ namespace Market
         {
             InitializeComponent();
             SQLtable = table;
-            oldEmail = e;
             selectedID = id;
             command = cmd;
-            EmailTB.Text = e;
             applyB.Text = cmd.ToUpper();
-            if (command == "edit")
-            {
-                EmailTB.Text = e;
-            }
-
+            EmailTB.Text = Email=e;
 
         }
 
@@ -51,26 +45,32 @@ namespace Market
 
             if (command == "edit")
             {
-                SQL = $"UPDATE {SQLtable} SET EmailAddress= @EmailAddressNew WHERE UserID = @UserID AND EmailAddress = @EmailAddressOld";
-                myPara.Add("@EmailAddressOld", Globals.RmSpace(oldEmail));
+                if (Globals.ifExist(SQLtable, "EmailAddress", Globals.RmSpace(EmailTB.Text.ToUpper()), selectedID))
+                {
+                    MessageBox.Show("this email is alredy used");
+                    return;
+                }
+                SQL = $"UPDATE {SQLtable} SET EmailAddress= @EmailAddressNew WHERE EmailAddress=@EmailAddress";
+                myPara.Add("@EmailAddress", Email);
             }
             else if (command == "add")
             {
+                if (Globals.ifExist(SQLtable, "EmailAddress", Globals.RmSpace(EmailTB.Text.ToUpper())))
+                {
+                    MessageBox.Show("this email is alredy used");
+                    return;
+                }
+
                 SQL = $@"INSERT INTO {SQLtable} (UserID, EmailAddress) VALUES(@UserID, @EmailAddressNew);";
             }
-            if (Globals.ifExist(SQLtable, "EmailAddress", Globals.RmSpace(oldEmail)) || Globals.RmSpace(EmailTB.Text) == oldEmail)
-            {
-                MessageBox.Show("this email is alredy used");
-                return;
-            }
-            else
-            {
-                myPara.Add("@UserID", selectedID);
-                myPara.Add("@EmailAddressNew", Globals.RmSpace(EmailTB.Text));
-                Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
-                this.Close();
-            }
+
+            myPara.Add("@UserID", selectedID);
+            myPara.Add("@EmailAddressNew", Globals.RmSpace(EmailTB.Text.ToUpper()));
+            Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+            MessageBox.Show("Done!!");
+            this.Close();
+
 
         }
 

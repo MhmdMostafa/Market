@@ -10,37 +10,37 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace Market
 {
-    public partial class MainCustomer : MaterialSkin.Controls.MaterialForm
+    public partial class MainEmp : MaterialSkin.Controls.MaterialForm
     {
 
         public string command;
         public int SelectedID;
 
-        public Dictionary<string, int> customersCol = new Dictionary<string, int>();
-        public Dictionary<string, int> customersEmailAddressesCol = new Dictionary<string, int>();
-        public Dictionary<string, int> customersContactNumbersCol = new Dictionary<string, int>();
-        public Dictionary<string, int> customersBankAccountsCol = new Dictionary<string, int>();
-        public Dictionary<string, int> customerGroupsCol = new Dictionary<string, int>();
+        public Dictionary<string, int> employeesCol = new Dictionary<string, int>();
+        public Dictionary<string, int> employeeEmailAddressesCol = new Dictionary<string, int>();
+        public Dictionary<string, int> employeeContactNumbersCol = new Dictionary<string, int>();
+        public Dictionary<string, int> employeeBankAccountsCol = new Dictionary<string, int>();
+        public Dictionary<string, int> empGroupCol = new Dictionary<string, int>();
 
-        public MainCustomer()
+        public MainEmp()
         {
             InitializeComponent();
         }
 
-        public MainCustomer(string conf, int id = 0)
+        public MainEmp(string conf, int id = 0)
         {
             InitializeComponent();
             command = conf;
             SelectedID = id;
-            customersCol = Globals.GetColumnsIndex("customers");
-            customersEmailAddressesCol = Globals.GetColumnsIndex("customer_email_addresses");
-            customersContactNumbersCol = Globals.GetColumnsIndex("customer_contact_numbers");
-            customersBankAccountsCol = Globals.GetColumnsIndex("customer_bank_accounts");
-            customerGroupsCol = Globals.GetColumnsIndex("customer_groups");
-            using (MySqlDataReader dr=Globals.myCrud.getDrPassSql("SELECT * FROM customer_groups"))
+            employeesCol = Globals.GetColumnsIndex("employees");
+            employeeEmailAddressesCol = Globals.GetColumnsIndex("emp_email_addresses");
+            employeeContactNumbersCol = Globals.GetColumnsIndex("emp_contact_numbers");
+            employeeBankAccountsCol = Globals.GetColumnsIndex("emp_bank_accounts");
+            empGroupCol = Globals.GetColumnsIndex("emp_group");
+            using (MySqlDataReader dr=Globals.myCrud.getDrPassSql("SELECT * FROM emp_group"))
             {
                 while (dr.Read())
-                    GGroupCb.Items.Add(dr.IsDBNull(customerGroupsCol["NameEn"]) ? "" : dr.GetString("NameEn"));
+                    GGroupCb.Items.Add(dr.IsDBNull(empGroupCol["NameEn"]) ? "" : dr.GetString("NameEn"));
             }
 
             ContactDGV.AutoGenerateColumns = false;
@@ -53,6 +53,8 @@ namespace Market
                 ((Control)ContactTP).Enabled = false;
                 ((Control)BankTP).Enabled = false;
                 ((Control)Addresses).Enabled = false;
+
+
             }
             else
             {
@@ -86,16 +88,16 @@ namespace Market
                 case "General":
                     if (SelectedID != 0)
                     {
-                        SQL = $"SELECT * FROM customers WHERE ID = {SelectedID}";
+                        SQL = $"SELECT * FROM employees WHERE ID = {SelectedID}";
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
                         {
                             dr.Read();
-                            GUserNameTB.Text = dr.IsDBNull(customersCol["UserName"]) ? "" : dr.GetString("UserName");
-                            GNameEnTB.Text = dr.IsDBNull(customersCol["NameEn"]) ? "" : dr.GetString("NameEn");
-                            GNameArTB.Text = dr.IsDBNull(customersCol["NameAr"]) ? "" : dr.GetString("NameAr");
-                            dateTimePicker.Text = dr.IsDBNull(customersCol["DateOfBirh"]) ? "" : dr.GetString("DateOfBirh");
-                            GNationalTB.Text = dr.IsDBNull(customersCol["NationalNumber"]) ? "" : dr.GetString("NationalNumber");
-                            GGroupCb.SelectedItem = dr.IsDBNull(customersCol["CustomerGroupID"]) ? "" : Globals.GetStringById("NameEn", "customer_groups", dr.GetInt32("CustomerGroupID"));
+                            GUserNameTB.Text = dr.IsDBNull(employeesCol["UserName"]) ? "" : dr.GetString("UserName");
+                            GNameEnTB.Text = dr.IsDBNull(employeesCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            GNameArTB.Text = dr.IsDBNull(employeesCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                            dateTimePicker.Text = dr.IsDBNull(employeesCol["DateOfBirh"]) ? "" : dr.GetString("DateOfBirh");
+                            GNationalTB.Text = dr.IsDBNull(employeesCol["Pass_word"]) ? "" : dr.GetString("Pass_word");
+                            GGroupCb.SelectedItem = dr.IsDBNull(employeesCol["EmpGroupID"]) ? "" : Globals.GetStringById("NameEn", "emp_group", dr.GetInt32("EmpGroupID"));
 
                         }
                     }
@@ -111,7 +113,7 @@ namespace Market
                     if (SelectedID != 0)
                     {
                         cleanCB(EmailsCBL);
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM customer_email_addresses WHERE UserID = {SelectedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM emp_email_addresses WHERE UserID = {SelectedID}"))
                             while (dr.Read())
                                 EmailsCBL.Items.Add(dr.GetString("EmailAddress"));
                     }
@@ -125,7 +127,7 @@ namespace Market
                 case "Contact":
                     if (SelectedID != 0)
                     {
-                        SQL = $"SELECT customer_contact_numbers.ID, ContactNumber, countries.Shortcut, contact_type.NameEn as ContactType FROM customer_contact_numbers INNER JOIN countries ON customer_contact_numbers.CountryID=countries.ID INNER JOIN contact_type ON customer_contact_numbers.ContactTypeID=contact_type.ID WHERE UserID ={SelectedID};";
+                        SQL = $"SELECT emp_contact_numbers.ID, ContactNumber, countries.Shortcut, contact_type.NameEn as ContactType FROM emp_contact_numbers INNER JOIN countries ON emp_contact_numbers.CountryID=countries.ID INNER JOIN contact_type ON emp_contact_numbers.ContactTypeID=contact_type.ID WHERE UserID ={SelectedID};";
                         ContactDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     }
                     if (command == "add")
@@ -138,7 +140,7 @@ namespace Market
                 case "Bank Accounts":
                     if (SelectedID != 0)
                     {
-                        SQL = $"SELECT ID, NameEn, NameAr, Iban, FullNameOwner, ExpiryDate FROM customer_bank_accounts WHERE UserID = {SelectedID};";
+                        SQL = $"SELECT ID, NameEn, NameAr, Iban, FullNameOwner, ExpiryDate FROM emp_bank_accounts WHERE UserID = {SelectedID};";
                         BankDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     }
                     if (command == "add")
@@ -177,32 +179,32 @@ namespace Market
 
             if (command == "edit" || SelectedID != 0)
             {
-                if (Globals.ifExist("customers", "UserName", Globals.RmSpace(GUserNameTB.Text), SelectedID))
+                if (Globals.ifExist("employees", "UserName", Globals.RmSpace(GUserNameTB.Text), SelectedID))
                 {
                     MessageBox.Show("This Vat Number is alredy Exist");
                     return;
                 }
-                SQL = $"UPDATE customers SET UserName=@UserName NameEn=@NameEn, NameAr=@NameAr, DateOfBirh=@DateOfBirh, NationalNumber=@NationalNumber, CustomerGroupID=@CustomerGroupID WHERE ID={SelectedID};";
+                SQL = $"UPDATE employees SET UserName=@UserName, NameEn=@NameEn, NameAr=@NameAr, DateOfBirh=@DateOfBirh, Pass_word=MD5(@Pass_word), EmpGroupID=@EmpGroupID WHERE ID={SelectedID};";
 
             }
             else
             {
 
-                if (Globals.ifExist("customers", "UserName", Globals.RmSpace(GUserNameTB.Text)))
+                if (Globals.ifExist("employees", "UserName", Globals.RmSpace(GUserNameTB.Text)))
                 {
                     MessageBox.Show("This Vat Number is alredy Exist");
                     return;
                 }
 
-                SQL = $"INSERT INTO customers (UserName, NameEn, NameAr, DateOfBirh, NationalNumber, CustomerGroupID) VALUES(@UserName, @NameEn, @NameAr, @DateOfBirh, @NationalNumber, @CustomerGroupID);";
+                SQL = $"INSERT INTO employees (UserName, NameEn, NameAr, DateOfBirh, Pass_word, EmpGroupID) VALUES(@UserName, @NameEn, @NameAr, @DateOfBirh, MD5(@Pass_word), @EmpGroupID);";
 
             }
             myPara.Add("@UserName", Globals.RmSpace(GUserNameTB.Text));
             myPara.Add("@NameEn", Globals.RmSpace(GNameEnTB.Text));
             myPara.Add("@NameAr", Globals.RmSpace(GNameArTB.Text));
             myPara.Add("@DateOfBirh", dateTimePicker.Value);
-            myPara.Add("@NationalNumber", Globals.RmSpace(GNationalTB.Text));
-            myPara.Add("@CustomerGroupID", Globals.GetIdByString("customer_groups", "NameEn", GGroupCb.Text));
+            myPara.Add("@Pass_word", Globals.RmSpace(GNationalTB.Text));
+            myPara.Add("@EmpGroupID", Globals.GetIdByString("emp_group", "NameEn", GGroupCb.Text));
 
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             ((Control)EmailTP).Enabled = true;
@@ -217,7 +219,7 @@ namespace Market
                 {
                     myPara.Clear();
                     myPara.Add("@UserName", Globals.RmSpace(GUserNameTB.Text));
-                    using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic("SELECT ID FROM customers WHERE UserName = @UserName;", myPara))
+                    using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic("SELECT ID FROM employees WHERE UserName = @UserName;", myPara))
                     {
                         dr.Read();
                         SelectedID = dr.GetInt32("ID");
@@ -235,7 +237,7 @@ namespace Market
         {
             if (Globals.CoutCbList(EmailsCBL))
             {
-                AddEemail AddWindow = new AddEemail("edit", "customer_email_addresses", SelectedID, EmailsCBL.CheckedItems[0].ToString());
+                AddEemail AddWindow = new AddEemail("edit", "emp_email_addresses", SelectedID, EmailsCBL.CheckedItems[0].ToString());
                 AddWindow.ShowDialog();
                 refreshTap();
             }
@@ -243,7 +245,7 @@ namespace Market
 
         private void AddEmailB_Click(object sender, EventArgs e)
         {
-            AddEemail AddWindow = new AddEemail("add", "customer_email_addresses", SelectedID);
+            AddEemail AddWindow = new AddEemail("add", "emp_email_addresses", SelectedID);
             AddWindow.ShowDialog();
             refreshTap();
 
@@ -277,7 +279,7 @@ namespace Market
 
                     foreach (object item in EmailsCBL.CheckedItems)
                     {
-                        Globals.DeleteValue("customer_email_addresses", "EmailAddress", item.ToString());
+                        Globals.DeleteValue("emp_email_addresses", "EmailAddress", item.ToString());
                     }
                     refreshTap();
                 }
@@ -288,7 +290,7 @@ namespace Market
 
         private void AddContactB_Click(object sender, EventArgs e)
         {
-            AddContact window = new AddContact("add", "customer_contact_numbers", SelectedID);
+            AddContact window = new AddContact("add", "emp_contact_numbers", SelectedID);
             window.ShowDialog();
             refreshTap();
         }
@@ -307,7 +309,7 @@ namespace Market
                 return;
             }
 
-            AddContact window = new AddContact("edit", "customer_contact_numbers", SelectedID, selectedValues[0]);
+            AddContact window = new AddContact("edit", "emp_contact_numbers", SelectedID, selectedValues[0]);
             window.ShowDialog();
             refreshTap();
         }
@@ -323,7 +325,7 @@ namespace Market
 
             foreach (int value in selectedValues)
             {
-                Globals.DeleteValue("customer_contact_numbers", "ID", value);
+                Globals.DeleteValue("emp_contact_numbers", "ID", value);
             }
 
             MessageBox.Show("Done!!");
@@ -340,7 +342,7 @@ namespace Market
 
         private void AddBankB_Click(object sender, EventArgs e)
         {
-            AddEditBank window = new AddEditBank("add", "customer_bank_accounts", SelectedID);
+            AddEditBank window = new AddEditBank("add", "emp_bank_accounts", SelectedID);
             window.ShowDialog();
             refreshTap();
         }
@@ -359,7 +361,7 @@ namespace Market
                 return;
             }
 
-            AddEditBank window = new AddEditBank("edit", "customer_bank_accounts", SelectedID, selectedValues[0]);
+            AddEditBank window = new AddEditBank("edit", "emp_bank_accounts", SelectedID, selectedValues[0]);
             window.ShowDialog();
             refreshTap();
         }
@@ -375,7 +377,7 @@ namespace Market
 
             foreach (int value in selectedValues)
             {
-                Globals.DeleteValue("customer_bank_accounts", "ID", value);
+                Globals.DeleteValue("emp_bank_accounts", "ID", value);
             }
 
             MessageBox.Show("Done!!");

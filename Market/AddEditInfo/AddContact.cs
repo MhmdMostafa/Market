@@ -99,8 +99,8 @@ namespace Market
             }
 
             myPara.Add("@UserID", UserID);
-            myPara.Add("@CountryID", Globals.GetIdByString("ID", "countries", "CallingCode", CountryCB.Text));
-            myPara.Add("@ContactTypeID", Globals.GetIdByString("ID", "contact_type", "NameEn", typeCB.Text));
+            myPara.Add("@CountryID", Globals.GetIdByString("countries", "CallingCode", CountryCB.Text));
+            myPara.Add("@ContactTypeID", Globals.GetIdByString("contact_type", "NameEn", typeCB.Text));
             myPara.Add("@ContactNumber", PhoneTB.Text);
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             this.Close();

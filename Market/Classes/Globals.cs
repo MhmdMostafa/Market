@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 namespace Market
 {
     class Globals
     {
         public static MySQL_CRUD myCrud = new MySQL_CRUD(@"mysql.cfg");
-        public static int GetIdByString(string columnID, string SqlTable, string StrCol, string str)
+        public static int GetIdByString(string SqlTable, string StrCol, string str)
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
-            string SQL = $@"SELECT {columnID} From {SqlTable} WHERE {StrCol} = @str";
+            string SQL = $@"SELECT ID From {SqlTable} WHERE {StrCol} = @str";
             myPara.Add("@str", str); ;
             MySqlDataReader dr = myCrud.getDrPassSqlDic(SQL, myPara);
             dr.Read();
-            return dr.GetInt32(columnID);
+            return dr.GetInt32("ID");
         }
 
         public static string GetStringById(string columnString, string SqlTable, int Id)
@@ -201,6 +202,27 @@ namespace Market
                 else
                     flag = false;
             return flag;
+        }
+
+        public static string encrypt(string pass)
+        {
+
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(pass));
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
+
+        }
+
+
+        public static string decrypt(string pass)
+        {
+
+            return "";
         }
 
     }

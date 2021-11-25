@@ -1,7 +1,7 @@
 ﻿
 namespace Market
 {
-    partial class MainCustomer
+    partial class MainEmp
     {
         /// <summary>
         /// Required designer variable.
@@ -202,6 +202,7 @@ namespace Market
             this.GNationalTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.GNationalTB.Location = new System.Drawing.Point(167, 175);
             this.GNationalTB.Name = "GNationalTB";
+            this.GNationalTB.PasswordChar = '*';
             this.GNationalTB.Size = new System.Drawing.Size(371, 32);
             this.GNationalTB.TabIndex = 28;
             // 
@@ -213,7 +214,7 @@ namespace Market
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(118, 24);
             this.label1.TabIndex = 27;
-            this.label1.Text = "National:";
+            this.label1.Text = "Password:";
             // 
             // dateTimePicker
             // 
@@ -730,7 +731,7 @@ namespace Market
             this.AddAddressB.UseVisualStyleBackColor = true;
             this.AddAddressB.Click += new System.EventHandler(this.AddAddressB_Click);
             // 
-            // MainCustomer
+            // MainEmp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -738,7 +739,7 @@ namespace Market
             this.Controls.Add(this.TapsPage);
             this.Controls.Add(this.CancelBack);
             this.Controls.Add(this.NextEnd);
-            this.Name = "MainCustomer";
+            this.Name = "MainEmp";
             this.Text = "Add New User";
             this.TapsPage.ResumeLayout(false);
             this.GenralTP.ResumeLayout(false);
