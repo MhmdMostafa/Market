@@ -56,6 +56,12 @@ VALUES (2, 'Ring', N'البنصر');
 INSERT INTO hand_fingers (HandID, NameEn, NameAr)
 VALUES (2, 'Pinkie', N'الخنصر');
 
+
+INSERT INTO gender (NameEn, NameAr, Shortcut)
+VALUES ('Male', N'ذكر', 'M');
+INSERT INTO gender (NameEn, NameAr, Shortcut)
+VALUES ('Female', N'أنثى', 'W');
+
 INSERT INTO currencies (NameEn, NameAr, Shortcut)
 VALUES ('Saudi Riyal', N'ريال سعودي', 'SAR');
 

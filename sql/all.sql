@@ -37,6 +37,34 @@ CREATE TABLE contact_type(
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE nav_sectionss(
+	ID INT AUTO_INCREMENT,
+    SectionID INT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID),
+    FOREIGN KEY (SectionID) REFERENCES nav_sectionss(ID)
+);
+
+
+CREATE TABLE nav_rows(
+	ID INT AUTO_INCREMENT,
+    SectionID INT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID),
+    FOREIGN KEY (SectionID) REFERENCES nav_sectionss(ID)
+);
+
+CREATE TABLE nav_columns(
+	ID INT AUTO_INCREMENT,
+    SectionID INT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID),
+    FOREIGN KEY (SectionID) REFERENCES nav_sectionss(ID)
+);
+
 CREATE TABLE hands(
 	ID INT AUTO_INCREMENT,
 	NameEn VARCHAR(50) NOT NULL,
@@ -52,6 +80,14 @@ CREATE TABLE hand_fingers(
 	PRIMARY KEY (ID),
     FOREIGN KEY (HandID) REFERENCES hands(ID)
 );
+
+CREATE TABLE gender(
+    ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(100) NOT NULL,
+    NameAr VARCHAR(100) NOT NULL,
+    Shortcut CHAR(6) NOT NULL,
+    PRIMARY KEY (ID)
+)
 
 CREATE TABLE currencies(
 	ID INT NOT NULL AUTO_INCREMENT,
@@ -106,6 +142,40 @@ CREATE TABLE products_type(
     PRIMARY KEY (ID)
 );
 
+CREATE TABLE our_warehouses(
+    ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(100),
+    NameAr VARCHAR(100),
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE our_warehouses_addresses(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    CountryID INT NOT NULL,
+    CityID INT NOT NULL,
+    District VARCHAR (45) NOT NULL,
+    Street VARCHAR (45) NOT NULL,
+    ZipCode INT,
+    Description VARCHAR (100) NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES our_warehouses(ID),
+    FOREIGN KEY (CountryID) REFERENCES Countries(ID),
+    FOREIGN KEY (CityID) REFERENCES cities(ID)
+);
+
+CREATE TABLE our_warehouses_numbers(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    CountryID INT NOT NULL,
+    ContactTypeID INT NOT NULL,
+    ContactNumber VARCHAR(10) NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (UserID) REFERENCES our_warehouses(ID),
+    FOREIGN KEY (CountryID) REFERENCES countries(ID),
+    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
+    UNIQUE (ContactNumber)
+);
 
 CREATE TABLE emp_group(
 	ID INT NOT NULL AUTO_INCREMENT,
@@ -140,8 +210,10 @@ CREATE TABLE employees(
     NameAr VARCHAR(50),
 	DateOfBirh DATE,
     Pass_word VARCHAR(255) NOT NULL,
+    GenderID INT,
     PRIMARY KEY (ID),
     FOREIGN KEY (EmpGroupID) REFERENCES emp_group(ID),
+    FOREIGN KEY (GenderID) REFERENCES gender(ID),
     UNIQUE (UserName)
 );
 
@@ -283,17 +355,52 @@ CREATE TABLE suppliers_bank_accounts(
     UNIQUE (Iban)
 );
 
+CREATE TABLE suppliers_warehouses(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    NameEn VARCHAR(100),
+    NameAr VARCHAR(100),
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES suppliers(ID),
+    UNIQUE (Iban)
+);
+
+CREATE TABLE suppliers_warehouses_addresses(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    CountryID INT NOT NULL,
+    CityID INT NOT NULL,
+    District VARCHAR (45) NOT NULL,
+    Street VARCHAR (45) NOT NULL,
+    ZipCode INT,
+    Description VARCHAR (100) NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES suppliers_warehouses(ID),
+    FOREIGN KEY (CountryID) REFERENCES Countries(ID),
+    FOREIGN KEY (CityID) REFERENCES cities(ID)
+);
+
+CREATE TABLE suppliers_warehouses_numbers(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    CountryID INT NOT NULL,
+    ContactTypeID INT NOT NULL,
+    ContactNumber VARCHAR(10) NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (UserID) REFERENCES suppliers_warehouses(ID),
+    FOREIGN KEY (CountryID) REFERENCES countries(ID),
+    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
+    UNIQUE (ContactNumber)
+);
+
 CREATE TABLE products(
 	ID INT NOT NULL AUTO_INCREMENT,
-    SupplierID INT NOT NULL,
     ProductGroubID INT NOT NULL,
     ProductTypeID INT NOT NULL,
 	NameEn VARCHAR(100) NOT NULL,
     NameAr VARCHAR(100),
-    CostPrice FLOAT NOT NULL,
     Price FLOAT NOT NULL,
     ProfitMargin FLOAT NOT NULL,
-    UnitValueID INT,
     CurrencyID INT NOT NULL,
     DateOfProduction DATE NOT NULL,
     ExpiryDate DATE NOT NULL,
@@ -303,22 +410,44 @@ CREATE TABLE products(
     UPC CHAR(20),
     SKU CHAR(20),
     ISBN CHAR(20),
-    Available BOOLEAN DEFAULT TRUE,
     PRIMARY KEY (ID),
-    FOREIGN KEY (SupplierID) REFERENCES suppliers(ID),
     FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ID),
     FOREIGN KEY (ProductTypeID) REFERENCES products_type(ID),
-	FOREIGN KEY (UnitValueID) REFERENCES units_value(ID),
     FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 
+CREATE TABLE product_location(
+    ID INT AUTO_INCREMENT,
+    SectionID INT,
+    SubSectionID INT,
+    SubSubSectionID INT,
+    RowID INT,
+    ColumnID INT,
+    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID),
+    FOREIGN KEY (SubSectionID) REFERENCES nav_subsections(ID),
+    FOREIGN KEY (SubSubSectionID) REFERENCES nav_subsubsections(ID),
+    FOREIGN KEY (RowID) REFERENCES nav_row(ID),
+    FOREIGN KEY (Column) REFERENCES nav_column(ID)
+);
+
 CREATE TABLE products_stock(
+    ID INT NOT NULL AUTO_INCREMENT,
     ProductID INT,
+    SupplierID INT NOT NULL,
+    WerehouseID INT,
+    LocationID INT,
+    CostPrice FLOAT NOT NULL,
+    CurrencyID INT NOT NULL,
     Description VARCHAR (600),
 	Size INT NOT NULL,
     UnitValueID INT NOT NULL,
 	Quantity INT NOT NULL,
+    Available BOOLEAN DEFAULT TRUE,
+    PRIMARY KEY (ID),
 	FOREIGN KEY (ProductID) REFERENCES products(ID),
+    FOREIGN KEY (SupplierID) REFERENCES suppliers(ID),
+    FOREIGN KEY (WerehouseID) REFERENCES our_warehouses(ID),
+    FOREIGN KEY (LocationID) REFERENCES product_location(ID),
 	FOREIGN KEY (UnitValueID) REFERENCES units_value(ID)
 );
 
@@ -439,8 +568,10 @@ CREATE TABLE customers(
 	DateOfBirh DATE,
     NationalNumber VARCHAR(12),
     Pass_word VARCHAR(255),
+    GenderID INT,
     PRIMARY KEY (ID),
     FOREIGN KEY (CustomerGroupID) REFERENCES customer_groups(ID),
+    FOREIGN KEY (GenderID) REFERENCES gender(ID),
     UNIQUE (UserName)
 );
 
