@@ -36,7 +36,7 @@ namespace Market
         private void addProductToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            NewProduct MainWindow = new NewProduct();
+            MainProduct MainWindow = new MainProduct();
             MainWindow.Closed += (s, args) => this.Show();
             MainWindow.Show();
         }

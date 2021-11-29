@@ -50,9 +50,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net461\MaterialSkin.dll</HintPath>
+      <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net48\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.2.0.0\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -108,6 +108,12 @@
     </Compile>
     <Compile Include="AddEditOther\Emp\MainEmp.Designer.cs">
       <DependentUpon>MainEmp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\Products\ProductsInfo\AddEditProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\Products\ProductsInfo\AddEditProducts.Designer.cs">
+      <DependentUpon>AddEditProducts.cs</DependentUpon>
     </Compile>
     <Compile Include="Navigation\Werehouse.cs">
       <SubType>Form</SubType>
@@ -196,11 +202,11 @@
     <Compile Include="NewInvoiceForm.Designer.cs">
       <DependentUpon>NewInvoiceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewProduct.cs">
+    <Compile Include="AddEditOther\Products\MainProduct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewProduct.Designer.cs">
-      <DependentUpon>NewProduct.cs</DependentUpon>
+    <Compile Include="AddEditOther\Products\MainProduct.Designer.cs">
+      <DependentUpon>MainProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddEditOther\Emp\MainEmp.resx">
       <DependentUpon>MainEmp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\Products\ProductsInfo\AddEditProducts.resx">
+      <DependentUpon>AddEditProducts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Navigation\Werehouse.resx">
       <DependentUpon>Werehouse.cs</DependentUpon>
@@ -271,8 +280,8 @@
     <EmbeddedResource Include="NewInvoiceForm.resx">
       <DependentUpon>NewInvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewProduct.resx">
-      <DependentUpon>NewProduct.cs</DependentUpon>
+    <EmbeddedResource Include="AddEditOther\Products\MainProduct.resx">
+      <DependentUpon>MainProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
@@ -314,7 +323,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AddEditOther\Product\" />
+    <Folder Include="AddEditOther\Products\Werehouse\" />
     <Folder Include="Gridviews\" />
     <Folder Include="Main Add Forms\" />
   </ItemGroup>

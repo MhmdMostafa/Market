@@ -1,7 +1,7 @@
 ﻿
 namespace Market
 {
-    partial class For2TB
+    partial class DefaultsDGV2
     {
         /// <summary>
         /// Required designer variable.

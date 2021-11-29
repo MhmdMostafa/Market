@@ -11,15 +11,15 @@ using MySql.Data.MySqlClient;
 
 namespace Market
 {
-    public partial class For3TB : MaterialSkin.Controls.MaterialForm
+    public partial class DefaultsDGV1 : MaterialSkin.Controls.MaterialForm
     {
         string SQLtable;
-        public For3TB()
+        public DefaultsDGV1()
         {
             InitializeComponent();
         }
 
-        public For3TB(string table)
+        public DefaultsDGV1(string table)
         {
             InitializeComponent();
             SQLtable = table;

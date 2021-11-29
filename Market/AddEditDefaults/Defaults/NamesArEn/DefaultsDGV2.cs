@@ -12,15 +12,15 @@ using MySql.Data.MySqlClient;
 namespace Market
 {
     //this form is used to (add, edit, Delete) tables value that have only 2 feilds (NameEn, NameAr) using other form called only names
-    public partial class For2TB : MaterialSkin.Controls.MaterialForm
+    public partial class DefaultsDGV2 : MaterialSkin.Controls.MaterialForm
     {
         string SQLtable;
-        public For2TB()
+        public DefaultsDGV2()
         {
             InitializeComponent();
         }
 
-        public For2TB(string table)
+        public DefaultsDGV2(string table)
         {
             InitializeComponent();
             SQLtable = table;

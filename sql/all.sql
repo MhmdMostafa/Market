@@ -399,12 +399,11 @@ CREATE TABLE products(
     ProductTypeID INT NOT NULL,
 	NameEn VARCHAR(100) NOT NULL,
     NameAr VARCHAR(100),
+    Size INT NOT NULL,
+    UnitValueID INT NOT NULL,
     Price FLOAT NOT NULL,
-    ProfitMargin FLOAT NOT NULL,
     CurrencyID INT NOT NULL,
-    DateOfProduction DATE NOT NULL,
-    ExpiryDate DATE NOT NULL,
-    Barcode INT,
+    Barcode VARCHAR(100),
     IncludeVat BOOLEAN DEFAULT TRUE,
     IncludePrescription BOOLEAN DEFAULT FALSE,
     UPC CHAR(20),
@@ -413,19 +412,16 @@ CREATE TABLE products(
     PRIMARY KEY (ID),
     FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ID),
     FOREIGN KEY (ProductTypeID) REFERENCES products_type(ID),
+	FOREIGN KEY (UnitValueID) REFERENCES units_value(ID),
     FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 
 CREATE TABLE product_location(
     ID INT AUTO_INCREMENT,
     SectionID INT,
-    SubSectionID INT,
-    SubSubSectionID INT,
     RowID INT,
     ColumnID INT,
     FOREIGN KEY (SectionID) REFERENCES nav_sections(ID),
-    FOREIGN KEY (SubSectionID) REFERENCES nav_subsections(ID),
-    FOREIGN KEY (SubSubSectionID) REFERENCES nav_subsubsections(ID),
     FOREIGN KEY (RowID) REFERENCES nav_row(ID),
     FOREIGN KEY (Column) REFERENCES nav_column(ID)
 );
@@ -439,16 +435,17 @@ CREATE TABLE products_stock(
     CostPrice FLOAT NOT NULL,
     CurrencyID INT NOT NULL,
     Description VARCHAR (600),
-	Size INT NOT NULL,
-    UnitValueID INT NOT NULL,
 	Quantity INT NOT NULL,
     Available BOOLEAN DEFAULT TRUE,
+    DateOfProduction DATE NOT NULL,
+    ExpiryDate DATE NOT NULL,
+    Barcode VARCHAR(100),
     PRIMARY KEY (ID),
 	FOREIGN KEY (ProductID) REFERENCES products(ID),
     FOREIGN KEY (SupplierID) REFERENCES suppliers(ID),
     FOREIGN KEY (WerehouseID) REFERENCES our_warehouses(ID),
     FOREIGN KEY (LocationID) REFERENCES product_location(ID),
-	FOREIGN KEY (UnitValueID) REFERENCES units_value(ID)
+    FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 
 CREATE TABLE invoices(

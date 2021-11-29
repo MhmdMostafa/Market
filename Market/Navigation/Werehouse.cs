@@ -31,7 +31,7 @@ namespace Market
             command = conf;
 
             TreeNode RowsName = new TreeNode("RowsName");
-            TreeNode ColumnName= new TreeNode("ColumnName");
+            TreeNode ColumnName = new TreeNode("ColumnName");
             TreeNode RowsNode = new TreeNode("RowsNode", new TreeNode[] { RowsName });
             TreeNode ColumnNode = new TreeNode("ColumnNode", new TreeNode[] { ColumnName });
             TreeNode SubSubSectionNode = new TreeNode("SubSubSectionNode", new TreeNode[] { RowsNode, ColumnNode });
@@ -55,7 +55,8 @@ namespace Market
 
             Sections.Add(SectionNode);
 
-            for (int i = 0; i< 2; i++){
+            for (int i = 0; i < 30; i++)
+            {
                 TreeNode newNode = new TreeNode();
                 newNode.Name = $"{i}-Node";
                 newNode.Text = $"{i}-Node";
@@ -71,7 +72,7 @@ namespace Market
 
         private void AddSectionB_Click(object sender, EventArgs e)
         {
-            
+
         }
 
 
