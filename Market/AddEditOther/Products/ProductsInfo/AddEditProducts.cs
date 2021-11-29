@@ -12,9 +12,9 @@ namespace Market.AddEditOther.Product
 {
     public partial class AddEditProducts : MaterialSkin.Controls.MaterialForm
     {
-        public string SQLtable = "products";
         public int SelectedID;
         public string command;
+        public Dictionary<string, int> ProductsCol = new Dictionary<string, int>();
         public Dictionary<string, int> CurrenciesCol = new Dictionary<string, int>();
         public Dictionary<string, int> UnitsValueCol = new Dictionary<string, int>();
         public Dictionary<string, int> ProductsGroubCol = new Dictionary<string, int>();
@@ -26,12 +26,13 @@ namespace Market.AddEditOther.Product
         }
 
 
-        public AddEditProducts(string conf, int id)
+        public AddEditProducts(string conf, int id=0)
         {
             InitializeComponent();
             command = conf;
             SelectedID = id;
 
+            ProductsCol = Globals.GetColumnsIndex("products");
             CurrenciesCol = Globals.GetColumnsIndex("currencies");
             UnitsValueCol = Globals.GetColumnsIndex("units_value");
             ProductsGroubCol = Globals.GetColumnsIndex("products_groub");
@@ -47,7 +48,26 @@ namespace Market.AddEditOther.Product
             {
                 Text = "Edit Product Wizerd";
                 AddEditBT.Text = "Edit";
-                string SQL = $@"SELECT products_groub.NameEn AS groub, products_type.NameEn AS type, products.NameEn, products.NameAr, Size, units_value.Sortcut AS unit, Price, currencies.Sortcut AS Currency, Barcode, IncludeVat, IncludePrescription, UPC, SKU, ISBN From products INNER JOIN ON ";
+                string SQL = $@"SELECT products_groub.NameEn AS Groub, products_type.NameEn AS Type, products.NameEn, products.NameAr, Size, units_value.Shortcut AS Unit, Price, currencies.Shortcut AS Currency, Barcode, IncludeVat, IncludePrescription, UPC, SKU, ISBN From products INNER JOIN products_groub ON ProductGroubID = products_groub.ID INNER JOIN products_type ON ProductTypeID = products_type.ID INNER JOIN units_value ON UnitValueID = units_value.ID INNER JOIN currencies ON CurrencyID = currencies.ID;";
+
+                using(MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
+                {
+                    dr.Read();
+                    nameEnTb.Text = dr.IsDBNull(ProductsCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                    nameArTb.Text = dr.IsDBNull(ProductsCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                    groubCb.SelectedItem = dr.IsDBNull(ProductsCol["ProductGroubID"]) ? "" : dr.GetString("Groub");
+                    typeCb.Text = dr.IsDBNull(ProductsCol["ProductTypeID"]) ? "" : dr.GetString("Type");
+                    sizeTb.Value= dr.IsDBNull(ProductsCol["Size"]) ? 0 : (decimal)dr.GetFloat("Size");
+                    unitValueCb.SelectedItem = dr.IsDBNull(ProductsCol["UnitValueID"]) ? "" : dr.GetString("Unit");
+                    salePriceTb.Value = dr.IsDBNull(ProductsCol["Price"]) ? 0 : (decimal)dr.GetFloat("Price");
+                    currencyCb.SelectedItem = dr.IsDBNull(ProductsCol["CurrencyID"]) ? "" : dr.GetString("Currency");
+                    barcodeTb.Text = dr.IsDBNull(ProductsCol["Barcode"]) ? "" : dr.GetString("Barcode");
+                    upcTb.Text = dr.IsDBNull(ProductsCol["UPC"]) ? "" : dr.GetString("UPC");
+                    skuTb.Text = dr.IsDBNull(ProductsCol["SKU"]) ? "" : dr.GetString("SKU");
+                    isbnTb.Text = dr.IsDBNull(ProductsCol["ISBN"]) ? "" : dr.GetString("ISBN");
+                    prescriptionCb.SelectedItem = dr.IsDBNull(ProductsCol["IncludePrescription"]) ? "" : dr.GetString("IncludePrescription");
+                    vatCb.SelectedItem = dr.IsDBNull(ProductsCol["IncludeVat"]) ? "" : dr.GetString("IncludeVat");
+                }
             }
             else
             {
@@ -59,8 +79,42 @@ namespace Market.AddEditOther.Product
 
         private void AddEditBT_Click(object sender, EventArgs e)
         {
+            Dictionary<string, object> myPara = new Dictionary<string, object>();
+            string SQL;
+            if (nameEnTb.Text == "" || nameArTb.Text == "" || groubCb.Text == "" || typeCb.Text == "" || sizeTb.Text == "" || unitValueCb.Text == "" || salePriceTb.Text == "" || currencyCb.Text == "" || prescriptionCb.Text == "" || vatCb.Text == "")
+            {
+                MessageBox.Show("Please Fill all needed inf");
+                return;
+            }
+            if (command == "edit")
+            {
+                SQL = $"UPDATE products NameEn=@NameEn, NameAr=@NameAr, ProductGroubID=@ProductGroubID, ProductTypeID=@ProductTypeID, Size=@Size, UnitValueID=@UnitValueID, Price=@Price, CurrencyID=@CurrencyID, Barcode=@Barcode, UPC=@UPC, SKU=@SKU, ISBN=@ISBN, IncludePrescription=@NameEIncludePrescriptionn, IncludeVat=@IncludeVat WHERE ID={SelectedID};";
+            }
+            else
+            {
+                SQL = "INSERT INTO products (NameEn, NameAr, ProductGroubID, ProductTypeID, Size, UnitValueID, Price, CurrencyID, Barcode, UPC, SKU, ISBN, IncludePrescription, IncludeVat VALUES(@NameEn, @NameAr, @ProductGroubID, @ProductTypeID, @Size, @UnitValueID, @Price, @CurrencyID, @Barcode, @UPC, @SKU, @ISBN, @NameEIncludePrescriptionn, @IncludeVa)";
+            }
+
+            myPara.Add("@NameEn", Globals.RmSpace(nameEnTb.Text));
+            myPara.Add("@NameAr", Globals.RmSpace(nameArTb.Text));
+            myPara.Add("@ProductGroubID", Globals.GetIdByString("","NameEn",groubCb.Text));
+            myPara.Add("@ProductTypeID", Globals.GetIdByString("", "NameEn", typeCb.Text));
+            myPara.Add("@Size", sizeTb.Value);
+            myPara.Add("@UnitValueID", Globals.GetIdByString("", "NameEn", unitValueCb.Text));
+            myPara.Add("@Price", salePriceTb.Value);
+            myPara.Add("@CurrencyID", Globals.GetIdByString("", "NameEn", currencyCb.Text));
+            myPara.Add("@Barcode", Globals.RmSpace(barcodeTb.Text));
+            myPara.Add("@UPC", Globals.RmSpace(upcTb.Text));
+            myPara.Add("@SKU", Globals.RmSpace(skuTb.Text));
+            myPara.Add("@ISBN", Globals.RmSpace(isbnTb.Text));
+            myPara.Add("@NameEIncludePrescriptionn", Globals.RmSpace(prescriptionCb.Text));
+            myPara.Add("@IncludeVa", Globals.RmSpace(vatCb.Text));
+
+            Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+
 
         }
+
         private void addUnitValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DefaultsDGV1 window = new DefaultsDGV1("units_value");

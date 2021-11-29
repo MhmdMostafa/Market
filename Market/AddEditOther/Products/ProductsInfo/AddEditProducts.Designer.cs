@@ -52,7 +52,7 @@ namespace Market.AddEditOther.Product
             this.addGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddEditBT = new MaterialSkin.Controls.MaterialButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.isbnTb = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groubCb = new System.Windows.Forms.ComboBox();
             this.typeCb = new System.Windows.Forms.ComboBox();
@@ -69,11 +69,22 @@ namespace Market.AddEditOther.Product
             // 
             // sizeTb
             // 
+            this.sizeTb.DecimalPlaces = 3;
             this.sizeTb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold);
             this.sizeTb.Location = new System.Drawing.Point(133, 235);
+            this.sizeTb.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
             this.sizeTb.Name = "sizeTb";
             this.sizeTb.Size = new System.Drawing.Size(139, 30);
             this.sizeTb.TabIndex = 117;
+            this.sizeTb.Value = new decimal(new int[] {
+            35,
+            0,
+            0,
+            65536});
             // 
             // unitValueCb
             // 
@@ -96,8 +107,14 @@ namespace Market.AddEditOther.Product
             // 
             // salePriceTb
             // 
+            this.salePriceTb.DecimalPlaces = 3;
             this.salePriceTb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold);
             this.salePriceTb.Location = new System.Drawing.Point(133, 271);
+            this.salePriceTb.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
             this.salePriceTb.Name = "salePriceTb";
             this.salePriceTb.Size = new System.Drawing.Size(139, 30);
             this.salePriceTb.TabIndex = 114;
@@ -281,13 +298,13 @@ namespace Market.AddEditOther.Product
             this.AddEditBT.UseVisualStyleBackColor = true;
             this.AddEditBT.Click += new System.EventHandler(this.AddEditBT_Click);
             // 
-            // textBox1
+            // isbnTb
             // 
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(478, 163);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 30);
-            this.textBox1.TabIndex = 121;
+            this.isbnTb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.isbnTb.Location = new System.Drawing.Point(478, 163);
+            this.isbnTb.Name = "isbnTb";
+            this.isbnTb.Size = new System.Drawing.Size(250, 30);
+            this.isbnTb.TabIndex = 121;
             // 
             // label4
             // 
@@ -358,6 +375,7 @@ namespace Market.AddEditOther.Product
             this.vatCb.Name = "vatCb";
             this.vatCb.Size = new System.Drawing.Size(199, 30);
             this.vatCb.TabIndex = 126;
+            this.vatCb.SelectedIndex = 1;
             // 
             // label11
             // 
@@ -380,6 +398,7 @@ namespace Market.AddEditOther.Product
             this.prescriptionCb.Name = "prescriptionCb";
             this.prescriptionCb.Size = new System.Drawing.Size(199, 30);
             this.prescriptionCb.TabIndex = 128;
+            this.prescriptionCb.SelectedIndex = 1;
             // 
             // AddEditProducts
             // 
@@ -394,7 +413,7 @@ namespace Market.AddEditOther.Product
             this.Controls.Add(this.label6);
             this.Controls.Add(this.typeCb);
             this.Controls.Add(this.groubCb);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.isbnTb);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.AddEditBT);
             this.Controls.Add(this.sizeTb);
@@ -451,7 +470,7 @@ namespace Market.AddEditOther.Product
         private MaterialSkin.Controls.MaterialButton AddEditBT;
         private System.Windows.Forms.ToolStripMenuItem addGroupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addTypeToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox isbnTb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox groubCb;
         private System.Windows.Forms.ComboBox typeCb;

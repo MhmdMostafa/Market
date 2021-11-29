@@ -37,13 +37,13 @@ CREATE TABLE contact_type(
 	PRIMARY KEY (ID)
 );
 
-CREATE TABLE nav_sectionss(
+CREATE TABLE nav_sections(
 	ID INT AUTO_INCREMENT,
     SectionID INT,
 	NameEn VARCHAR(50) NOT NULL,
 	NameAr VARCHAR(50) NOT NULL,
 	PRIMARY KEY (ID),
-    FOREIGN KEY (SectionID) REFERENCES nav_sectionss(ID)
+    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
 );
 
 
@@ -53,7 +53,7 @@ CREATE TABLE nav_rows(
 	NameEn VARCHAR(50) NOT NULL,
 	NameAr VARCHAR(50) NOT NULL,
 	PRIMARY KEY (ID),
-    FOREIGN KEY (SectionID) REFERENCES nav_sectionss(ID)
+    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
 );
 
 CREATE TABLE nav_columns(
@@ -62,7 +62,7 @@ CREATE TABLE nav_columns(
 	NameEn VARCHAR(50) NOT NULL,
 	NameAr VARCHAR(50) NOT NULL,
 	PRIMARY KEY (ID),
-    FOREIGN KEY (SectionID) REFERENCES nav_sectionss(ID)
+    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
 );
 
 CREATE TABLE hands(
@@ -87,7 +87,7 @@ CREATE TABLE gender(
     NameAr VARCHAR(100) NOT NULL,
     Shortcut CHAR(6) NOT NULL,
     PRIMARY KEY (ID)
-)
+);
 
 CREATE TABLE currencies(
 	ID INT NOT NULL AUTO_INCREMENT,
@@ -198,6 +198,7 @@ CREATE TABLE emp_group_permissions(
 	EmpGroupID INT,
     PermissionID INT,
     PermissionState BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (ID),
     FOREIGN KEY (EmpGroupID) REFERENCES emp_group(ID),
     FOREIGN KEY (PermissionID) REFERENCES emp_permissions(ID)
 );
@@ -361,8 +362,7 @@ CREATE TABLE suppliers_warehouses(
     NameEn VARCHAR(100),
     NameAr VARCHAR(100),
     PRIMARY KEY (ID),
-    FOREIGN KEY (UserID) REFERENCES suppliers(ID),
-    UNIQUE (Iban)
+    FOREIGN KEY (UserID) REFERENCES suppliers(ID)
 );
 
 CREATE TABLE suppliers_warehouses_addresses(
@@ -417,13 +417,14 @@ CREATE TABLE products(
 );
 
 CREATE TABLE product_location(
-    ID INT AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT,
     SectionID INT,
     RowID INT,
     ColumnID INT,
+    PRIMARY KEY (ID),
     FOREIGN KEY (SectionID) REFERENCES nav_sections(ID),
-    FOREIGN KEY (RowID) REFERENCES nav_row(ID),
-    FOREIGN KEY (Column) REFERENCES nav_column(ID)
+    FOREIGN KEY (RowID) REFERENCES nav_rows(ID),
+    FOREIGN KEY (ColumnID) REFERENCES nav_columns(ID)
 );
 
 CREATE TABLE products_stock(
