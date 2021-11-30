@@ -225,5 +225,16 @@ namespace Market
             return "";
         }
 
+
+        public static void CleanTB(Control.ControlCollection  objs)
+        {
+            foreach (Control control in objs)
+                if (control is TextBox)
+                {
+                    control.Text = RmSpace(control.Text).ToLower();
+                    control.Text[0]= char.ToUpper(control.Text[0])
+                }
+        }
+
     }
 }

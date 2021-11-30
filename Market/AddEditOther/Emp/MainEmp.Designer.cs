@@ -33,9 +33,13 @@ namespace Market
             this.CancelBack = new MaterialSkin.Controls.MaterialButton();
             this.TapsPage = new System.Windows.Forms.TabControl();
             this.GenralTP = new System.Windows.Forms.TabPage();
+            this.NationalNoTb = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.GenderCb = new System.Windows.Forms.ComboBox();
             this.GGroupCb = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.GNationalTB = new System.Windows.Forms.TextBox();
+            this.GPassTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.GUserNameTB = new System.Windows.Forms.TextBox();
@@ -157,9 +161,15 @@ namespace Market
             // 
             // GenralTP
             // 
+            this.GenralTP.AutoScroll = true;
+            this.GenralTP.AutoScrollMargin = new System.Drawing.Size(0, 20);
+            this.GenralTP.Controls.Add(this.NationalNoTb);
+            this.GenralTP.Controls.Add(this.label4);
+            this.GenralTP.Controls.Add(this.label3);
+            this.GenralTP.Controls.Add(this.GenderCb);
             this.GenralTP.Controls.Add(this.GGroupCb);
             this.GenralTP.Controls.Add(this.label2);
-            this.GenralTP.Controls.Add(this.GNationalTB);
+            this.GenralTP.Controls.Add(this.GPassTB);
             this.GenralTP.Controls.Add(this.label1);
             this.GenralTP.Controls.Add(this.dateTimePicker);
             this.GenralTP.Controls.Add(this.GUserNameTB);
@@ -178,11 +188,57 @@ namespace Market
             this.GenralTP.Text = "General";
             this.GenralTP.UseVisualStyleBackColor = true;
             // 
+            // NationalNoTb
+            // 
+            this.NationalNoTb.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.NationalNoTb.Location = new System.Drawing.Point(171, 120);
+            this.NationalNoTb.Name = "NationalNoTb";
+            this.NationalNoTb.PasswordChar = '*';
+            this.NationalNoTb.Size = new System.Drawing.Size(371, 32);
+            this.NationalNoTb.TabIndex = 36;
+            this.NationalNoTb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NationalNoTb_KeyPress);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(11, 123);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(154, 24);
+            this.label4.TabIndex = 35;
+            this.label4.Text = "National No:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(71, 275);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 24);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "Gender:";
+            // 
+            // GenderCb
+            // 
+            this.GenderCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.GenderCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.GenderCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GenderCb.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.GenderCb.FormattingEnabled = true;
+            this.GenderCb.Location = new System.Drawing.Point(171, 272);
+            this.GenderCb.Name = "GenderCb";
+            this.GenderCb.Size = new System.Drawing.Size(371, 32);
+            this.GenderCb.TabIndex = 33;
+            // 
             // GGroupCb
             // 
+            this.GGroupCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.GGroupCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.GGroupCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GGroupCb.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.GGroupCb.FormattingEnabled = true;
-            this.GGroupCb.Location = new System.Drawing.Point(167, 213);
+            this.GGroupCb.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.GGroupCb.Location = new System.Drawing.Point(171, 234);
             this.GGroupCb.Name = "GGroupCb";
             this.GGroupCb.Size = new System.Drawing.Size(371, 32);
             this.GGroupCb.TabIndex = 30;
@@ -191,26 +247,27 @@ namespace Market
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(79, 216);
+            this.label2.Location = new System.Drawing.Point(83, 237);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 24);
             this.label2.TabIndex = 29;
             this.label2.Text = "Group:";
             // 
-            // GNationalTB
+            // GPassTB
             // 
-            this.GNationalTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.GNationalTB.Location = new System.Drawing.Point(167, 175);
-            this.GNationalTB.Name = "GNationalTB";
-            this.GNationalTB.PasswordChar = '*';
-            this.GNationalTB.Size = new System.Drawing.Size(371, 32);
-            this.GNationalTB.TabIndex = 28;
+            this.GPassTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.GPassTB.Location = new System.Drawing.Point(171, 196);
+            this.GPassTB.Name = "GPassTB";
+            this.GPassTB.PasswordChar = '*';
+            this.GPassTB.Size = new System.Drawing.Size(371, 32);
+            this.GPassTB.TabIndex = 28;
+            this.GPassTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GPassTB_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(43, 178);
+            this.label1.Location = new System.Drawing.Point(47, 199);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(118, 24);
             this.label1.TabIndex = 27;
@@ -219,7 +276,7 @@ namespace Market
             // dateTimePicker
             // 
             this.dateTimePicker.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.dateTimePicker.Location = new System.Drawing.Point(167, 137);
+            this.dateTimePicker.Location = new System.Drawing.Point(171, 158);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(371, 32);
             this.dateTimePicker.TabIndex = 26;
@@ -227,7 +284,7 @@ namespace Market
             // GUserNameTB
             // 
             this.GUserNameTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.GUserNameTB.Location = new System.Drawing.Point(167, 23);
+            this.GUserNameTB.Location = new System.Drawing.Point(171, 6);
             this.GUserNameTB.Name = "GUserNameTB";
             this.GUserNameTB.Size = new System.Drawing.Size(371, 32);
             this.GUserNameTB.TabIndex = 25;
@@ -236,7 +293,7 @@ namespace Market
             // GNameArTB
             // 
             this.GNameArTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.GNameArTB.Location = new System.Drawing.Point(167, 99);
+            this.GNameArTB.Location = new System.Drawing.Point(171, 82);
             this.GNameArTB.Name = "GNameArTB";
             this.GNameArTB.Size = new System.Drawing.Size(371, 32);
             this.GNameArTB.TabIndex = 23;
@@ -244,7 +301,7 @@ namespace Market
             // GNameEnTB
             // 
             this.GNameEnTB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.GNameEnTB.Location = new System.Drawing.Point(167, 61);
+            this.GNameEnTB.Location = new System.Drawing.Point(171, 44);
             this.GNameEnTB.Name = "GNameEnTB";
             this.GNameEnTB.Size = new System.Drawing.Size(371, 32);
             this.GNameEnTB.TabIndex = 22;
@@ -253,7 +310,7 @@ namespace Market
             // 
             this.label_4.AutoSize = true;
             this.label_4.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_4.Location = new System.Drawing.Point(19, 143);
+            this.label_4.Location = new System.Drawing.Point(23, 164);
             this.label_4.Name = "label_4";
             this.label_4.Size = new System.Drawing.Size(142, 24);
             this.label_4.TabIndex = 21;
@@ -263,7 +320,7 @@ namespace Market
             // 
             this.label_3.AutoSize = true;
             this.label_3.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_3.Location = new System.Drawing.Point(31, 26);
+            this.label_3.Location = new System.Drawing.Point(35, 9);
             this.label_3.Name = "label_3";
             this.label_3.Size = new System.Drawing.Size(130, 24);
             this.label_3.TabIndex = 20;
@@ -273,7 +330,7 @@ namespace Market
             // 
             this.label_2.AutoSize = true;
             this.label_2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_2.Location = new System.Drawing.Point(55, 102);
+            this.label_2.Location = new System.Drawing.Point(59, 85);
             this.label_2.Name = "label_2";
             this.label_2.Size = new System.Drawing.Size(106, 24);
             this.label_2.TabIndex = 19;
@@ -283,7 +340,7 @@ namespace Market
             // 
             this.label_1.AutoSize = true;
             this.label_1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_1.Location = new System.Drawing.Point(55, 64);
+            this.label_1.Location = new System.Drawing.Point(59, 47);
             this.label_1.Name = "label_1";
             this.label_1.Size = new System.Drawing.Size(106, 24);
             this.label_1.TabIndex = 18;
@@ -735,7 +792,7 @@ namespace Market
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 457);
+            this.ClientSize = new System.Drawing.Size(586, 454);
             this.Controls.Add(this.TapsPage);
             this.Controls.Add(this.CancelBack);
             this.Controls.Add(this.NextEnd);
@@ -819,8 +876,12 @@ namespace Market
         private System.Windows.Forms.Button AddAddressB;
         private System.Windows.Forms.ComboBox GGroupCb;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox GNationalTB;
+        private System.Windows.Forms.TextBox GPassTB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox GenderCb;
+        private System.Windows.Forms.TextBox NationalNoTb;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -36,7 +36,7 @@ namespace Market
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = "";
-
+            Globals.CleanTB(this.Controls);
             if (EmailTB.Text == "")
             {
                 MessageBox.Show("Please use valid email");
@@ -45,7 +45,7 @@ namespace Market
 
             if (command == "edit")
             {
-                if (Globals.ifExist(SQLtable, "EmailAddress", Globals.RmSpace(EmailTB.Text.ToUpper()), selectedID))
+                if (Globals.ifExist(SQLtable, "EmailAddress", EmailTB.Text, selectedID))
                 {
                     MessageBox.Show("this email is alredy used");
                     return;
@@ -55,7 +55,7 @@ namespace Market
             }
             else if (command == "add")
             {
-                if (Globals.ifExist(SQLtable, "EmailAddress", Globals.RmSpace(EmailTB.Text.ToUpper())))
+                if (Globals.ifExist(SQLtable, "EmailAddress", EmailTB.Text))
                 {
                     MessageBox.Show("this email is alredy used");
                     return;
@@ -66,7 +66,7 @@ namespace Market
 
 
             myPara.Add("@UserID", selectedID);
-            myPara.Add("@EmailAddressNew", Globals.RmSpace(EmailTB.Text.ToUpper()));
+            myPara.Add("@EmailAddressNew", EmailTB.Text);
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");
             this.Close();

@@ -21,7 +21,7 @@ namespace Market
         public Dictionary<string, int> employeeContactNumbersCol = new Dictionary<string, int>();
         public Dictionary<string, int> employeeBankAccountsCol = new Dictionary<string, int>();
         public Dictionary<string, int> empGroupCol = new Dictionary<string, int>();
-
+        public Dictionary<string, int> genderCol = new Dictionary<string, int>();
         public MainEmp()
         {
             InitializeComponent();
@@ -32,16 +32,23 @@ namespace Market
             InitializeComponent();
             command = conf;
             SelectedID = id;
+
             employeesCol = Globals.GetColumnsIndex("employees");
             employeeEmailAddressesCol = Globals.GetColumnsIndex("emp_email_addresses");
             employeeContactNumbersCol = Globals.GetColumnsIndex("emp_contact_numbers");
             employeeBankAccountsCol = Globals.GetColumnsIndex("emp_bank_accounts");
             empGroupCol = Globals.GetColumnsIndex("emp_group");
+            genderCol = Globals.GetColumnsIndex("gender");
+
             using (MySqlDataReader dr=Globals.myCrud.getDrPassSql("SELECT * FROM emp_group"))
-            {
                 while (dr.Read())
                     GGroupCb.Items.Add(dr.IsDBNull(empGroupCol["NameEn"]) ? "" : dr.GetString("NameEn"));
-            }
+            GGroupCb.SelectedIndex = 0;
+
+            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM gender"))
+                while (dr.Read())
+                    GenderCb.Items.Add(dr.IsDBNull(genderCol["NameEn"]) ? "" : dr.GetString("NameEn"));
+            GenderCb.SelectedIndex = 0;
 
             ContactDGV.AutoGenerateColumns = false;
             BankDGV.AutoGenerateColumns = false;
@@ -95,9 +102,11 @@ namespace Market
                             GUserNameTB.Text = dr.IsDBNull(employeesCol["UserName"]) ? "" : dr.GetString("UserName");
                             GNameEnTB.Text = dr.IsDBNull(employeesCol["NameEn"]) ? "" : dr.GetString("NameEn");
                             GNameArTB.Text = dr.IsDBNull(employeesCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                            NationalNoTb.Text = dr.IsDBNull(employeesCol["NationalNumber"]) ? "" : dr.GetString("NationalNumber");
                             dateTimePicker.Text = dr.IsDBNull(employeesCol["DateOfBirh"]) ? "" : dr.GetString("DateOfBirh");
-                            GNationalTB.Text = dr.IsDBNull(employeesCol["Pass_word"]) ? "" : dr.GetString("Pass_word");
+                            GPassTB.Text = dr.IsDBNull(employeesCol["Pass_word"]) ? "" : dr.GetString("Pass_word");
                             GGroupCb.SelectedItem = dr.IsDBNull(employeesCol["EmpGroupID"]) ? "" : Globals.GetStringById("NameEn", "emp_group", dr.GetInt32("EmpGroupID"));
+                            GenderCb.SelectedItem = dr.IsDBNull(genderCol["GenderID"]) ? "" : Globals.GetStringById("NameEn", "gender", dr.GetInt32("GenderID"));
 
                         }
                     }
@@ -168,67 +177,64 @@ namespace Market
 
         private void NextEnd_Click(object sender, EventArgs e)
         {
-            string SQL;
-            Dictionary<string, object> myPara = new Dictionary<string, object>();
-
-            if (GNameArTB.Text == "" || GNameEnTB.Text == "" || GUserNameTB.Text == "")
+            if (TapsPage.SelectedIndex == 0)
             {
-                MessageBox.Show("Please fill all feilds");
-                return;
-            }
-
-            if (command == "edit" || SelectedID != 0)
-            {
-                if (Globals.ifExist("employees", "UserName", Globals.RmSpace(GUserNameTB.Text), SelectedID))
+                string SQL;
+                Dictionary<string, object> myPara = new Dictionary<string, object>();
+                string tempPass = GPassTB.Text;
+                Globals.CleanTB(this.Controls);
+                GPassTB.Text = tempPass;
+                GUserNameTB.Text = GUserNameTB.Text.ToLower();
+                if (GNameArTB.Text == "" || GNameEnTB.Text == "" || GUserNameTB.Text == "")
                 {
-                    MessageBox.Show("This Vat Number is alredy Exist");
-                    return;
-                }
-                SQL = $"UPDATE employees SET UserName=@UserName, NameEn=@NameEn, NameAr=@NameAr, DateOfBirh=@DateOfBirh, Pass_word=MD5(@Pass_word), EmpGroupID=@EmpGroupID WHERE ID={SelectedID};";
-
-            }
-            else
-            {
-
-                if (Globals.ifExist("employees", "UserName", Globals.RmSpace(GUserNameTB.Text)))
-                {
-                    MessageBox.Show("This Vat Number is alredy Exist");
+                    MessageBox.Show("Please fill all feilds");
                     return;
                 }
 
-                SQL = $"INSERT INTO employees (UserName, NameEn, NameAr, DateOfBirh, Pass_word, EmpGroupID) VALUES(@UserName, @NameEn, @NameAr, @DateOfBirh, MD5(@Pass_word), @EmpGroupID);";
-
-            }
-            myPara.Add("@UserName", Globals.RmSpace(GUserNameTB.Text));
-            myPara.Add("@NameEn", Globals.RmSpace(GNameEnTB.Text));
-            myPara.Add("@NameAr", Globals.RmSpace(GNameArTB.Text));
-            myPara.Add("@DateOfBirh", dateTimePicker.Value);
-            myPara.Add("@Pass_word", Globals.RmSpace(GNationalTB.Text));
-            myPara.Add("@EmpGroupID", Globals.GetIdByString("emp_group", "NameEn", GGroupCb.Text));
-
-            Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-            ((Control)EmailTP).Enabled = true;
-            ((Control)ContactTP).Enabled = true;
-            ((Control)BankTP).Enabled = true;
-
-            if (NextEnd.Text == "Done")
-                this.Close();
-            else if (NextEnd.Text == "Next")
-            {
-                if (SelectedID == 0)
+                if (command == "edit" || SelectedID != 0)
                 {
-                    myPara.Clear();
-                    myPara.Add("@UserName", Globals.RmSpace(GUserNameTB.Text));
-                    using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic("SELECT ID FROM employees WHERE UserName = @UserName;", myPara))
+                    if (Globals.ifExist("employees", "UserName", GUserNameTB.Text, SelectedID) || Globals.ifExist("employees", "NationalNumber", NationalNoTb.Text, SelectedID))
                     {
-                        dr.Read();
-                        SelectedID = dr.GetInt32("ID");
+                        MessageBox.Show("This Vat Number is alredy Exist");
+                        return;
+                    }
+                    SQL = $"UPDATE employees SET UserName=@UserName, NameEn=@NameEn, NameAr=@NameAr, DateOfBirh=@DateOfBirh, Pass_word=MD5(@Pass_word), EmpGroupID=@EmpGroupID, GenderID=@GenderID, NationalNumber=@NationalNumber  WHERE ID={SelectedID};";
+
+                }
+                else
+                {
+
+                    if (Globals.ifExist("employees", "UserName", GUserNameTB.Text) || Globals.ifExist("employees", "NationalNumber", NationalNoTb.Text))
+                    {
+                        MessageBox.Show("This Vat Number is alredy Exist");
+                        return;
                     }
 
+                    SQL = $"INSERT INTO employees (UserName, NameEn, NameAr, DateOfBirh, Pass_word, EmpGroupID, GenderID, NationalNumber) VALUES(@UserName, @NameEn, @NameAr, @DateOfBirh, MD5(@Pass_word), @EmpGroupID, @GenderID, @NationalNumber);";
+
                 }
-                TapsPage.SelectedIndex += 1;
+                myPara.Add("@UserName", GUserNameTB.Text);
+                myPara.Add("@NameEn", GNameEnTB.Text);
+                myPara.Add("@NameAr", GNameArTB.Text);
+                myPara.Add("@NationalNumber", NationalNoTb.Text);
+                myPara.Add("@DateOfBirh", dateTimePicker.Value);
+                myPara.Add("@Pass_word", GPassTB.Text);
+                myPara.Add("@EmpGroupID", Globals.GetIdByString("emp_group", "NameEn", GGroupCb.Text));
+                myPara.Add("@GenderID", Globals.GetIdByString("gender", "Name", GenderCb.Text));
+
+                Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                ((Control)EmailTP).Enabled = true;
+                ((Control)ContactTP).Enabled = true;
+                ((Control)BankTP).Enabled = true;
+
+                if (SelectedID == 0)
+                    SelectedID = Globals.GetIdByString("employees", "UserName", GUserNameTB.Text);
 
             }
+            if (NextEnd.Text == "Done")
+                this.Close();
+            else if (NextEnd.Text == "Next") 
+                TapsPage.SelectedIndex += 1;
 
 
         }
@@ -453,6 +459,19 @@ namespace Market
                 Globals.Clean_SelectCbList(AddressDGV, true);
             else
                 Globals.Clean_SelectCbList(AddressDGV, false);
+        }
+
+        private void GPassTB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void NationalNoTb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
         }
     }
 }

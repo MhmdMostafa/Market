@@ -123,6 +123,10 @@ namespace Market
             // 
             // ContryCB
             // 
+            this.ContryCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.ContryCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ContryCB.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.ContryCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ContryCB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.ContryCB.FormattingEnabled = true;
             this.ContryCB.Location = new System.Drawing.Point(134, 86);
@@ -142,6 +146,9 @@ namespace Market
             // 
             // CityCB
             // 
+            this.CityCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CityCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CityCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CityCB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.CityCB.FormattingEnabled = true;
             this.CityCB.Location = new System.Drawing.Point(134, 124);

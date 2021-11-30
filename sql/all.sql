@@ -193,8 +193,6 @@ CREATE TABLE emp_permissions(
 
 CREATE TABLE emp_group_permissions(
     ID INT NOT NULL AUTO_INCREMENT,
-    NameEn VARCHAR(50) NOT NULL,
-    NameAr VARCHAR(50),
 	EmpGroupID INT,
     PermissionID INT,
     PermissionState BOOLEAN DEFAULT FALSE,
@@ -209,13 +207,15 @@ CREATE TABLE employees(
     UserName VARCHAR(50) NOT NULL,
 	NameEn VARCHAR(50),
     NameAr VARCHAR(50),
-	DateOfBirh DATE,
+    NationalNumber VARCHAR(12),
+	BirthDate DATE,
     Pass_word VARCHAR(255) NOT NULL,
-    GenderID INT,
+    GenderID INT ,
     PRIMARY KEY (ID),
     FOREIGN KEY (EmpGroupID) REFERENCES emp_group(ID),
     FOREIGN KEY (GenderID) REFERENCES gender(ID),
-    UNIQUE (UserName)
+    UNIQUE (UserName),
+    UNIQUE (NationalNumber)
 );
 
 CREATE TABLE emp_email_addresses(
@@ -310,6 +310,107 @@ CREATE TABLE emp_attendance(
 	EmpID INT NOT NULL,
     DateOfAttending DATETIME,
     FOREIGN KEY (EmpID) REFERENCES employees(ID)
+);
+
+CREATE TABLE customer_groups(
+	ID INT NOT NULL AUTO_INCREMENT,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50),
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE customers(
+	ID INT NOT NULL AUTO_INCREMENT,
+	CustomerGroupID INT,
+    UserName VARCHAR(50),
+	NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50),
+	BirthDate DATE,
+    NationalNumber VARCHAR(12),
+    Pass_word VARCHAR(255),
+    GenderID INT,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (CustomerGroupID) REFERENCES customer_groups(ID),
+    FOREIGN KEY (GenderID) REFERENCES gender(ID),
+    UNIQUE (UserName),
+    UNIQUE (NationalNumber)
+);
+
+CREATE TABLE customer_email_addresses(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    EmailAddress VARCHAR(150) NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (UserID) REFERENCES customers(ID),
+    UNIQUE (EmailAddress)
+);
+
+CREATE TABLE customer_contact_numbers(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    CountryID INT NOT NULL,
+    ContactTypeID INT NOT NULL,
+    ContactNumber VARCHAR(10) NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (CountryID) REFERENCES countries(ID),
+    FOREIGN KEY (UserID) REFERENCES customers(ID),
+    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
+    UNIQUE (ContactNumber)
+);
+
+CREATE TABLE customer_bank_accounts(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    NameEn VARCHAR(100) NOT NULL,
+    NameAr VARCHAR(100) NOT NULL,
+    Iban VARCHAR(24) NOT NULL,
+    FullNameOwner VARCHAR(100) NOT NULL,
+    ExpiryDate DATE NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES customers(ID),
+    UNIQUE (Iban)
+);
+
+CREATE TABLE customer_fingerprints(
+	CustomerID INT NOT NULL,
+    HandID INT,
+    FingerID INT,
+    FingerPrint BLOB NOT NULL,
+    FOREIGN KEY (CustomerID) REFERENCES customers(ID),
+    FOREIGN KEY (HandID) REFERENCES hands(ID),
+    FOREIGN KEY (FingerID) REFERENCES hand_fingers(ID)
+);
+
+CREATE TABLE customer_Addresses(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    CountryID INT NOT NULL,
+    CityID INT NOT NULL,
+    District VARCHAR (45) NOT NULL,
+    Street VARCHAR (45) NOT NULL,
+    ZipCode VARCHAR (12),
+    Description VARCHAR (100) NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES customers(ID),
+    FOREIGN KEY (CountryID) REFERENCES Countries(ID),
+    FOREIGN KEY (CityID) REFERENCES cities(ID)
+);
+
+CREATE TABLE customer_wallet(
+	CustomerID INT,
+    Pints FLOAT,
+    Cash FLOAT,
+    PointsTakenDate DATE NOT NULL,
+    PointsExpiryDate DATE NOT NULL,
+    FOREIGN KEY (CustomerID) REFERENCES customers(ID),
+    UNIQUE (CustomerID)
+);
+
+CREATE TABLE customer_login_history(
+    CustomerID INT,
+    SourceIP VARCHAR (24),
+    DateOfLoging DATE,
+    FOREIGN KEY (CustomerID) REFERENCES customers(ID)
 );
 
 CREATE TABLE suppliers(
@@ -455,6 +556,7 @@ CREATE TABLE invoices(
     PaymentMethodID INT NOT NULL,
     PaymentMechanismeID INT NOT NULL,
     EmpID INT NOT NULL,
+    CustomerID INT NOT NULL,
     InvoiceDate DATE NOT NULL,
     Discount FLOAT NOT NULL,
     VAT FLOAT NOT NULL,
@@ -470,6 +572,7 @@ CREATE TABLE invoices(
     FOREIGN KEY (PaymentMethodID) REFERENCES payment_methods(ID),
     FOREIGN KEY (PaymentMechanismeID) REFERENCES payment_mechanisms(ID),
     FOREIGN KEY (EmpID) REFERENCES employees(ID),
+    FOREIGN KEY (CustomerID) REFERENCES employees(ID),
     FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 
@@ -502,6 +605,7 @@ CREATE TABLE sales_returns(
 
 CREATE TABLE purchases(
     InvoiceID INT NOT NULL,
+    EmpID INT,
     SupplierID INT,
 	ProductID INT,
     Price FLOAT NOT NULL,
@@ -512,12 +616,11 @@ CREATE TABLE purchases(
     InvoiceSupplierID VARCHAR(100) NOT NULL,
     InvoiceSupplierDate DATE NOT NULL,
     FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
+    FOREIGN KEY (EmpID) REFERENCES employees(ID),
     FOREIGN KEY (SupplierID) REFERENCES suppliers(ID),
     FOREIGN KEY (ProductID) REFERENCES products(ID),
     FOREIGN KEY (UnitValueID) REFERENCES units_value(ID)
 );
-
-
 
 CREATE TABLE purchases_returns(
     InvoiceID INT NOT NULL,
@@ -549,100 +652,6 @@ CREATE TABLE products_history(
 	FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(ID)
 );
 
-
-CREATE TABLE customer_groups(
-	ID INT NOT NULL AUTO_INCREMENT,
-    NameEn VARCHAR(50) NOT NULL,
-    NameAr VARCHAR(50),
-    PRIMARY KEY (ID)
-);
-
-CREATE TABLE customers(
-	ID INT NOT NULL AUTO_INCREMENT,
-	CustomerGroupID INT,
-    UserName VARCHAR(50),
-	NameEn VARCHAR(50) NOT NULL,
-    NameAr VARCHAR(50),
-	DateOfBirh DATE,
-    NationalNumber VARCHAR(12),
-    Pass_word VARCHAR(255),
-    GenderID INT,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (CustomerGroupID) REFERENCES customer_groups(ID),
-    FOREIGN KEY (GenderID) REFERENCES gender(ID),
-    UNIQUE (UserName)
-);
-
-CREATE TABLE customer_email_addresses(
-    ID INT NOT NULL AUTO_INCREMENT,
-	UserID INT NOT NULL,
-    EmailAddress VARCHAR(150) NOT NULL,
-    PRIMARY KEY(ID),
-    FOREIGN KEY (UserID) REFERENCES customers(ID),
-    UNIQUE (EmailAddress)
-);
-
-CREATE TABLE customer_contact_numbers(
-    ID INT NOT NULL AUTO_INCREMENT,
-	UserID INT NOT NULL,
-    CountryID INT NOT NULL,
-    ContactTypeID INT NOT NULL,
-    ContactNumber VARCHAR(10) NOT NULL,
-    PRIMARY KEY(ID),
-    FOREIGN KEY (CountryID) REFERENCES countries(ID),
-    FOREIGN KEY (UserID) REFERENCES customers(ID),
-    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
-    UNIQUE (ContactNumber)
-);
-
-CREATE TABLE customer_bank_accounts(
-    ID INT NOT NULL AUTO_INCREMENT,
-	UserID INT NOT NULL,
-    NameEn VARCHAR(100) NOT NULL,
-    NameAr VARCHAR(100) NOT NULL,
-    Iban VARCHAR(24) NOT NULL,
-    FullNameOwner VARCHAR(100) NOT NULL,
-    ExpiryDate DATE NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (UserID) REFERENCES customers(ID),
-    UNIQUE (Iban)
-);
-
-CREATE TABLE customer_fingerprints(
-	CustomerID INT NOT NULL,
-    HandID INT,
-    FingerID INT,
-    FingerPrint BLOB NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES customers(ID),
-    FOREIGN KEY (HandID) REFERENCES hands(ID),
-    FOREIGN KEY (FingerID) REFERENCES hand_fingers(ID)
-);
-
-CREATE TABLE customer_Addresses(
-    ID INT NOT NULL AUTO_INCREMENT,
-	UserID INT NOT NULL,
-    CountryID INT NOT NULL,
-    CityID INT NOT NULL,
-    District VARCHAR (45) NOT NULL,
-    Street VARCHAR (45) NOT NULL,
-    ZipCode VARCHAR (12),
-    Description VARCHAR (100) NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (UserID) REFERENCES customers(ID),
-    FOREIGN KEY (CountryID) REFERENCES Countries(ID),
-    FOREIGN KEY (CityID) REFERENCES cities(ID)
-);
-
-CREATE TABLE customer_wallet(
-	CustomerID INT,
-    Pints FLOAT,
-    Cash FLOAT,
-    PointsTakenDate DATE NOT NULL,
-    PointsExpiryDate DATE NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES customers(ID),
-    UNIQUE (CustomerID)
-);
-
 CREATE TABLE customer_financial_history(
 	InvoiceID INT,
     CustomerID INT,
@@ -652,9 +661,3 @@ CREATE TABLE customer_financial_history(
     FOREIGN KEY (CustomerID) REFERENCES customers(ID)
 );
 
-CREATE TABLE customer_login_history(
-    CustomerID INT,
-    SourceIP VARCHAR (24),
-    DateOfLoging DATE,
-    FOREIGN KEY (CustomerID) REFERENCES customers(ID)
-);

@@ -19,7 +19,6 @@ namespace Market.AddEditOther.Product
         public Dictionary<string, int> UnitsValueCol = new Dictionary<string, int>();
         public Dictionary<string, int> ProductsGroubCol = new Dictionary<string, int>();
         public Dictionary<string, int> ProductsTypeCol = new Dictionary<string, int>();
-
         public AddEditProducts()
         {
             InitializeComponent();
@@ -43,6 +42,7 @@ namespace Market.AddEditOther.Product
             refreshCb(unitValueCb, "products_groub");
             refreshCb(unitValueCb, "products_type");
 
+            Globals.CleanTB(this.Controls);
 
             if (command == "edit")
             {
@@ -81,6 +81,10 @@ namespace Market.AddEditOther.Product
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL;
+            
+            
+
+
             if (nameEnTb.Text == "" || nameArTb.Text == "" || groubCb.Text == "" || typeCb.Text == "" || sizeTb.Text == "" || unitValueCb.Text == "" || salePriceTb.Text == "" || currencyCb.Text == "" || prescriptionCb.Text == "" || vatCb.Text == "")
             {
                 MessageBox.Show("Please Fill all needed inf");
@@ -88,27 +92,32 @@ namespace Market.AddEditOther.Product
             }
             if (command == "edit")
             {
+                if (Globals.ifExist("products", "UPC", upcTb.Text, SelectedID) || Globals.ifExist("products", "SKU", skuTb.Text, SelectedID) || Globals.ifExist("products", "ISBN", isbnTb.Text, SelectedID) || Globals.ifExist("products", "barcode", barcodeTb.Text, SelectedID))
+                {
+                    MessageBox.Show("This Vat Number is alredy Exist");
+                    return;
+                }
                 SQL = $"UPDATE products NameEn=@NameEn, NameAr=@NameAr, ProductGroubID=@ProductGroubID, ProductTypeID=@ProductTypeID, Size=@Size, UnitValueID=@UnitValueID, Price=@Price, CurrencyID=@CurrencyID, Barcode=@Barcode, UPC=@UPC, SKU=@SKU, ISBN=@ISBN, IncludePrescription=@NameEIncludePrescriptionn, IncludeVat=@IncludeVat WHERE ID={SelectedID};";
             }
             else
             {
-                SQL = "INSERT INTO products (NameEn, NameAr, ProductGroubID, ProductTypeID, Size, UnitValueID, Price, CurrencyID, Barcode, UPC, SKU, ISBN, IncludePrescription, IncludeVat VALUES(@NameEn, @NameAr, @ProductGroubID, @ProductTypeID, @Size, @UnitValueID, @Price, @CurrencyID, @Barcode, @UPC, @SKU, @ISBN, @NameEIncludePrescriptionn, @IncludeVa)";
+                SQL = "INSERT INTO products (NameEn, NameAr, ProductGroubID, ProductTypeID, Size, UnitValueID, Price, CurrencyID, Barcode, UPC, SKU, ISBN, IncludePrescription, IncludeVat VALUES(@NameEn, @NameAr, @ProductGroubID, @ProductTypeID, @Size, @UnitValueID, @Price, @CurrencyID, @Barcode, @UPC, @SKU, @ISBN, @NameEIncludePrescriptionn, @IncludeVat);";
             }
 
-            myPara.Add("@NameEn", Globals.RmSpace(nameEnTb.Text));
-            myPara.Add("@NameAr", Globals.RmSpace(nameArTb.Text));
+            myPara.Add("@NameEn", nameEnTb.Text);
+            myPara.Add("@NameAr", nameArTb.Text);
             myPara.Add("@ProductGroubID", Globals.GetIdByString("","NameEn",groubCb.Text));
             myPara.Add("@ProductTypeID", Globals.GetIdByString("", "NameEn", typeCb.Text));
             myPara.Add("@Size", sizeTb.Value);
             myPara.Add("@UnitValueID", Globals.GetIdByString("", "NameEn", unitValueCb.Text));
             myPara.Add("@Price", salePriceTb.Value);
             myPara.Add("@CurrencyID", Globals.GetIdByString("", "NameEn", currencyCb.Text));
-            myPara.Add("@Barcode", Globals.RmSpace(barcodeTb.Text));
-            myPara.Add("@UPC", Globals.RmSpace(upcTb.Text));
-            myPara.Add("@SKU", Globals.RmSpace(skuTb.Text));
-            myPara.Add("@ISBN", Globals.RmSpace(isbnTb.Text));
-            myPara.Add("@NameEIncludePrescriptionn", Globals.RmSpace(prescriptionCb.Text));
-            myPara.Add("@IncludeVa", Globals.RmSpace(vatCb.Text));
+            myPara.Add("@Barcode", barcodeTb.Text);
+            myPara.Add("@UPC", upcTb.Text);
+            myPara.Add("@SKU", skuTb.Text);
+            myPara.Add("@ISBN", isbnTb.Text);
+            myPara.Add("@NameEIncludePrescriptionn", prescriptionCb.Text);
+            myPara.Add("@IncludeVa", vatCb.Text);
 
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 

@@ -77,6 +77,9 @@ namespace Market
             // 
             // ContinentCB
             // 
+            this.ContinentCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.ContinentCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ContinentCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ContinentCB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.ContinentCB.FormattingEnabled = true;
             this.ContinentCB.Location = new System.Drawing.Point(182, 81);

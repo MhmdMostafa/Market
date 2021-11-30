@@ -16,12 +16,9 @@ namespace Market
         [STAThread]
         static void Main()
         {
-
-
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Werehouse("edit", "table", 1));
+            Application.Run(new EmpsDGV());
         }
 
 

@@ -88,6 +88,9 @@ namespace Market
             // 
             // typeCB
             // 
+            this.typeCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.typeCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.typeCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.typeCB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.typeCB.FormattingEnabled = true;
             this.typeCB.Location = new System.Drawing.Point(178, 83);
@@ -97,6 +100,9 @@ namespace Market
             // 
             // CountryCB
             // 
+            this.CountryCB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CountryCB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CountryCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CountryCB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.CountryCB.FormattingEnabled = true;
             this.CountryCB.Location = new System.Drawing.Point(106, 133);

@@ -33,6 +33,8 @@ namespace Market
             this.CancelBack = new MaterialSkin.Controls.MaterialButton();
             this.TapsPage = new System.Windows.Forms.TabControl();
             this.GenralTP = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.GenderCb = new System.Windows.Forms.ComboBox();
             this.GGroupCb = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.GNationalTB = new System.Windows.Forms.TextBox();
@@ -157,6 +159,8 @@ namespace Market
             // 
             // GenralTP
             // 
+            this.GenralTP.Controls.Add(this.label3);
+            this.GenralTP.Controls.Add(this.GenderCb);
             this.GenralTP.Controls.Add(this.GGroupCb);
             this.GenralTP.Controls.Add(this.label2);
             this.GenralTP.Controls.Add(this.GNationalTB);
@@ -178,8 +182,33 @@ namespace Market
             this.GenralTP.Text = "General";
             this.GenralTP.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(67, 254);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 24);
+            this.label3.TabIndex = 32;
+            this.label3.Text = "Gender:";
+            // 
+            // GenderCb
+            // 
+            this.GenderCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.GenderCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.GenderCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GenderCb.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.GenderCb.FormattingEnabled = true;
+            this.GenderCb.Location = new System.Drawing.Point(167, 251);
+            this.GenderCb.Name = "GenderCb";
+            this.GenderCb.Size = new System.Drawing.Size(371, 32);
+            this.GenderCb.TabIndex = 31;
+            // 
             // GGroupCb
             // 
+            this.GGroupCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.GGroupCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.GGroupCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GGroupCb.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.GGroupCb.FormattingEnabled = true;
             this.GGroupCb.Location = new System.Drawing.Point(167, 213);
@@ -204,6 +233,7 @@ namespace Market
             this.GNationalTB.Name = "GNationalTB";
             this.GNationalTB.Size = new System.Drawing.Size(371, 32);
             this.GNationalTB.TabIndex = 28;
+            this.GNationalTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GNationalTB_KeyPress);
             // 
             // label1
             // 
@@ -821,5 +851,7 @@ namespace Market
         private System.Windows.Forms.TextBox GNationalTB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox GenderCb;
     }
 }

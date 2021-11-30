@@ -74,7 +74,7 @@ namespace Market
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = "";
-
+            Globals.CleanTB(this.Controls);
             if (DistrictTB.Text == "" || StreetTB.Text == "" ||  ZipCodeTB.Text == "" ||  DiscRTB.Text == "")
             {
                 MessageBox.Show("Please fill the feilds");
@@ -94,10 +94,10 @@ namespace Market
             myPara.Add("@UserID", UserID);
             myPara.Add("@CountryID", Globals.GetIdByString("countries", "NameEn", ContryCB.Text));
             myPara.Add("@CityID", Globals.GetIdByString("cities", "NameEn", CityCB.Text));
-            myPara.Add("@District", Globals.RmSpace(DistrictTB.Text));
-            myPara.Add("@Street", Globals.RmSpace(StreetTB.Text));
-            myPara.Add("@ZipCode", Globals.RmSpace(ZipCodeTB.Text));
-            myPara.Add("@Description", Globals.RmSpace(DiscRTB.Text));
+            myPara.Add("@District", DistrictTB.Text);
+            myPara.Add("@Street", StreetTB.Text);
+            myPara.Add("@ZipCode", ZipCodeTB.Text);
+            myPara.Add("@Description", DiscRTB.Text);
 
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done");

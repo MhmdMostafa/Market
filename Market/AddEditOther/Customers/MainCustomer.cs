@@ -21,6 +21,7 @@ namespace Market
         public Dictionary<string, int> customersContactNumbersCol = new Dictionary<string, int>();
         public Dictionary<string, int> customersBankAccountsCol = new Dictionary<string, int>();
         public Dictionary<string, int> customerGroupsCol = new Dictionary<string, int>();
+        public Dictionary<string, int> genderCol = new Dictionary<string, int>();
 
         public MainCustomer()
         {
@@ -37,11 +38,17 @@ namespace Market
             customersContactNumbersCol = Globals.GetColumnsIndex("customer_contact_numbers");
             customersBankAccountsCol = Globals.GetColumnsIndex("customer_bank_accounts");
             customerGroupsCol = Globals.GetColumnsIndex("customer_groups");
+            genderCol = Globals.GetColumnsIndex("gender");
+
             using (MySqlDataReader dr=Globals.myCrud.getDrPassSql("SELECT * FROM customer_groups"))
-            {
                 while (dr.Read())
                     GGroupCb.Items.Add(dr.IsDBNull(customerGroupsCol["NameEn"]) ? "" : dr.GetString("NameEn"));
-            }
+            GGroupCb.SelectedIndex = 0;
+
+            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM gender"))
+                while (dr.Read())
+                    GenderCb.Items.Add(dr.IsDBNull(genderCol["NameEn"]) ? "" : dr.GetString("NameEn"));
+            GenderCb.SelectedIndex = 0;
 
             ContactDGV.AutoGenerateColumns = false;
             BankDGV.AutoGenerateColumns = false;
@@ -86,6 +93,7 @@ namespace Market
                 case "General":
                     if (SelectedID != 0)
                     {
+                        
                         SQL = $"SELECT * FROM customers WHERE ID = {SelectedID}";
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
                         {
@@ -93,10 +101,10 @@ namespace Market
                             GUserNameTB.Text = dr.IsDBNull(customersCol["UserName"]) ? "" : dr.GetString("UserName");
                             GNameEnTB.Text = dr.IsDBNull(customersCol["NameEn"]) ? "" : dr.GetString("NameEn");
                             GNameArTB.Text = dr.IsDBNull(customersCol["NameAr"]) ? "" : dr.GetString("NameAr");
-                            dateTimePicker.Text = dr.IsDBNull(customersCol["DateOfBirh"]) ? "" : dr.GetString("DateOfBirh");
+                            dateTimePicker.Text = dr.IsDBNull(customersCol["BirthDate"]) ? "" : dr.GetString("BirthDate");
                             GNationalTB.Text = dr.IsDBNull(customersCol["NationalNumber"]) ? "" : dr.GetString("NationalNumber");
                             GGroupCb.SelectedItem = dr.IsDBNull(customersCol["CustomerGroupID"]) ? "" : Globals.GetStringById("NameEn", "customer_groups", dr.GetInt32("CustomerGroupID"));
-
+                            GenderCb.SelectedItem = dr.IsDBNull(customersCol["GenderID"]) ? "" : Globals.GetStringById("NameEn", "gender", dr.GetInt32("GenderID"));
                         }
                     }
                     if (command == "add")
@@ -166,67 +174,64 @@ namespace Market
 
         private void NextEnd_Click(object sender, EventArgs e)
         {
-            string SQL;
-            Dictionary<string, object> myPara = new Dictionary<string, object>();
-
-            if (GNameArTB.Text == "" || GNameEnTB.Text == "" || GUserNameTB.Text == "")
-            {
-                MessageBox.Show("Please fill all feilds");
-                return;
-            }
-
-            if (command == "edit" || SelectedID != 0)
-            {
-                if (Globals.ifExist("customers", "UserName", Globals.RmSpace(GUserNameTB.Text), SelectedID))
+            if (TapsPage.SelectedIndex == 0) {
+                string SQL;
+                Dictionary<string, object> myPara = new Dictionary<string, object>();
+                Globals.CleanTB(this.Controls);
+                GUserNameTB.Text = GUserNameTB.Text.ToLower();
+                if (GNameArTB.Text == "" || GNameEnTB.Text == "" || GUserNameTB.Text == "")
                 {
-                    MessageBox.Show("This Vat Number is alredy Exist");
-                    return;
-                }
-                SQL = $"UPDATE customers SET UserName=@UserName NameEn=@NameEn, NameAr=@NameAr, DateOfBirh=@DateOfBirh, NationalNumber=@NationalNumber, CustomerGroupID=@CustomerGroupID WHERE ID={SelectedID};";
-
-            }
-            else
-            {
-
-                if (Globals.ifExist("customers", "UserName", Globals.RmSpace(GUserNameTB.Text)))
-                {
-                    MessageBox.Show("This Vat Number is alredy Exist");
+                    MessageBox.Show("Please fill all feilds");
                     return;
                 }
 
-                SQL = $"INSERT INTO customers (UserName, NameEn, NameAr, DateOfBirh, NationalNumber, CustomerGroupID) VALUES(@UserName, @NameEn, @NameAr, @DateOfBirh, @NationalNumber, @CustomerGroupID);";
+                if (command == "edit" || SelectedID != 0)
+                {
+                    if (Globals.ifExist("customers", "UserName", GUserNameTB.Text, SelectedID))
+                    {
+                        MessageBox.Show("This Vat Number is alredy Exist");
+                        return;
+                    }
+                    SQL = $"UPDATE customers SET UserName=@UserName NameEn=@NameEn, NameAr=@NameAr, BirthDate=@BirthDate, NationalNumber=@NationalNumber, CustomerGroupID=@CustomerGroupID, GenderID=@GenderID WHERE ID={SelectedID};";
+
+                }
+                else
+                {
+
+                    if (Globals.ifExist("customers", "UserName", GUserNameTB.Text))
+                    {
+                        MessageBox.Show("This Vat Number is alredy Exist");
+                        return;
+                    }
+
+                    SQL = $"INSERT INTO customers (UserName, NameEn, NameAr, BirthDate, NationalNumber, CustomerGroupID, GenderID) VALUES(@UserName, @NameEn, @NameAr, @BirthDate, @NationalNumber, @CustomerGroupID, @GenderID);";
+
+                }
+                myPara.Add("@UserName", GUserNameTB.Text);
+                myPara.Add("@NameEn", GNameEnTB.Text);
+                myPara.Add("@NameAr", GNameArTB.Text);
+                myPara.Add("@BirthDate", dateTimePicker.Value);
+                myPara.Add("@NationalNumber", GNationalTB.Text);
+                myPara.Add("@CustomerGroupID", Globals.GetIdByString("customer_groups", "NameEn", GGroupCb.Text));
+                myPara.Add("@GenderID", Globals.GetIdByString("gender", "NameEn", GenderCb.Text));
+
+
+                Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
+                ((Control)EmailTP).Enabled = true;
+                ((Control)ContactTP).Enabled = true;
+                ((Control)BankTP).Enabled = true;
+                if (SelectedID == 0)
+                    SelectedID = Globals.GetIdByString("customers","UserName", GUserNameTB.Text);
 
             }
-            myPara.Add("@UserName", Globals.RmSpace(GUserNameTB.Text));
-            myPara.Add("@NameEn", Globals.RmSpace(GNameEnTB.Text));
-            myPara.Add("@NameAr", Globals.RmSpace(GNameArTB.Text));
-            myPara.Add("@DateOfBirh", dateTimePicker.Value);
-            myPara.Add("@NationalNumber", Globals.RmSpace(GNationalTB.Text));
-            myPara.Add("@CustomerGroupID", Globals.GetIdByString("customer_groups", "NameEn", GGroupCb.Text));
-
-            Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-            ((Control)EmailTP).Enabled = true;
-            ((Control)ContactTP).Enabled = true;
-            ((Control)BankTP).Enabled = true;
+            
 
             if (NextEnd.Text == "Done")
                 this.Close();
             else if (NextEnd.Text == "Next")
-            {
-                if (SelectedID == 0)
-                {
-                    myPara.Clear();
-                    myPara.Add("@UserName", Globals.RmSpace(GUserNameTB.Text));
-                    using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic("SELECT ID FROM customers WHERE UserName = @UserName;", myPara))
-                    {
-                        dr.Read();
-                        SelectedID = dr.GetInt32("ID");
-                    }
-
-                }
                 TapsPage.SelectedIndex += 1;
 
-            }
+            
 
 
         }
@@ -451,6 +456,17 @@ namespace Market
                 Globals.Clean_SelectCbList(AddressDGV, true);
             else
                 Globals.Clean_SelectCbList(AddressDGV, false);
+        }
+
+        private void GNationalTB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsControl(e.KeyChar))
+                return;
+
+            if ((!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)) || GNationalTB.Text.Length > 11)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

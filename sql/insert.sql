@@ -136,8 +136,8 @@ VALUES (2,2,TRUE);
 INSERT INTO emp_group_permissions (EmpGroupID, PermissionID, PermissionState)
 VALUES (2,3,TRUE);
 
-INSERT INTO emp_employees (EmpGroupID, UserName, Pass_word)
-VALUES (1, 'admin',MD5('admin'));
+INSERT INTO employees (EmpGroupID, UserName, Pass_word, GenderID)
+VALUES (1, 'admini',MD5('admin'),1);
 
 INSERT INTO suppliers (NameEn, NameAr, VatNumber, Description)
 VALUES ('Unknown', N'غير معروف', 'sd123123', 'Used to start the market');

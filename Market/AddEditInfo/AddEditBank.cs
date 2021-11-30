@@ -64,7 +64,7 @@ namespace Market
 
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = "";
-
+            Globals.CleanTB(this.Controls);
             if (FullNameTB.Text == "" || BankArTB.Text == "" || BankEnTB.Text == "" || IbanTB.Text == "" || comboBox1.Text == "" || comboBox2.Text == "")
             {
                 MessageBox.Show("Please fill all feilds");
@@ -73,7 +73,7 @@ namespace Market
 
             if (command == "edit")
             {
-                if (Globals.ifExist(SQLtable, "Iban", Globals.RmSpace(IbanTB.Text.ToUpper()), BankID))
+                if (Globals.ifExist(SQLtable, "Iban", IbanTB.Text, BankID))
                 {
                     MessageBox.Show("This Iban is alredy Exist");
                     return;
@@ -84,7 +84,7 @@ namespace Market
             }
             else if (command == "add")
             {
-                if (Globals.ifExist(SQLtable, "Iban", Globals.RmSpace(IbanTB.Text.ToUpper())))
+                if (Globals.ifExist(SQLtable, "Iban", IbanTB.Text))
                 {
                     MessageBox.Show("This Iban is alredy Exist");
                     return;
@@ -93,10 +93,10 @@ namespace Market
 
             }
             myPara.Add("@UserID", UserID);
-            myPara.Add("@FullNameOwner", Globals.RmSpace(FullNameTB.Text));
-            myPara.Add("@NameEn", Globals.RmSpace(BankEnTB.Text));
-            myPara.Add("@NameAr", Globals.RmSpace(BankArTB.Text));
-            myPara.Add("@Iban", Globals.RmSpace(IbanTB.Text.ToUpper()));
+            myPara.Add("@FullNameOwner", FullNameTB.Text);
+            myPara.Add("@NameEn", BankEnTB.Text);
+            myPara.Add("@NameAr", BankArTB.Text);
+            myPara.Add("@Iban", IbanTB.Text);
             myPara.Add("@ExpiryDate", (comboBox1.Text + "-" + comboBox2.Text));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");

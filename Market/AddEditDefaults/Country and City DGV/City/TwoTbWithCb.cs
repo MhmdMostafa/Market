@@ -58,6 +58,7 @@ namespace Market
         {
             string SQL;
             Dictionary<string, object> myPara = new Dictionary<string, object>();
+            Globals.CleanTB(this.Controls);
             if (NameEnTB.Text == "" || NameArTB.Text == "")
             {
                 MessageBox.Show("Please fill all the Feilds");
@@ -65,7 +66,7 @@ namespace Market
             }
             if (command == "add")
             {
-                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper())) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text)))
+                if (Globals.ifExist(SQLtable, "NameEn", NameEnTB.Text) || Globals.ifExist(SQLtable, "NameAr", NameArTB.Text))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -75,7 +76,7 @@ namespace Market
             }
             else
             {
-                if (Globals.ifExist(SQLtable, "NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()), ID) || Globals.ifExist(SQLtable, "NameAr", Globals.RmSpace(NameArTB.Text),ID))
+                if (Globals.ifExist(SQLtable, "NameEn", NameEnTB.Text, ID) || Globals.ifExist(SQLtable, "NameAr", NameArTB.Text,ID))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -85,8 +86,8 @@ namespace Market
 
             }
 
-            myPara.Add("@NameEn", Globals.RmSpace(NameEnTB.Text.ToUpper()));
-            myPara.Add("@NameAr", Globals.RmSpace(NameArTB.Text));
+            myPara.Add("@NameEn", NameEnTB.Text);
+            myPara.Add("@NameAr", NameArTB.Text);
             myPara.Add("@CountryID", Globals.GetIdByString("countries", "NameEn", CountryCB.Text));
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");

@@ -69,7 +69,7 @@ namespace Market
 
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = "";
-
+            Globals.CleanTB(this.Controls);
             if (PhoneTB.Text == "")
             {
                 MessageBox.Show("Please use valid email");

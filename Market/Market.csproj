@@ -97,11 +97,23 @@
     <Compile Include="AddEditInfo\AddEemail.Designer.cs">
       <DependentUpon>AddEemail.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddEditOther\Customers\CustomersDGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\Customers\CustomersDGV.Designer.cs">
+      <DependentUpon>CustomersDGV.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddEditOther\Customers\MainCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AddEditOther\Customers\MainCustomer.Designer.cs">
       <DependentUpon>MainCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\Emp\EmpDGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\Emp\EmpDGV.Designer.cs">
+      <DependentUpon>EmpDGV.cs</DependentUpon>
     </Compile>
     <Compile Include="AddEditOther\Emp\MainEmp.cs">
       <SubType>Form</SubType>
@@ -229,8 +241,14 @@
     <EmbeddedResource Include="AddEditInfo\AddEemail.resx">
       <DependentUpon>AddEemail.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\Customers\CustomersDGV.resx">
+      <DependentUpon>CustomersDGV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddEditOther\Customers\MainCustomer.resx">
       <DependentUpon>MainCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\Emp\EmpDGV.resx">
+      <DependentUpon>EmpDGV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddEditOther\Emp\MainEmp.resx">
       <DependentUpon>MainEmp.cs</DependentUpon>
