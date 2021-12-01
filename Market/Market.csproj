@@ -52,7 +52,7 @@
     <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net48\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.2.0.0\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
     </Reference>
@@ -132,6 +132,36 @@
     </Compile>
     <Compile Include="AddEditOther\Products\ProductsInfo\ProductsInfoDGV.Designer.cs">
       <DependentUpon>ProductsInfoDGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\Products\ProductInWarehouses\AddEditWerehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\Products\ProductInWarehouses\AddEditWerehouse.Designer.cs">
+      <DependentUpon>AddEditWerehouse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\Products\ProductInWarehouses\WerehouseDGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\Products\ProductInWarehouses\WerehouseDGV.Designer.cs">
+      <DependentUpon>WerehouseDGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\Werehouse\MainWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\Werehouse\MainWarehouse.Designer.cs">
+      <DependentUpon>MainWarehouse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\Werehouse\WarehousesDGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\Werehouse\WarehousesDGV.Designer.cs">
+      <DependentUpon>WarehousesDGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\Suppliers\SuppliersDGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\Suppliers\SuppliersDGV.Designer.cs">
+      <DependentUpon>SuppliersDGV.cs</DependentUpon>
     </Compile>
     <Compile Include="Navigation\Werehouse.cs">
       <SubType>Form</SubType>
@@ -265,6 +295,21 @@
     <EmbeddedResource Include="AddEditOther\Products\ProductsInfo\ProductsInfoDGV.resx">
       <DependentUpon>ProductsInfoDGV.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\Products\ProductInWarehouses\AddEditWerehouse.resx">
+      <DependentUpon>AddEditWerehouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\Products\ProductInWarehouses\WerehouseDGV.resx">
+      <DependentUpon>WerehouseDGV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\Werehouse\MainWarehouse.resx">
+      <DependentUpon>MainWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\Werehouse\WarehousesDGV.resx">
+      <DependentUpon>WarehousesDGV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\Suppliers\SuppliersDGV.resx">
+      <DependentUpon>SuppliersDGV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Navigation\Werehouse.resx">
       <DependentUpon>Werehouse.cs</DependentUpon>
     </EmbeddedResource>
@@ -350,7 +395,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AddEditOther\Products\Werehouse\" />
     <Folder Include="Gridviews\" />
     <Folder Include="Main Add Forms\" />
   </ItemGroup>

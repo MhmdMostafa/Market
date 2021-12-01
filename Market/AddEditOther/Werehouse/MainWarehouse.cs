@@ -10,49 +10,49 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace Market
 {
-    public partial class MainSupplier : MaterialSkin.Controls.MaterialForm
+    public partial class MainWarehouses : MaterialSkin.Controls.MaterialForm
     {
 
         public string command;
         public int SelectedID;
 
-        public Dictionary<string, int> suppliersCol = new Dictionary<string, int>();
-        public Dictionary<string, int> suppliersEmailAddressesCol = new Dictionary<string, int>();
-        public Dictionary<string, int> suppliersContactNumbersCol = new Dictionary<string, int>();
-        public Dictionary<string, int> suppliersBankAccountsCol = new Dictionary<string, int>();
-        public MainSupplier()
+        public Dictionary<string, int> warehousesCol = new Dictionary<string, int>();
+        public Dictionary<string, int> warehousesEmailAddressesCol = new Dictionary<string, int>();
+        public Dictionary<string, int> warehousesContactNumbersCol = new Dictionary<string, int>();
+        public Dictionary<string, int> warehousesTypeCol = new Dictionary<string, int>();
+
+        public MainWarehouses()
         {
             InitializeComponent();
         }
 
-        public MainSupplier(string conf, int id = 0)
+        public MainWarehouses(string conf, int id = 0)
         {
             InitializeComponent();
             command = conf;
             SelectedID = id;
-            suppliersCol = Globals.GetColumnsIndex("suppliers");
-            suppliersEmailAddressesCol = Globals.GetColumnsIndex("Suppliers_email_addresses");
-            suppliersContactNumbersCol = Globals.GetColumnsIndex("Suppliers_contact_numbers");
-            suppliersBankAccountsCol = Globals.GetColumnsIndex("Suppliers_bank_accounts");
+            warehousesCol = Globals.GetColumnsIndex("warehouses");
+            warehousesEmailAddressesCol = Globals.GetColumnsIndex("warehouses_email_addresses");
+            warehousesContactNumbersCol = Globals.GetColumnsIndex("warehouses_numbers");
+            warehousesTypeCol = Globals.GetColumnsIndex("warehouses_Type");
 
+
+            Globals.refreshCb(GGroupCb, "warehouses_Type", "NameEn");
 
             ContactDGV.AutoGenerateColumns = false;
-            BankDGV.AutoGenerateColumns = false;
 
             if (conf == "add")
             {
-                Text = "Add new Supplaier Wizerd";
+                Text = "Add new Warehouse Wizerd";
                 ((Control)EmailTP).Enabled = false;
                 ((Control)ContactTP).Enabled = false;
-                ((Control)BankTP).Enabled = false;
-
-
+                ((Control)Addresses).Enabled = false;
             }
             else
             {
                 CancelBack.Visible = false;
                 NextEnd.Text = "Done";
-                Text = "Edit Supplaier Wizerd";
+                Text = "Edit Warehouse Wizerd";
             }
 
             refreshTap();
@@ -79,14 +79,13 @@ namespace Market
                 case "General":
                     if (SelectedID != 0)
                     {
-                        SQL = $"SELECT * FROM suppliers WHERE ID = {SelectedID}";
+                        SQL = $"SELECT * FROM warehouses WHERE ID = {SelectedID}";
                         using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
                         {
                             dr.Read();
-                            GNameEnTB.Text = dr.IsDBNull(suppliersCol["NameEn"]) ? "" : dr.GetString("NameEn");
-                            GNameArTB.Text = dr.IsDBNull(suppliersCol["NameAr"]) ? "" : dr.GetString("NameAr");
-                            GVatTB.Text = dr.IsDBNull(suppliersCol["VatNumber"]) ? "" : dr.GetString("VatNumber");
-                            GDiscRTB.Text = dr.IsDBNull(suppliersCol["Description"]) ? "" : dr.GetString("Description");
+                            GNameEnTB.Text = dr.IsDBNull(warehousesCol["NameEn"]) ? "" : dr.GetString("NameEn");
+                            GNameArTB.Text = dr.IsDBNull(warehousesCol["NameAr"]) ? "" : dr.GetString("NameAr");
+                            GGroupCb.SelectedItem = dr.IsDBNull(warehousesCol["TypeID"]) ? "" : Globals.GetStringById("NameEn", "warehouses_Type", dr.GetInt32("TypeID"));
                         }
                     }
                     if (command == "add")
@@ -101,7 +100,7 @@ namespace Market
                     if (SelectedID != 0)
                     {
                         cleanCB(EmailsCBL);
-                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM suppliers_email_addresses WHERE UserID = {SelectedID}"))
+                        using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($"SELECT * FROM warehouses_email_addresses WHERE UserID = {SelectedID}"))
                             while (dr.Read())
                                 EmailsCBL.Items.Add(dr.GetString("EmailAddress"));
                     }
@@ -115,7 +114,7 @@ namespace Market
                 case "Contact":
                     if (SelectedID != 0)
                     {
-                        SQL = $"SELECT suppliers_contact_numbers.ID, ContactNumber, countries.Shortcut, contact_type.NameEn as ContactType FROM suppliers_contact_numbers INNER JOIN countries ON suppliers_contact_numbers.CountryID=countries.ID INNER JOIN contact_type ON suppliers_contact_numbers.ContactTypeID=contact_type.ID WHERE UserID ={SelectedID};";
+                        SQL = $"SELECT warehouses_numbers.ID, ContactNumber, countries.Shortcut, contact_type.NameEn as ContactType FROM warehouses_numbers INNER JOIN countries ON warehouses_numbers.CountryID=countries.ID INNER JOIN contact_type ON warehouses_numbers.ContactTypeID=contact_type.ID WHERE UserID ={SelectedID};";
                         ContactDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     }
                     if (command == "add")
@@ -125,11 +124,12 @@ namespace Market
                     }
                     break;
 
-                case "Bank Accounts":
+                
+                case "Addresses":
                     if (SelectedID != 0)
                     {
-                        SQL = $"SELECT ID, NameEn, NameAr, Iban, FullNameOwner, ExpiryDate FROM suppliers_bank_accounts WHERE UserID = {SelectedID};";
-                        BankDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
+                        SQL = $"SELECT warehouses_addresses.ID, countries.NameEn as Country, cities.NameEn as City, District, Street, ZipCode, Description FROM warehouses_addresses INNER JOIN countries ON warehouses_addresses.CountryID = countries.ID INNER JOIN cities ON warehouses_addresses.CityID = cities.ID WHERE UserID = {SelectedID};";
+                        AddressDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
                     }
                     if (command == "add")
                     {
@@ -148,8 +148,8 @@ namespace Market
             {
                 string SQL;
                 Dictionary<string, object> myPara = new Dictionary<string, object>();
-                Globals.CleanTB(Controls);
-                if (GNameArTB.Text == "" || GNameEnTB.Text == "" || GVatTB.Text == "" || GDiscRTB.Text == "")
+                Globals.CleanTB(this.Controls);
+                if (GNameArTB.Text == "" || GNameEnTB.Text == "")
                 {
                     MessageBox.Show("Please fill all feilds");
                     return;
@@ -157,46 +157,55 @@ namespace Market
 
                 if (command == "edit" || SelectedID != 0)
                 {
-                    if (Globals.ifExist("suppliers", "VatNumber", GVatTB.Text, SelectedID))
+                    if (Globals.ifExist("warehouses", "UserName", GNameEnTB.Text, SelectedID))
                     {
                         MessageBox.Show("This Vat Number is alredy Exist");
                         return;
                     }
-                    SQL = $"UPDATE suppliers SET NameEn=@NameEn, NameAr=@NameAr, VatNumber=@VatNumber, Description=@Description WHERE ID={SelectedID};";
+                    SQL = $"UPDATE warehouses SET UserName=@UserName NameEn=@NameEn, NameAr=@NameAr, BirthDate=@BirthDate, NationalNumber=@NationalNumber, TypeID=@TypeID, GenderID=@GenderID WHERE ID={SelectedID};";
+
                 }
                 else
                 {
-                    if (Globals.ifExist("suppliers", "VatNumber", GVatTB.Text))
+
+                    if (Globals.ifExist("warehouses", "UserName", GNameEnTB.Text))
                     {
                         MessageBox.Show("This Vat Number is alredy Exist");
                         return;
                     }
-                    SQL = $"INSERT INTO suppliers (NameEn, NameAr, VatNumber, Description) VALUES(@NameEn, @NameAr, @VatNumber, @Description);";
-                }
 
+                    SQL = $"INSERT INTO warehouses (UserName, NameEn, NameAr, BirthDate, NationalNumber, TypeID, GenderID) VALUES(@UserName, @NameEn, @NameAr, @BirthDate, @NationalNumber, @TypeID, @GenderID);";
+
+                }
                 myPara.Add("@NameEn", GNameEnTB.Text);
                 myPara.Add("@NameAr", GNameArTB.Text);
-                myPara.Add("@VatNumber", GVatTB.Text);
-                myPara.Add("@Description", GDiscRTB.Text);
+                myPara.Add("@TypeID", Globals.GetIdByString("warehouses_Type", "NameEn", GGroupCb.Text));
+
+
                 Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
                 ((Control)EmailTP).Enabled = true;
                 ((Control)ContactTP).Enabled = true;
-                ((Control)BankTP).Enabled = true;
                 if (SelectedID == 0)
-                    SelectedID = Globals.GetIdByString("suppliers", "VatNumber",GVatTB.Text);
+                    SelectedID = Globals.GetIdByString("warehouses", "NameEn", GNameEnTB.Text);
+
             }
+
 
             if (NextEnd.Text == "Done")
                 this.Close();
             else if (NextEnd.Text == "Next")
                 TapsPage.SelectedIndex += 1;
+
+
+
+
         }
 
         private void EditEmailB_Click(object sender, EventArgs e)
         {
             if (Globals.CoutCbList(EmailsCBL))
             {
-                AddEemail AddWindow = new AddEemail("edit", "suppliers_email_addresses", SelectedID, EmailsCBL.CheckedItems[0].ToString());
+                AddEemail AddWindow = new AddEemail("edit", "warehouses_email_addresses", SelectedID, EmailsCBL.CheckedItems[0].ToString());
                 AddWindow.ShowDialog();
                 refreshTap();
             }
@@ -204,7 +213,7 @@ namespace Market
 
         private void AddEmailB_Click(object sender, EventArgs e)
         {
-            AddEemail AddWindow = new AddEemail("add", "suppliers_email_addresses", SelectedID);
+            AddEemail AddWindow = new AddEemail("add", "warehouses_email_addresses", SelectedID);
             AddWindow.ShowDialog();
             refreshTap();
 
@@ -238,7 +247,7 @@ namespace Market
 
                     foreach (object item in EmailsCBL.CheckedItems)
                     {
-                        Globals.DeleteValue("suppliers_email_addresses", "EmailAddress", item.ToString());
+                        Globals.DeleteValue("warehouses_email_addresses", "EmailAddress", item.ToString());
                     }
                     refreshTap();
                 }
@@ -249,7 +258,7 @@ namespace Market
 
         private void AddContactB_Click(object sender, EventArgs e)
         {
-            AddContact window = new AddContact("add", "suppliers_contact_numbers", SelectedID);
+            AddContact window = new AddContact("add", "customer_contact_numbers", SelectedID);
             window.ShowDialog();
             refreshTap();
         }
@@ -268,7 +277,7 @@ namespace Market
                 return;
             }
 
-            AddContact window = new AddContact("edit", "suppliers_contact_numbers", SelectedID, selectedValues[0]);
+            AddContact window = new AddContact("edit", "customer_contact_numbers", SelectedID, selectedValues[0]);
             window.ShowDialog();
             refreshTap();
         }
@@ -284,7 +293,7 @@ namespace Market
 
             foreach (int value in selectedValues)
             {
-                Globals.DeleteValue("suppliers_contact_numbers", "ID", value);
+                Globals.DeleteValue("customer_contact_numbers", "ID", value);
             }
 
             MessageBox.Show("Done!!");
@@ -299,16 +308,22 @@ namespace Market
                 Globals.Clean_SelectCbList(ContactDGV, false);
         }
 
-        private void AddBankB_Click(object sender, EventArgs e)
+
+        private void CancelBack_Click(object sender, EventArgs e)
         {
-            AddEditBank window = new AddEditBank("add", "suppliers_bank_accounts", SelectedID);
+            TapsPage.SelectedIndex -= 1;
+        }
+
+        private void AddAddressB_Click(object sender, EventArgs e)
+        {
+            AddEditAddress window = new AddEditAddress("add", "customer_Addresses", SelectedID);
             window.ShowDialog();
             refreshTap();
         }
 
-        private void EditBankB_Click(object sender, EventArgs e)
+        private void EditAddressB_Click(object sender, EventArgs e)
         {
-            List<int> selectedValues = Globals.GetSelectedValues(BankDGV);
+            List<int> selectedValues = Globals.GetSelectedValues(AddressDGV);
             if (selectedValues.Count > 1)
             {
                 MessageBox.Show("Please Select one value to edit");
@@ -320,14 +335,14 @@ namespace Market
                 return;
             }
 
-            AddEditBank window = new AddEditBank("edit", "suppliers_bank_accounts", SelectedID, selectedValues[0]);
+            AddEditAddress window = new AddEditAddress("edit", "customer_Addresses", SelectedID, selectedValues[0]);
             window.ShowDialog();
             refreshTap();
         }
 
-        private void DeleteBankB_Click(object sender, EventArgs e)
+        private void DeleteAddressB_Click(object sender, EventArgs e)
         {
-            List<int> selectedValues = Globals.GetSelectedValues(BankDGV);
+            List<int> selectedValues = Globals.GetSelectedValues(AddressDGV);
             if (selectedValues.Count == 0)
             {
                 MessageBox.Show("Please Select one value to Delete");
@@ -336,30 +351,28 @@ namespace Market
 
             foreach (int value in selectedValues)
             {
-                Globals.DeleteValue("suppliers_bank_accounts", "ID", value);
+                Globals.DeleteValue("customer_Addresses", "ID", value);
             }
 
             MessageBox.Show("Done!!");
             refreshTap();
         }
 
-        private void BnCheckAllCb_CheckedChanged(object sender, EventArgs e)
+        private void AddressSelectAllCb_CheckedChanged(object sender, EventArgs e)
         {
-            if (BnCheckAllCb.Checked)
-                Globals.Clean_SelectCbList(BankDGV, true);
+            if (AddressSelectAllCb.Checked)
+                Globals.Clean_SelectCbList(AddressDGV, true);
             else
-                Globals.Clean_SelectCbList(BankDGV, false);
+                Globals.Clean_SelectCbList(AddressDGV, false);
         }
 
-        private void GVatTB_KeyPress(object sender, KeyPressEventArgs e)
+
+        private void AddTypeB_Click(object sender, EventArgs e)
         {
-            if (GVatTB.Text.Length > 23 && !Char.IsControl(e.KeyChar))
-                e.Handled = true;
+            DefaultsDGV2 window = new DefaultsDGV2("warehouses_Type");
+            window.ShowDialog();
+            Globals.refreshCb(GGroupCb, "warehouses_Type", "NameEn");
         }
 
-        private void CancelBack_Click(object sender, EventArgs e)
-        {
-            TapsPage.SelectedIndex -= 1;
-        }
     }
 }

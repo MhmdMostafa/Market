@@ -1,7 +1,7 @@
 ﻿
 namespace Market
 {
-    partial class DefaultsDGV1
+    partial class SuppliersDGV
     {
         /// <summary>
         /// Required designer variable.
@@ -32,13 +32,13 @@ namespace Market
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.AddBT = new MaterialSkin.Controls.MaterialButton();
             this.EditBT = new MaterialSkin.Controls.MaterialButton();
-            this.DeleteBT = new MaterialSkin.Controls.MaterialButton();
             this.SelectAllCB = new System.Windows.Forms.CheckBox();
             this.C0 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.C1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.C2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.C3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.C4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VatNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +52,8 @@ namespace Market
             this.C1,
             this.C2,
             this.C3,
-            this.C4});
+            this.VatNumber,
+            this.Description});
             this.dataGridView.Location = new System.Drawing.Point(6, 67);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(534, 173);
@@ -98,26 +99,6 @@ namespace Market
             this.EditBT.UseVisualStyleBackColor = true;
             this.EditBT.Click += new System.EventHandler(this.EditBT_Click);
             // 
-            // DeleteBT
-            // 
-            this.DeleteBT.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.DeleteBT.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.DeleteBT.Depth = 0;
-            this.DeleteBT.HighEmphasis = true;
-            this.DeleteBT.Icon = null;
-            this.DeleteBT.Location = new System.Drawing.Point(323, 249);
-            this.DeleteBT.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.DeleteBT.MouseState = MaterialSkin.MouseState.HOVER;
-            this.DeleteBT.Name = "DeleteBT";
-            this.DeleteBT.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.DeleteBT.Size = new System.Drawing.Size(71, 36);
-            this.DeleteBT.TabIndex = 3;
-            this.DeleteBT.Text = "Delete";
-            this.DeleteBT.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.DeleteBT.UseAccentColor = false;
-            this.DeleteBT.UseVisualStyleBackColor = true;
-            this.DeleteBT.Click += new System.EventHandler(this.DeleteBT_Click);
-            // 
             // SelectAllCB
             // 
             this.SelectAllCB.AutoSize = true;
@@ -162,24 +143,29 @@ namespace Market
             this.C3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.C3.Width = 150;
             // 
-            // C4
+            // VatNumber
             // 
-            this.C4.DataPropertyName = "Shortcut";
-            this.C4.HeaderText = "Shorcut";
-            this.C4.Name = "C4";
-            this.C4.ReadOnly = true;
+            this.VatNumber.DataPropertyName = "VatNumber";
+            this.VatNumber.HeaderText = "VatNumber";
+            this.VatNumber.Name = "VatNumber";
+            this.VatNumber.ReadOnly = true;
             // 
-            // DefaultsDGV1
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Description";
+            this.Description.Name = "Description";
+            // 
+            // SuppliersDGV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(550, 295);
             this.Controls.Add(this.SelectAllCB);
-            this.Controls.Add(this.DeleteBT);
             this.Controls.Add(this.EditBT);
             this.Controls.Add(this.AddBT);
             this.Controls.Add(this.dataGridView);
-            this.Name = "DefaultsDGV1";
+            this.Name = "SuppliersDGV";
             this.Text = "For2TB";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -192,12 +178,12 @@ namespace Market
         private System.Windows.Forms.DataGridView dataGridView;
         private MaterialSkin.Controls.MaterialButton AddBT;
         private MaterialSkin.Controls.MaterialButton EditBT;
-        private MaterialSkin.Controls.MaterialButton DeleteBT;
         private System.Windows.Forms.CheckBox SelectAllCB;
         private System.Windows.Forms.DataGridViewCheckBoxColumn C0;
         private System.Windows.Forms.DataGridViewTextBoxColumn C1;
         private System.Windows.Forms.DataGridViewTextBoxColumn C2;
         private System.Windows.Forms.DataGridViewTextBoxColumn C3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn C4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VatNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
     }
 }

@@ -37,34 +37,6 @@ CREATE TABLE contact_type(
 	PRIMARY KEY (ID)
 );
 
-CREATE TABLE nav_sections(
-	ID INT AUTO_INCREMENT,
-    SectionID INT,
-	NameEn VARCHAR(50) NOT NULL,
-	NameAr VARCHAR(50) NOT NULL,
-	PRIMARY KEY (ID),
-    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
-);
-
-
-CREATE TABLE nav_rows(
-	ID INT AUTO_INCREMENT,
-    SectionID INT,
-	NameEn VARCHAR(50) NOT NULL,
-	NameAr VARCHAR(50) NOT NULL,
-	PRIMARY KEY (ID),
-    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
-);
-
-CREATE TABLE nav_columns(
-	ID INT AUTO_INCREMENT,
-    SectionID INT,
-	NameEn VARCHAR(50) NOT NULL,
-	NameAr VARCHAR(50) NOT NULL,
-	PRIMARY KEY (ID),
-    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
-);
-
 CREATE TABLE hands(
 	ID INT AUTO_INCREMENT,
 	NameEn VARCHAR(50) NOT NULL,
@@ -142,14 +114,23 @@ CREATE TABLE products_type(
     PRIMARY KEY (ID)
 );
 
-CREATE TABLE our_warehouses(
+CREATE TABLE warehouses_Type(
     ID INT NOT NULL AUTO_INCREMENT,
     NameEn VARCHAR(100),
     NameAr VARCHAR(100),
     PRIMARY KEY (ID)
 );
 
-CREATE TABLE our_warehouses_addresses(
+CREATE TABLE warehouses(
+    ID INT NOT NULL AUTO_INCREMENT,
+    TypeID INT,
+    NameEn VARCHAR(100),
+    NameAr VARCHAR(100),
+    PRIMARY KEY (ID),
+    FOREIGN KEY (TypeID) REFERENCES warehouses_Type(ID)
+);
+
+CREATE TABLE warehouses_addresses(
     ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
@@ -159,22 +140,59 @@ CREATE TABLE our_warehouses_addresses(
     ZipCode INT,
     Description VARCHAR (100) NOT NULL,
     PRIMARY KEY (ID),
-    FOREIGN KEY (UserID) REFERENCES our_warehouses(ID),
+    FOREIGN KEY (UserID) REFERENCES warehouses(ID),
     FOREIGN KEY (CountryID) REFERENCES Countries(ID),
     FOREIGN KEY (CityID) REFERENCES cities(ID)
 );
 
-CREATE TABLE our_warehouses_numbers(
+CREATE TABLE warehouses_numbers(
     ID INT NOT NULL AUTO_INCREMENT,
 	UserID INT NOT NULL,
     CountryID INT NOT NULL,
     ContactTypeID INT NOT NULL,
     ContactNumber VARCHAR(10) NOT NULL,
     PRIMARY KEY(ID),
-    FOREIGN KEY (UserID) REFERENCES our_warehouses(ID),
+    FOREIGN KEY (UserID) REFERENCES warehouses(ID),
     FOREIGN KEY (CountryID) REFERENCES countries(ID),
     FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
     UNIQUE (ContactNumber)
+);
+
+CREATE TABLE warehouses_email_addresses(
+    ID INT NOT NULL AUTO_INCREMENT,
+	UserID INT NOT NULL,
+    EmailAddress VARCHAR(150) NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY (UserID) REFERENCES employees(ID),
+    UNIQUE (EmailAddress)
+);
+CREATE TABLE nav_sections(
+	ID INT AUTO_INCREMENT,
+    WarehousesID INT,
+    SectionID INT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID),
+    FOREIGN KEY (WarehousesID) REFERENCES warehouses(ID),
+    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
+);
+
+CREATE TABLE nav_rows(
+	ID INT AUTO_INCREMENT,
+    SectionID INT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID),
+    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
+);
+
+CREATE TABLE nav_columns(
+	ID INT AUTO_INCREMENT,
+    SectionID INT,
+	NameEn VARCHAR(50) NOT NULL,
+	NameAr VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID),
+    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID)
 );
 
 CREATE TABLE emp_group(
@@ -457,43 +475,6 @@ CREATE TABLE suppliers_bank_accounts(
     UNIQUE (Iban)
 );
 
-CREATE TABLE suppliers_warehouses(
-    ID INT NOT NULL AUTO_INCREMENT,
-	UserID INT NOT NULL,
-    NameEn VARCHAR(100),
-    NameAr VARCHAR(100),
-    PRIMARY KEY (ID),
-    FOREIGN KEY (UserID) REFERENCES suppliers(ID)
-);
-
-CREATE TABLE suppliers_warehouses_addresses(
-    ID INT NOT NULL AUTO_INCREMENT,
-	UserID INT NOT NULL,
-    CountryID INT NOT NULL,
-    CityID INT NOT NULL,
-    District VARCHAR (45) NOT NULL,
-    Street VARCHAR (45) NOT NULL,
-    ZipCode INT,
-    Description VARCHAR (100) NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (UserID) REFERENCES suppliers_warehouses(ID),
-    FOREIGN KEY (CountryID) REFERENCES Countries(ID),
-    FOREIGN KEY (CityID) REFERENCES cities(ID)
-);
-
-CREATE TABLE suppliers_warehouses_numbers(
-    ID INT NOT NULL AUTO_INCREMENT,
-	UserID INT NOT NULL,
-    CountryID INT NOT NULL,
-    ContactTypeID INT NOT NULL,
-    ContactNumber VARCHAR(10) NOT NULL,
-    PRIMARY KEY(ID),
-    FOREIGN KEY (UserID) REFERENCES suppliers_warehouses(ID),
-    FOREIGN KEY (CountryID) REFERENCES countries(ID),
-    FOREIGN KEY (ContactTypeID) REFERENCES contact_type(ID),
-    UNIQUE (ContactNumber)
-);
-
 CREATE TABLE products(
 	ID INT NOT NULL AUTO_INCREMENT,
     ProductGroubID INT NOT NULL,
@@ -517,23 +498,11 @@ CREATE TABLE products(
     FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 
-CREATE TABLE product_location(
-    ID INT NOT NULL AUTO_INCREMENT,
-    SectionID INT,
-    RowID INT,
-    ColumnID INT,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID),
-    FOREIGN KEY (RowID) REFERENCES nav_rows(ID),
-    FOREIGN KEY (ColumnID) REFERENCES nav_columns(ID)
-);
-
 CREATE TABLE products_stock(
     ID INT NOT NULL AUTO_INCREMENT,
     ProductID INT,
     SupplierID INT NOT NULL,
     WerehouseID INT,
-    LocationID INT,
     CostPrice FLOAT NOT NULL,
     CurrencyID INT NOT NULL,
     Description VARCHAR (600),
@@ -542,12 +511,17 @@ CREATE TABLE products_stock(
     DateOfProduction DATE NOT NULL,
     ExpiryDate DATE NOT NULL,
     Barcode VARCHAR(100),
+    SectionID INT,
+    RowID INT,
+    ColumnID INT,
     PRIMARY KEY (ID),
 	FOREIGN KEY (ProductID) REFERENCES products(ID),
     FOREIGN KEY (SupplierID) REFERENCES suppliers(ID),
     FOREIGN KEY (WerehouseID) REFERENCES our_warehouses(ID),
-    FOREIGN KEY (LocationID) REFERENCES product_location(ID),
-    FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
+    FOREIGN KEY (CurrencyID) REFERENCES currencies(ID),
+    FOREIGN KEY (SectionID) REFERENCES nav_sections(ID),
+    FOREIGN KEY (RowID) REFERENCES nav_rows(ID),
+    FOREIGN KEY (ColumnID) REFERENCES nav_columns(ID)
 );
 
 CREATE TABLE invoices(

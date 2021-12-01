@@ -1,7 +1,7 @@
 ﻿
 namespace Market
 {
-    partial class DefaultsDGV1
+    partial class WarehousesDGV
     {
         /// <summary>
         /// Required designer variable.
@@ -116,7 +116,6 @@ namespace Market
             this.DeleteBT.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.DeleteBT.UseAccentColor = false;
             this.DeleteBT.UseVisualStyleBackColor = true;
-            this.DeleteBT.Click += new System.EventHandler(this.DeleteBT_Click);
             // 
             // SelectAllCB
             // 
@@ -164,12 +163,12 @@ namespace Market
             // 
             // C4
             // 
-            this.C4.DataPropertyName = "Shortcut";
-            this.C4.HeaderText = "Shorcut";
+            this.C4.DataPropertyName = "Type";
+            this.C4.HeaderText = "Type";
             this.C4.Name = "C4";
             this.C4.ReadOnly = true;
             // 
-            // DefaultsDGV1
+            // WarehousesDGV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -179,7 +178,7 @@ namespace Market
             this.Controls.Add(this.EditBT);
             this.Controls.Add(this.AddBT);
             this.Controls.Add(this.dataGridView);
-            this.Name = "DefaultsDGV1";
+            this.Name = "WarehousesDGV";
             this.Text = "For2TB";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
