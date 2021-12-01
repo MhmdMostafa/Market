@@ -226,14 +226,29 @@ namespace Market
         }
 
 
-        public static void CleanTB(Control.ControlCollection  objs)
+        public static void CleanTB(Control.ControlCollection objs)
         {
+            StringBuilder temp;
             foreach (Control control in objs)
                 if (control is TextBox)
                 {
-                    control.Text = RmSpace(control.Text).ToLower();
-                    control.Text[0]= char.ToUpper(control.Text[0])
+                    temp = new StringBuilder(RmSpace(control.Text).ToLower());
+                    temp[0] = char.ToUpper(control.Text[0]);
+                    control.Text = temp.ToString();
                 }
+        }
+
+        public static void refreshCb(ComboBox obj, string table, string columnName)
+        {
+            obj.Items.Clear();
+            string SQL = $@"SELECT {columnName} FROM {table}";
+            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
+            {
+                while (dr.Read())
+                    obj.Items.Add(dr.IsDBNull(0) ? "" : dr.GetString(columnName));
+            }
+            if (obj.Items.Count != 0)
+                obj.SelectedIndex = 0;
         }
 
     }

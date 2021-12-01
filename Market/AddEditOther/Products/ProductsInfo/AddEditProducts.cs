@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-namespace Market.AddEditOther.Product
+namespace Market
 {
     public partial class AddEditProducts : MaterialSkin.Controls.MaterialForm
     {
@@ -25,7 +25,7 @@ namespace Market.AddEditOther.Product
         }
 
 
-        public AddEditProducts(string conf, int id=0)
+        public AddEditProducts(string conf, int id = 0)
         {
             InitializeComponent();
             command = conf;
@@ -37,27 +37,26 @@ namespace Market.AddEditOther.Product
             ProductsGroubCol = Globals.GetColumnsIndex("products_groub");
             ProductsTypeCol = Globals.GetColumnsIndex("products_type");
 
-            refreshCb(unitValueCb, "units_value");
-            refreshCb(unitValueCb, "currencies");
-            refreshCb(unitValueCb, "products_groub");
-            refreshCb(unitValueCb, "products_type");
-
-            Globals.CleanTB(this.Controls);
-
+            Globals.refreshCb(unitValueCb, "units_value", "Shortcut");
+            Globals.refreshCb(currencyCb, "currencies", "Shortcut");
+            Globals.refreshCb(groubCb, "products_groub", "NameEn");
+            Globals.refreshCb(typeCb, "products_type", "NameEn");
+            vatCb.SelectedIndex = 0;
+            prescriptionCb.SelectedIndex = 0;
             if (command == "edit")
             {
                 Text = "Edit Product Wizerd";
                 AddEditBT.Text = "Edit";
                 string SQL = $@"SELECT products_groub.NameEn AS Groub, products_type.NameEn AS Type, products.NameEn, products.NameAr, Size, units_value.Shortcut AS Unit, Price, currencies.Shortcut AS Currency, Barcode, IncludeVat, IncludePrescription, UPC, SKU, ISBN From products INNER JOIN products_groub ON ProductGroubID = products_groub.ID INNER JOIN products_type ON ProductTypeID = products_type.ID INNER JOIN units_value ON UnitValueID = units_value.ID INNER JOIN currencies ON CurrencyID = currencies.ID;";
 
-                using(MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
+                using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
                 {
                     dr.Read();
                     nameEnTb.Text = dr.IsDBNull(ProductsCol["NameEn"]) ? "" : dr.GetString("NameEn");
                     nameArTb.Text = dr.IsDBNull(ProductsCol["NameAr"]) ? "" : dr.GetString("NameAr");
                     groubCb.SelectedItem = dr.IsDBNull(ProductsCol["ProductGroubID"]) ? "" : dr.GetString("Groub");
                     typeCb.Text = dr.IsDBNull(ProductsCol["ProductTypeID"]) ? "" : dr.GetString("Type");
-                    sizeTb.Value= dr.IsDBNull(ProductsCol["Size"]) ? 0 : (decimal)dr.GetFloat("Size");
+                    sizeTb.Value = dr.IsDBNull(ProductsCol["Size"]) ? 0 : (decimal)dr.GetFloat("Size");
                     unitValueCb.SelectedItem = dr.IsDBNull(ProductsCol["UnitValueID"]) ? "" : dr.GetString("Unit");
                     salePriceTb.Value = dr.IsDBNull(ProductsCol["Price"]) ? 0 : (decimal)dr.GetFloat("Price");
                     currencyCb.SelectedItem = dr.IsDBNull(ProductsCol["CurrencyID"]) ? "" : dr.GetString("Currency");
@@ -73,7 +72,6 @@ namespace Market.AddEditOther.Product
             {
                 Text = "Add Product Wizerd";
                 AddEditBT.Text = "Add";
-
             }
         }
 
@@ -81,8 +79,8 @@ namespace Market.AddEditOther.Product
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL;
-            
-            
+            Globals.CleanTB(Controls);
+
 
 
             if (nameEnTb.Text == "" || nameArTb.Text == "" || groubCb.Text == "" || typeCb.Text == "" || sizeTb.Text == "" || unitValueCb.Text == "" || salePriceTb.Text == "" || currencyCb.Text == "" || prescriptionCb.Text == "" || vatCb.Text == "")
@@ -101,17 +99,22 @@ namespace Market.AddEditOther.Product
             }
             else
             {
+                if (Globals.ifExist("products", "UPC", upcTb.Text) || Globals.ifExist("products", "SKU", skuTb.Text) || Globals.ifExist("products", "ISBN", isbnTb.Text) || Globals.ifExist("products", "barcode", barcodeTb.Text))
+                {
+                    MessageBox.Show("This Vat Number is alredy Exist");
+                    return;
+                }
                 SQL = "INSERT INTO products (NameEn, NameAr, ProductGroubID, ProductTypeID, Size, UnitValueID, Price, CurrencyID, Barcode, UPC, SKU, ISBN, IncludePrescription, IncludeVat VALUES(@NameEn, @NameAr, @ProductGroubID, @ProductTypeID, @Size, @UnitValueID, @Price, @CurrencyID, @Barcode, @UPC, @SKU, @ISBN, @NameEIncludePrescriptionn, @IncludeVat);";
             }
 
             myPara.Add("@NameEn", nameEnTb.Text);
             myPara.Add("@NameAr", nameArTb.Text);
-            myPara.Add("@ProductGroubID", Globals.GetIdByString("","NameEn",groubCb.Text));
-            myPara.Add("@ProductTypeID", Globals.GetIdByString("", "NameEn", typeCb.Text));
+            myPara.Add("@ProductGroubID", Globals.GetIdByString("products_groub", "NameEn", groubCb.Text));
+            myPara.Add("@ProductTypeID", Globals.GetIdByString("products_type", "NameEn", typeCb.Text));
             myPara.Add("@Size", sizeTb.Value);
-            myPara.Add("@UnitValueID", Globals.GetIdByString("", "NameEn", unitValueCb.Text));
+            myPara.Add("@UnitValueID", Globals.GetIdByString("units_value", "NameEn", unitValueCb.Text));
             myPara.Add("@Price", salePriceTb.Value);
-            myPara.Add("@CurrencyID", Globals.GetIdByString("", "NameEn", currencyCb.Text));
+            myPara.Add("@CurrencyID", Globals.GetIdByString("", "currencies", currencyCb.Text));
             myPara.Add("@Barcode", barcodeTb.Text);
             myPara.Add("@UPC", upcTb.Text);
             myPara.Add("@SKU", skuTb.Text);
@@ -128,40 +131,29 @@ namespace Market.AddEditOther.Product
         {
             DefaultsDGV1 window = new DefaultsDGV1("units_value");
             window.ShowDialog();
-            refreshCb(unitValueCb, "units_value");
+            Globals.refreshCb(unitValueCb, "units_value", "Shortcut");
         }
 
         private void addCurrencyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DefaultsDGV1 window = new DefaultsDGV1("currencies");
             window.ShowDialog();
-            refreshCb(unitValueCb, "currencies");
+            Globals.refreshCb(currencyCb, "currencies", "Shortcut");
         }
 
         private void addGroupToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DefaultsDGV2 window = new DefaultsDGV2("products_groub");
             window.ShowDialog();
-            refreshCb(unitValueCb, "products_groub");
+            Globals.refreshCb(groubCb, "products_groub", "NameEn");
         }
 
         private void addTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DefaultsDGV2 window = new DefaultsDGV2("products_type");
             window.ShowDialog();
-            refreshCb(unitValueCb, "products_type");
+            Globals.refreshCb(typeCb, "products_type", "NameEn");
         }
 
-
-        public void refreshCb(ComboBox obj, string table)
-        {
-            obj.Items.Clear();
-            string SQL = $@"SELECT NameEn FROM {table}";
-            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
-            {
-                while (dr.Read())
-                    obj.Items.Add(dr.GetString("NameEn"));
-            }
-        }
     }
 }

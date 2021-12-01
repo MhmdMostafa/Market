@@ -35,6 +35,8 @@ namespace Market
             this.label1 = new System.Windows.Forms.Label();
             this.typeCB = new System.Windows.Forms.ComboBox();
             this.CountryCB = new System.Windows.Forms.ComboBox();
+            this.AddTypeB = new System.Windows.Forms.Button();
+            this.AddContryb = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // applyB
@@ -49,7 +51,7 @@ namespace Market
             this.applyB.MouseState = MaterialSkin.MouseState.HOVER;
             this.applyB.Name = "applyB";
             this.applyB.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.applyB.Size = new System.Drawing.Size(67, 36);
+            this.applyB.Size = new System.Drawing.Size(65, 36);
             this.applyB.TabIndex = 0;
             this.applyB.Text = "apply";
             this.applyB.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -72,9 +74,9 @@ namespace Market
             this.label_1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_1.Location = new System.Drawing.Point(6, 136);
             this.label_1.Name = "label_1";
-            this.label_1.Size = new System.Drawing.Size(94, 24);
+            this.label_1.Size = new System.Drawing.Size(58, 24);
             this.label_1.TabIndex = 25;
-            this.label_1.Text = "Number:";
+            this.label_1.Text = "No.:";
             // 
             // label1
             // 
@@ -95,7 +97,7 @@ namespace Market
             this.typeCB.FormattingEnabled = true;
             this.typeCB.Location = new System.Drawing.Point(178, 83);
             this.typeCB.Name = "typeCB";
-            this.typeCB.Size = new System.Drawing.Size(121, 32);
+            this.typeCB.Size = new System.Drawing.Size(159, 32);
             this.typeCB.TabIndex = 28;
             // 
             // CountryCB
@@ -105,16 +107,40 @@ namespace Market
             this.CountryCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CountryCB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.CountryCB.FormattingEnabled = true;
-            this.CountryCB.Location = new System.Drawing.Point(106, 133);
+            this.CountryCB.Location = new System.Drawing.Point(70, 133);
             this.CountryCB.Name = "CountryCB";
             this.CountryCB.Size = new System.Drawing.Size(80, 32);
             this.CountryCB.TabIndex = 29;
+            // 
+            // AddTypeB
+            // 
+            this.AddTypeB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.AddTypeB.Location = new System.Drawing.Point(343, 83);
+            this.AddTypeB.Name = "AddTypeB";
+            this.AddTypeB.Size = new System.Drawing.Size(39, 32);
+            this.AddTypeB.TabIndex = 30;
+            this.AddTypeB.Text = "+";
+            this.AddTypeB.UseVisualStyleBackColor = true;
+            this.AddTypeB.Click += new System.EventHandler(this.AddTypeB_Click);
+            // 
+            // AddContryb
+            // 
+            this.AddContryb.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.AddContryb.Location = new System.Drawing.Point(156, 133);
+            this.AddContryb.Name = "AddContryb";
+            this.AddContryb.Size = new System.Drawing.Size(30, 32);
+            this.AddContryb.TabIndex = 31;
+            this.AddContryb.Text = "+";
+            this.AddContryb.UseVisualStyleBackColor = true;
+            this.AddContryb.Click += new System.EventHandler(this.AddContryb_Click);
             // 
             // AddContact
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(393, 220);
+            this.Controls.Add(this.AddContryb);
+            this.Controls.Add(this.AddTypeB);
             this.Controls.Add(this.CountryCB);
             this.Controls.Add(this.typeCB);
             this.Controls.Add(this.label1);
@@ -136,5 +162,7 @@ namespace Market
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox typeCB;
         private System.Windows.Forms.ComboBox CountryCB;
+        private System.Windows.Forms.Button AddTypeB;
+        private System.Windows.Forms.Button AddContryb;
     }
 }

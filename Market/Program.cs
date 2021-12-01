@@ -18,7 +18,7 @@ namespace Market
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new EmpsDGV());
+            Application.Run(new ProductsInfoDGV());
         }
 
 

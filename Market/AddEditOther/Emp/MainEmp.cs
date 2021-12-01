@@ -40,15 +40,9 @@ namespace Market
             empGroupCol = Globals.GetColumnsIndex("emp_group");
             genderCol = Globals.GetColumnsIndex("gender");
 
-            using (MySqlDataReader dr=Globals.myCrud.getDrPassSql("SELECT * FROM emp_group"))
-                while (dr.Read())
-                    GGroupCb.Items.Add(dr.IsDBNull(empGroupCol["NameEn"]) ? "" : dr.GetString("NameEn"));
-            GGroupCb.SelectedIndex = 0;
+            Globals.refreshCb(GGroupCb, "emp_group", "NameEn");
+            Globals.refreshCb(GenderCb, "gender", "NameEn");
 
-            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM gender"))
-                while (dr.Read())
-                    GenderCb.Items.Add(dr.IsDBNull(genderCol["NameEn"]) ? "" : dr.GetString("NameEn"));
-            GenderCb.SelectedIndex = 0;
 
             ContactDGV.AutoGenerateColumns = false;
             BankDGV.AutoGenerateColumns = false;
@@ -471,6 +465,20 @@ namespace Market
 
         private void NationalNoTb_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (Char.IsControl(e.KeyChar))
+                return;
+
+            if ((!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar)) || NationalNoTb.Text.Length > 11 || e.KeyChar == ' ')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void AddGroupB_Click(object sender, EventArgs e)
+        {
+            DefaultsDGV2 window = new DefaultsDGV2("contact_type");
+            window.ShowDialog();
+            Globals.refreshCb(GGroupCb, "emp_group", "NameEn");
 
         }
     }

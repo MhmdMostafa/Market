@@ -35,11 +35,7 @@ namespace Market
             Text = $"{command.ToUpper()} Wizerd";
             AddEditBT.Text = command.ToUpper();
 
-            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM continents;"))
-                while (dr.Read())
-                {
-                    ContinentCB.Items.Add(dr.IsDBNull(ContinentCol["NameEn"]) ? "" : dr.GetString("NameEn"));
-                }
+            Globals.refreshCb(ContinentCB, "continents", "NameEn");
             if (command == "edit")
             {
                 SQL = $@"SELECT * FROM {SQLtable} WHERE ID={ID}";

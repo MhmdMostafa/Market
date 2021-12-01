@@ -35,13 +35,9 @@ namespace Market
             countryCol = Globals.GetColumnsIndex("countries");
             contactTypeCol = Globals.GetColumnsIndex("contact_type");
             tableCol = Globals.GetColumnsIndex(table);
-            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
-                while (dr.Read())
-                    CountryCB.Items.Add(dr.IsDBNull(countryCol["CallingCode"]) ? "" : dr.GetString("CallingCode"));
 
-            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM contact_type;"))
-                while (dr.Read())
-                    typeCB.Items.Add(dr.IsDBNull(contactTypeCol["NameEn"]) ? "" : dr.GetString("NameEn"));
+            Globals.refreshCb(CountryCB, "countries", "CallingCode");
+            Globals.refreshCb(typeCB, "contact_type", "NameEn");
 
             if (command == "edit")
             {
@@ -83,7 +79,7 @@ namespace Market
                     MessageBox.Show("Entry is alredy exist");
                     return;
                 }
-                    SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, ContactTypeID= @ContactTypeID, ContactNumber= @ContactNumber WHERE ID = @ID";
+                SQL = $"UPDATE {SQLtable} SET CountryID= @CountryID, ContactTypeID= @ContactTypeID, ContactNumber= @ContactNumber WHERE ID = @ID";
 
                 myPara.Add("@ID", contactId);
             }
@@ -115,6 +111,21 @@ namespace Market
             {
                 e.Handled = true;
             }
+        }
+
+        private void AddTypeB_Click(object sender, EventArgs e)
+        {
+            CountryDGV window = new CountryDGV("countries");
+            window.ShowDialog();
+            Globals.refreshCb(CountryCB, "countries", "CallingCode");
+
+        }
+
+        private void AddContryb_Click(object sender, EventArgs e)
+        {
+            DefaultsDGV2 window = new DefaultsDGV2("contact_type");
+            window.ShowDialog();
+            Globals.refreshCb(typeCB, "contact_type", "NameEn");
         }
     }
 }

@@ -42,6 +42,8 @@ namespace Market
             this.DiscRTB = new System.Windows.Forms.RichTextBox();
             this.ZipCodeTB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.AddCountryB = new System.Windows.Forms.Button();
+            this.AddCityB = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // applyB
@@ -56,7 +58,7 @@ namespace Market
             this.applyB.MouseState = MaterialSkin.MouseState.HOVER;
             this.applyB.Name = "applyB";
             this.applyB.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.applyB.Size = new System.Drawing.Size(67, 36);
+            this.applyB.Size = new System.Drawing.Size(65, 36);
             this.applyB.TabIndex = 46;
             this.applyB.Text = "apply";
             this.applyB.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -131,7 +133,7 @@ namespace Market
             this.ContryCB.FormattingEnabled = true;
             this.ContryCB.Location = new System.Drawing.Point(134, 86);
             this.ContryCB.Name = "ContryCB";
-            this.ContryCB.Size = new System.Drawing.Size(204, 32);
+            this.ContryCB.Size = new System.Drawing.Size(235, 32);
             this.ContryCB.TabIndex = 50;
             // 
             // label_1
@@ -153,7 +155,7 @@ namespace Market
             this.CityCB.FormattingEnabled = true;
             this.CityCB.Location = new System.Drawing.Point(134, 124);
             this.CityCB.Name = "CityCB";
-            this.CityCB.Size = new System.Drawing.Size(204, 32);
+            this.CityCB.Size = new System.Drawing.Size(235, 32);
             this.CityCB.TabIndex = 51;
             // 
             // DiscRTB
@@ -183,11 +185,35 @@ namespace Market
             this.label1.TabIndex = 53;
             this.label1.Text = "Zip Code:";
             // 
+            // AddCountryB
+            // 
+            this.AddCountryB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.AddCountryB.Location = new System.Drawing.Point(375, 86);
+            this.AddCountryB.Name = "AddCountryB";
+            this.AddCountryB.Size = new System.Drawing.Size(44, 32);
+            this.AddCountryB.TabIndex = 55;
+            this.AddCountryB.Text = "+";
+            this.AddCountryB.UseVisualStyleBackColor = true;
+            this.AddCountryB.Click += new System.EventHandler(this.AddCountryB_Click);
+            // 
+            // AddCityB
+            // 
+            this.AddCityB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.AddCityB.Location = new System.Drawing.Point(375, 124);
+            this.AddCityB.Name = "AddCityB";
+            this.AddCityB.Size = new System.Drawing.Size(44, 32);
+            this.AddCityB.TabIndex = 56;
+            this.AddCityB.Text = "+";
+            this.AddCityB.UseVisualStyleBackColor = true;
+            this.AddCityB.Click += new System.EventHandler(this.AddCityB_Click);
+            // 
             // AddEditAddress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 435);
+            this.Controls.Add(this.AddCityB);
+            this.Controls.Add(this.AddCountryB);
             this.Controls.Add(this.ZipCodeTB);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DiscRTB);
@@ -222,5 +248,7 @@ namespace Market
         private System.Windows.Forms.RichTextBox DiscRTB;
         private System.Windows.Forms.TextBox ZipCodeTB;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button AddCountryB;
+        private System.Windows.Forms.Button AddCityB;
     }
 }

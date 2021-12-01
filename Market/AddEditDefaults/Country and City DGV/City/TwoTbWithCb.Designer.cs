@@ -36,6 +36,7 @@ namespace Market
             this.label_3 = new System.Windows.Forms.Label();
             this.label_2 = new System.Windows.Forms.Label();
             this.lable1 = new System.Windows.Forms.Label();
+            this.AddCountry = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // NameArTB
@@ -63,7 +64,7 @@ namespace Market
             this.CountryCB.FormattingEnabled = true;
             this.CountryCB.Location = new System.Drawing.Point(122, 81);
             this.CountryCB.Name = "CountryCB";
-            this.CountryCB.Size = new System.Drawing.Size(280, 32);
+            this.CountryCB.Size = new System.Drawing.Size(234, 32);
             this.CountryCB.TabIndex = 40;
             // 
             // AddEditBT
@@ -110,17 +111,29 @@ namespace Market
             // 
             this.lable1.AutoSize = true;
             this.lable1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lable1.Location = new System.Drawing.Point(10, 84);
+            this.lable1.Location = new System.Drawing.Point(6, 85);
             this.lable1.Name = "lable1";
-            this.lable1.Size = new System.Drawing.Size(94, 24);
+            this.lable1.Size = new System.Drawing.Size(106, 24);
             this.lable1.TabIndex = 33;
-            this.lable1.Text = "Contry:";
+            this.lable1.Text = "Country:";
+            // 
+            // AddCountry
+            // 
+            this.AddCountry.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.AddCountry.Location = new System.Drawing.Point(362, 81);
+            this.AddCountry.Name = "AddCountry";
+            this.AddCountry.Size = new System.Drawing.Size(40, 32);
+            this.AddCountry.TabIndex = 43;
+            this.AddCountry.Text = "+";
+            this.AddCountry.UseVisualStyleBackColor = true;
+            this.AddCountry.Click += new System.EventHandler(this.AddCountry_Click);
             // 
             // TwoTbWithCb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(416, 243);
+            this.Controls.Add(this.AddCountry);
             this.Controls.Add(this.NameArTB);
             this.Controls.Add(this.NameEnTB);
             this.Controls.Add(this.CountryCB);
@@ -143,5 +156,6 @@ namespace Market
         private System.Windows.Forms.Label label_3;
         private System.Windows.Forms.Label label_2;
         private System.Windows.Forms.Label lable1;
+        private System.Windows.Forms.Button AddCountry;
     }
 }

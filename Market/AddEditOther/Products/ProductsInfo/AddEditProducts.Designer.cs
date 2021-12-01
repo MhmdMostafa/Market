@@ -1,5 +1,5 @@
 ﻿
-namespace Market.AddEditOther.Product
+namespace Market
 {
     partial class AddEditProducts
     {
@@ -80,14 +80,12 @@ namespace Market.AddEditOther.Product
             this.sizeTb.Name = "sizeTb";
             this.sizeTb.Size = new System.Drawing.Size(139, 30);
             this.sizeTb.TabIndex = 117;
-            this.sizeTb.Value = new decimal(new int[] {
-            35,
-            0,
-            0,
-            65536});
             // 
             // unitValueCb
             // 
+            this.unitValueCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.unitValueCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.unitValueCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.unitValueCb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.unitValueCb.FormattingEnabled = true;
             this.unitValueCb.Location = new System.Drawing.Point(278, 235);
@@ -121,6 +119,9 @@ namespace Market.AddEditOther.Product
             // 
             // currencyCb
             // 
+            this.currencyCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.currencyCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.currencyCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.currencyCb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.currencyCb.FormattingEnabled = true;
             this.currencyCb.Location = new System.Drawing.Point(278, 271);
@@ -290,7 +291,7 @@ namespace Market.AddEditOther.Product
             this.AddEditBT.MouseState = MaterialSkin.MouseState.HOVER;
             this.AddEditBT.Name = "AddEditBT";
             this.AddEditBT.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.AddEditBT.Size = new System.Drawing.Size(65, 36);
+            this.AddEditBT.Size = new System.Drawing.Size(64, 36);
             this.AddEditBT.TabIndex = 119;
             this.AddEditBT.Text = "lable";
             this.AddEditBT.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -318,6 +319,9 @@ namespace Market.AddEditOther.Product
             // 
             // groubCb
             // 
+            this.groubCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.groubCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.groubCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.groubCb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groubCb.FormattingEnabled = true;
             this.groubCb.Location = new System.Drawing.Point(132, 163);
@@ -327,6 +331,9 @@ namespace Market.AddEditOther.Product
             // 
             // typeCb
             // 
+            this.typeCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.typeCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.typeCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.typeCb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.typeCb.FormattingEnabled = true;
             this.typeCb.Location = new System.Drawing.Point(132, 199);
@@ -366,6 +373,9 @@ namespace Market.AddEditOther.Product
             // 
             // vatCb
             // 
+            this.vatCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.vatCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.vatCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.vatCb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vatCb.FormattingEnabled = true;
             this.vatCb.Items.AddRange(new object[] {
@@ -375,7 +385,6 @@ namespace Market.AddEditOther.Product
             this.vatCb.Name = "vatCb";
             this.vatCb.Size = new System.Drawing.Size(199, 30);
             this.vatCb.TabIndex = 126;
-            this.vatCb.SelectedIndex = 1;
             // 
             // label11
             // 
@@ -389,6 +398,9 @@ namespace Market.AddEditOther.Product
             // 
             // prescriptionCb
             // 
+            this.prescriptionCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.prescriptionCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.prescriptionCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.prescriptionCb.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.prescriptionCb.FormattingEnabled = true;
             this.prescriptionCb.Items.AddRange(new object[] {
@@ -398,7 +410,6 @@ namespace Market.AddEditOther.Product
             this.prescriptionCb.Name = "prescriptionCb";
             this.prescriptionCb.Size = new System.Drawing.Size(199, 30);
             this.prescriptionCb.TabIndex = 128;
-            this.prescriptionCb.SelectedIndex = 1;
             // 
             // AddEditProducts
             // 

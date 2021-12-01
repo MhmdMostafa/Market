@@ -25,12 +25,12 @@ namespace Market
             InitializeComponent();
         }
 
-        public AddEditAddress(string cmd, string table, int selectedUser, int selectedAddr=0)
+        public AddEditAddress(string cmd, string table, int selectedUser, int selectedAddr = 0)
         {
             InitializeComponent();
 
-            UserID= selectedUser;
-            ID= selectedAddr;
+            UserID = selectedUser;
+            ID = selectedAddr;
             command = cmd;
 
             SQLtable = table;
@@ -40,16 +40,9 @@ namespace Market
             CountryCol = Globals.GetColumnsIndex("countries");
             CityCol = Globals.GetColumnsIndex("cities");
             tableCol = Globals.GetColumnsIndex(table);
-            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
-                while (dr.Read())
-                {
-                    ContryCB.Items.Add(dr.IsDBNull(CountryCol["NameEn"]) ? "" : dr.GetString("NameEn"));
-                }
-            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM cities;"))
-                while (dr.Read())
-                {
-                    CityCB.Items.Add(dr.IsDBNull(CityCol["NameEn"]) ? "" : dr.GetString("NameEn"));
-                }
+
+            Globals.refreshCb(ContryCB, "countries", "NameEn");
+            Globals.refreshCb(CityCB, "cities", "NameEn");
 
             if (command == "edit")
             {
@@ -59,7 +52,7 @@ namespace Market
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSqlDic(SQL, myPara))
                 {
                     dr.Read();
-                    ContryCB.SelectedItem = dr.IsDBNull(tableCol["CountryID"]) ? "" : Globals.GetStringById("NameEn", "countries", dr.GetInt32("CountryID") );
+                    ContryCB.SelectedItem = dr.IsDBNull(tableCol["CountryID"]) ? "" : Globals.GetStringById("NameEn", "countries", dr.GetInt32("CountryID"));
                     CityCB.SelectedItem = dr.IsDBNull(tableCol["CityID"]) ? "" : Globals.GetStringById("NameEn", "cities", dr.GetInt32("CityID"));
                     DistrictTB.Text = dr.IsDBNull(tableCol["District"]) ? "" : dr.GetString("District");
                     StreetTB.Text = dr.IsDBNull(tableCol["Street"]) ? "" : dr.GetString("Street");
@@ -75,7 +68,7 @@ namespace Market
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL = "";
             Globals.CleanTB(this.Controls);
-            if (DistrictTB.Text == "" || StreetTB.Text == "" ||  ZipCodeTB.Text == "" ||  DiscRTB.Text == "")
+            if (DistrictTB.Text == "" || StreetTB.Text == "" || ZipCodeTB.Text == "" || DiscRTB.Text == "")
             {
                 MessageBox.Show("Please fill the feilds");
                 return;
@@ -102,6 +95,20 @@ namespace Market
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done");
             this.Close();
+        }
+
+        private void AddCountryB_Click(object sender, EventArgs e)
+        {
+            CountryDGV window = new CountryDGV("countries");
+            window.ShowDialog();
+            Globals.refreshCb(ContryCB, "countries", "NameEn");
+        }
+
+        private void AddCityB_Click(object sender, EventArgs e)
+        {
+            CityDGV window = new CityDGV("cities");
+            window.ShowDialog();
+            Globals.refreshCb(CityCB, "cities", "NameEn");
         }
     }
 }

@@ -93,6 +93,7 @@ namespace Market
             this.EditArdressB = new System.Windows.Forms.Button();
             this.DeleteAddressB = new System.Windows.Forms.Button();
             this.AddAddressB = new System.Windows.Forms.Button();
+            this.AddGroupB = new System.Windows.Forms.Button();
             this.TapsPage.SuspendLayout();
             this.GenralTP.SuspendLayout();
             this.EmailTP.SuspendLayout();
@@ -163,6 +164,7 @@ namespace Market
             // 
             this.GenralTP.AutoScroll = true;
             this.GenralTP.AutoScrollMargin = new System.Drawing.Size(0, 20);
+            this.GenralTP.Controls.Add(this.AddGroupB);
             this.GenralTP.Controls.Add(this.NationalNoTb);
             this.GenralTP.Controls.Add(this.label4);
             this.GenralTP.Controls.Add(this.label3);
@@ -240,7 +242,7 @@ namespace Market
             this.GGroupCb.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.GGroupCb.Location = new System.Drawing.Point(171, 234);
             this.GGroupCb.Name = "GGroupCb";
-            this.GGroupCb.Size = new System.Drawing.Size(371, 32);
+            this.GGroupCb.Size = new System.Drawing.Size(328, 32);
             this.GGroupCb.TabIndex = 30;
             // 
             // label2
@@ -788,6 +790,17 @@ namespace Market
             this.AddAddressB.UseVisualStyleBackColor = true;
             this.AddAddressB.Click += new System.EventHandler(this.AddAddressB_Click);
             // 
+            // AddGroupB
+            // 
+            this.AddGroupB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.AddGroupB.Location = new System.Drawing.Point(505, 234);
+            this.AddGroupB.Name = "AddGroupB";
+            this.AddGroupB.Size = new System.Drawing.Size(37, 32);
+            this.AddGroupB.TabIndex = 37;
+            this.AddGroupB.Text = "+";
+            this.AddGroupB.UseVisualStyleBackColor = true;
+            this.AddGroupB.Click += new System.EventHandler(this.AddGroupB_Click);
+            // 
             // MainEmp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -883,5 +896,6 @@ namespace Market
         private System.Windows.Forms.ComboBox GenderCb;
         private System.Windows.Forms.TextBox NationalNoTb;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button AddGroupB;
     }
 }

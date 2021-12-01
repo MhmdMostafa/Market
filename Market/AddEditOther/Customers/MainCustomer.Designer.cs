@@ -91,6 +91,7 @@ namespace Market
             this.EditArdressB = new System.Windows.Forms.Button();
             this.DeleteAddressB = new System.Windows.Forms.Button();
             this.AddAddressB = new System.Windows.Forms.Button();
+            this.AddGroupB = new System.Windows.Forms.Button();
             this.TapsPage.SuspendLayout();
             this.GenralTP.SuspendLayout();
             this.EmailTP.SuspendLayout();
@@ -159,6 +160,7 @@ namespace Market
             // 
             // GenralTP
             // 
+            this.GenralTP.Controls.Add(this.AddGroupB);
             this.GenralTP.Controls.Add(this.label3);
             this.GenralTP.Controls.Add(this.GenderCb);
             this.GenralTP.Controls.Add(this.GGroupCb);
@@ -213,7 +215,7 @@ namespace Market
             this.GGroupCb.FormattingEnabled = true;
             this.GGroupCb.Location = new System.Drawing.Point(167, 213);
             this.GGroupCb.Name = "GGroupCb";
-            this.GGroupCb.Size = new System.Drawing.Size(371, 32);
+            this.GGroupCb.Size = new System.Drawing.Size(326, 32);
             this.GGroupCb.TabIndex = 30;
             // 
             // label2
@@ -760,6 +762,17 @@ namespace Market
             this.AddAddressB.UseVisualStyleBackColor = true;
             this.AddAddressB.Click += new System.EventHandler(this.AddAddressB_Click);
             // 
+            // AddGroupB
+            // 
+            this.AddGroupB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.AddGroupB.Location = new System.Drawing.Point(501, 213);
+            this.AddGroupB.Name = "AddGroupB";
+            this.AddGroupB.Size = new System.Drawing.Size(37, 32);
+            this.AddGroupB.TabIndex = 33;
+            this.AddGroupB.Text = "+";
+            this.AddGroupB.UseVisualStyleBackColor = true;
+            this.AddGroupB.Click += new System.EventHandler(this.AddGroupB_Click);
+            // 
             // MainCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -853,5 +866,6 @@ namespace Market
         private System.Windows.Forms.DateTimePicker dateTimePicker;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox GenderCb;
+        private System.Windows.Forms.Button AddGroupB;
     }
 }

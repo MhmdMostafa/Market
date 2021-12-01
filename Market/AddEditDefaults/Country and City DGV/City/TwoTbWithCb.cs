@@ -28,28 +28,23 @@ namespace Market
             ID = SelectedId;
             SQLtable = table;
             command = conf;
-            string SQL;
+
             CountryCol = Globals.GetColumnsIndex("countries");
             tableCol = Globals.GetColumnsIndex(table);
 
             Text = $"{command.ToUpper()} Wizerd";
             AddEditBT.Text = command.ToUpper();
 
-            using (MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM countries;"))
-                while (dr.Read())
-                {
-                    CountryCB.Items.Add(dr.IsDBNull(CountryCol["NameEn"]) ? "" : dr.GetString("NameEn"));
-                }
+            Globals.refreshCb(CountryCB, "countries", "NameEn");
+
             if (command == "edit")
             {
-                SQL = $@"SELECT * FROM {SQLtable} WHERE ID={ID}";
-                using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
+                using (MySqlDataReader dr = Globals.myCrud.getDrPassSql($@"SELECT * FROM {SQLtable} WHERE ID={ID}"))
                 {
                     dr.Read();
                     NameEnTB.Text = dr.IsDBNull(tableCol["NameEn"]) ? "" : dr.GetString("NameEn");
                     NameArTB.Text = dr.IsDBNull(tableCol["NameAr"]) ? "" : dr.GetString("NameAr");
                     CountryCB.SelectedItem = dr.IsDBNull(tableCol["CountryID"]) ? "" : Globals.GetStringById("NameEn", "countries", dr.GetInt32("CountryID"));
-
                 }
             }
         }
@@ -76,7 +71,7 @@ namespace Market
             }
             else
             {
-                if (Globals.ifExist(SQLtable, "NameEn", NameEnTB.Text, ID) || Globals.ifExist(SQLtable, "NameAr", NameArTB.Text,ID))
+                if (Globals.ifExist(SQLtable, "NameEn", NameEnTB.Text, ID) || Globals.ifExist(SQLtable, "NameAr", NameArTB.Text, ID))
                 {
                     MessageBox.Show("Entry is alredy exist");
                     return;
@@ -92,6 +87,13 @@ namespace Market
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
             MessageBox.Show("Done!!");
             this.Close();
+        }
+
+        private void AddCountry_Click(object sender, EventArgs e)
+        {
+            CountryDGV window = new CountryDGV();
+            window.ShowDialog();
+            Globals.refreshCb(CountryCB, "countries", "NameEn");
         }
     }
 }
