@@ -16,10 +16,22 @@ namespace Market
         [STAThread]
         static void Main()
         {
-
+            using (StreamReader sr = new StreamReader(@"mysql.cfg"))
+            {
+                string _line;
+                while ((_line = sr.ReadLine()) != null)
+                {
+                    string[] keyvalue = _line.Split(':');
+                    if (keyvalue.Length == 2)
+                    {
+                        Globals.MySQLcfg.Add(keyvalue[0], keyvalue[1]);
+                    }
+                }
+            }
+            Globals.myCrud = new MySQL_CRUD();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WerehouseDGV());
+            Application.Run(new OptionsForm());
         }
 
 

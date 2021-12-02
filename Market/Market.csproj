@@ -52,7 +52,7 @@
     <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net48\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="QRCoder, Version=1.4.2.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
@@ -99,6 +99,12 @@
     </Compile>
     <Compile Include="AddEditInfo\AddEemail.Designer.cs">
       <DependentUpon>AddEemail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\AddShowInvoice\InvoiceDGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\AddShowInvoice\InvoiceDGV.Designer.cs">
+      <DependentUpon>InvoiceDGV.cs</DependentUpon>
     </Compile>
     <Compile Include="AddEditOther\Customers\CustomersDGV.cs">
       <SubType>Form</SubType>
@@ -247,16 +253,16 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\MySQL_CRUD.cs" />
-    <Compile Include="NewInvoiceForm.cs">
+    <Compile Include="AddEditOther\AddShowInvoice\NewInvoiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewInvoiceForm.Designer.cs">
+    <Compile Include="AddEditOther\AddShowInvoice\NewInvoiceForm.Designer.cs">
       <DependentUpon>NewInvoiceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddEditOther\Products\MainProduct.cs">
+    <Compile Include="Trash\MainProduct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEditOther\Products\MainProduct.Designer.cs">
+    <Compile Include="Trash\MainProduct.Designer.cs">
       <DependentUpon>MainProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="OptionsForm.cs">
@@ -279,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddEditInfo\AddEemail.resx">
       <DependentUpon>AddEemail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\AddShowInvoice\InvoiceDGV.resx">
+      <DependentUpon>InvoiceDGV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddEditOther\Customers\CustomersDGV.resx">
       <DependentUpon>CustomersDGV.cs</DependentUpon>
@@ -352,10 +361,10 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewInvoiceForm.resx">
+    <EmbeddedResource Include="AddEditOther\AddShowInvoice\NewInvoiceForm.resx">
       <DependentUpon>NewInvoiceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddEditOther\Products\MainProduct.resx">
+    <EmbeddedResource Include="Trash\MainProduct.resx">
       <DependentUpon>MainProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsForm.resx">

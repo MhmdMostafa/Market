@@ -7,11 +7,15 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using System.IO;
 namespace Market
 {
     class Globals
     {
-        public static MySQL_CRUD myCrud = new MySQL_CRUD(@"mysql.cfg");
+        public static MySQL_CRUD myCrud;
+        public static Dictionary<string, string> MySQLcfg = new Dictionary<string, string>();
+        public static string UserNameLogedin;
+
         public static int GetIdByString(string SqlTable, string StrCol, string str)
         {
             Dictionary<string, object> myPara = new Dictionary<string, object>();

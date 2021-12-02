@@ -33,6 +33,7 @@ namespace Market
             this.CancelBack = new MaterialSkin.Controls.MaterialButton();
             this.TapsPage = new System.Windows.Forms.TabControl();
             this.GenralTP = new System.Windows.Forms.TabPage();
+            this.AddGroupB = new System.Windows.Forms.Button();
             this.NationalNoTb = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -93,7 +94,6 @@ namespace Market
             this.EditArdressB = new System.Windows.Forms.Button();
             this.DeleteAddressB = new System.Windows.Forms.Button();
             this.AddAddressB = new System.Windows.Forms.Button();
-            this.AddGroupB = new System.Windows.Forms.Button();
             this.TapsPage.SuspendLayout();
             this.GenralTP.SuspendLayout();
             this.EmailTP.SuspendLayout();
@@ -190,12 +190,22 @@ namespace Market
             this.GenralTP.Text = "General";
             this.GenralTP.UseVisualStyleBackColor = true;
             // 
+            // AddGroupB
+            // 
+            this.AddGroupB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
+            this.AddGroupB.Location = new System.Drawing.Point(505, 234);
+            this.AddGroupB.Name = "AddGroupB";
+            this.AddGroupB.Size = new System.Drawing.Size(37, 32);
+            this.AddGroupB.TabIndex = 37;
+            this.AddGroupB.Text = "+";
+            this.AddGroupB.UseVisualStyleBackColor = true;
+            this.AddGroupB.Click += new System.EventHandler(this.AddGroupB_Click);
+            // 
             // NationalNoTb
             // 
             this.NationalNoTb.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
             this.NationalNoTb.Location = new System.Drawing.Point(171, 120);
             this.NationalNoTb.Name = "NationalNoTb";
-            this.NationalNoTb.PasswordChar = '*';
             this.NationalNoTb.Size = new System.Drawing.Size(371, 32);
             this.NationalNoTb.TabIndex = 36;
             this.NationalNoTb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NationalNoTb_KeyPress);
@@ -789,17 +799,6 @@ namespace Market
             this.AddAddressB.Text = "Add";
             this.AddAddressB.UseVisualStyleBackColor = true;
             this.AddAddressB.Click += new System.EventHandler(this.AddAddressB_Click);
-            // 
-            // AddGroupB
-            // 
-            this.AddGroupB.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold);
-            this.AddGroupB.Location = new System.Drawing.Point(505, 234);
-            this.AddGroupB.Name = "AddGroupB";
-            this.AddGroupB.Size = new System.Drawing.Size(37, 32);
-            this.AddGroupB.TabIndex = 37;
-            this.AddGroupB.Text = "+";
-            this.AddGroupB.UseVisualStyleBackColor = true;
-            this.AddGroupB.Click += new System.EventHandler(this.AddGroupB_Click);
             // 
             // MainEmp
             // 

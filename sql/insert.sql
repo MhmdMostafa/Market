@@ -1,5 +1,9 @@
 USE market;
 
+INSERT INTO main_info(CommercialRegister, TaxNumber, ContactNumber, NameEn, NameAr)
+VALUES ('1131293352', '300576277800003', '0504166955', 'Youssef Abdullah Al-Fawaz Veterinary Pharmacy', N'صيدلية يوسف عبدالله الفويز البيطرية');
+
+
 INSERT INTO continents (NameEn, NameAr)
 VALUES ('Asia', N'آسيا');
 INSERT INTO continents (NameEn, NameAr)
@@ -78,7 +82,7 @@ VALUES ('Sales return', N'مردود مبيعات');
 
 
 INSERT INTO payment_mechanisms (NameEn, NameAr)
-VALUES ('Cridit', N'آجل');
+VALUES ('Credit', N'آجل');
 INSERT INTO payment_mechanisms (NameEn, NameAr)
 VALUES ('Cash', N'نقدي');
 

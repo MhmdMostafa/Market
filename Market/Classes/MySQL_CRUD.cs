@@ -11,28 +11,10 @@ namespace Market
     class MySQL_CRUD
     {
         public static string ConnectionString;
-        public static Dictionary<string, string> MySQLcfg = new Dictionary<string, string>();
-        public MySQL_CRUD(string MySQLcfgPath)
+        
+        public MySQL_CRUD()
         {
-            //cfg file must be like:
-            //Host:****
-            //User:****
-            //Password:****
-            //DataBase:****
-
-            using (StreamReader sr = new StreamReader(@MySQLcfgPath))
-            {
-                string _line;
-                while ((_line = sr.ReadLine()) != null)
-                {
-                    string[] keyvalue = _line.Split(':');
-                    if (keyvalue.Length == 2)
-                    {
-                        MySQLcfg.Add(keyvalue[0], keyvalue[1]);
-                    }
-                }
-            }
-            ConnectionString = string.Format(@"server={0};userid={1};password={2};database={3}", MySQLcfg["Host"], MySQLcfg["User"], MySQLcfg["Password"], MySQLcfg["DataBase"]);
+            ConnectionString = string.Format(@"server={0};userid={1};password={2};database={3}", Globals.MySQLcfg["Host"], Globals.MySQLcfg["User"], Globals.MySQLcfg["Password"], Globals.MySQLcfg["DataBase"]);
         }
 
         public MySqlDataReader getDrPassSql(string mySql)

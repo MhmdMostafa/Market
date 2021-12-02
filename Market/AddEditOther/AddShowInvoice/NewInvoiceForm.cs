@@ -10,16 +10,13 @@ using System.Windows.Forms;
 
 namespace Market
 {
-    public partial class NewInvoiceForm : Form
+    public partial class NewInvoiceForm : MaterialSkin.Controls.MaterialForm
     {
         public NewInvoiceForm()
         {
             InitializeComponent();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
 
-        }
     }
 }

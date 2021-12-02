@@ -1,6 +1,17 @@
 CREATE DATABASE market DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
 USE market;
 
+CREATE TABLE main_info(
+    ID INT NOT NULL AUTO_INCREMENT,
+    CommercialRegister VARCHAR(50) NOT NULL,
+    TaxNumber VARCHAR(50) NOT NULL,
+    ContactNumber CHAR (10) NOT NULL,
+    NameEn VARCHAR(50) NOT NULL,
+    NameAr VARCHAR(50) NOT NULL,
+    VatValue FLOAT NOT NULL DEFAULT 0.15,
+    PRIMARY KEY (ID)
+);
+
 CREATE TABLE continents(
 	ID INT NOT NULL AUTO_INCREMENT,
     NameEn VARCHAR(50) NOT NULL,
@@ -228,7 +239,7 @@ CREATE TABLE employees(
     NationalNumber VARCHAR(12),
 	BirthDate DATE,
     Pass_word VARCHAR(255) NOT NULL,
-    GenderID INT ,
+    GenderID INT DEFAULT 1,
     PRIMARY KEY (ID),
     FOREIGN KEY (EmpGroupID) REFERENCES emp_group(ID),
     FOREIGN KEY (GenderID) REFERENCES gender(ID),
@@ -526,6 +537,7 @@ CREATE TABLE products_stock(
 
 CREATE TABLE invoices(
 	ID INT NOT NULL AUTO_INCREMENT,
+    InfoID INT DEFAULT 1,
     InvoiceTypeID INT NOT NULL,
     PaymentMethodID INT NOT NULL,
     PaymentMechanismeID INT NOT NULL,
@@ -533,20 +545,24 @@ CREATE TABLE invoices(
     CustomerID INT NOT NULL,
     InvoiceDate DATE NOT NULL,
     Discount FLOAT NOT NULL,
-    VAT FLOAT NOT NULL,
+    TotalDiscount FLOAT NOT NULL,
+    TotalVAT FLOAT NOT NULL,
     Total FLOAT NOT NULL,
+    FinalTotal FLOAT NOT NULL,
 	Paid FLOAT NOT NULL,
     Credit FLOAT NOT NULL,
     Remain FLOAT NOT NULL,
     CurrencyID INT,
     Barcode VARCHAR(255),
+    QRcode BLOB,
     Description VARCHAR (600),
     PRIMARY KEY (ID),
+    FOREIGN KEY (InfoID) REFERENCES main_info(ID),
     FOREIGN KEY (InvoiceTypeID) REFERENCES invoice_type(ID),
     FOREIGN KEY (PaymentMethodID) REFERENCES payment_methods(ID),
     FOREIGN KEY (PaymentMechanismeID) REFERENCES payment_mechanisms(ID),
     FOREIGN KEY (EmpID) REFERENCES employees(ID),
-    FOREIGN KEY (CustomerID) REFERENCES employees(ID),
+    FOREIGN KEY (CustomerID) REFERENCES customers(ID),
     FOREIGN KEY (CurrencyID) REFERENCES currencies(ID)
 );
 

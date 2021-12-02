@@ -38,6 +38,7 @@ namespace Market
             }
             if (flag)
             {
+                Globals.UserNameLogedin = UserNameTB.Text;
                 this.Hide();
                 MainForm MainWindow = new MainForm();
                 MainWindow.Closed += (s, args) => this.Close();

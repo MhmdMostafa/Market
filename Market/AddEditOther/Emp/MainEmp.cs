@@ -97,10 +97,10 @@ namespace Market
                             GNameEnTB.Text = dr.IsDBNull(employeesCol["NameEn"]) ? "" : dr.GetString("NameEn");
                             GNameArTB.Text = dr.IsDBNull(employeesCol["NameAr"]) ? "" : dr.GetString("NameAr");
                             NationalNoTb.Text = dr.IsDBNull(employeesCol["NationalNumber"]) ? "" : dr.GetString("NationalNumber");
-                            dateTimePicker.Text = dr.IsDBNull(employeesCol["DateOfBirh"]) ? "" : dr.GetString("DateOfBirh");
+                            dateTimePicker.Value = dr.IsDBNull(employeesCol["BirthDate"]) ? DateTime.Today : dr.GetDateTime(employeesCol["BirthDate"]);
                             GPassTB.Text = dr.IsDBNull(employeesCol["Pass_word"]) ? "" : dr.GetString("Pass_word");
                             GGroupCb.SelectedItem = dr.IsDBNull(employeesCol["EmpGroupID"]) ? "" : Globals.GetStringById("NameEn", "emp_group", dr.GetInt32("EmpGroupID"));
-                            GenderCb.SelectedItem = dr.IsDBNull(genderCol["GenderID"]) ? "" : Globals.GetStringById("NameEn", "gender", dr.GetInt32("GenderID"));
+                            GenderCb.SelectedItem = dr.IsDBNull(genderCol["ID"]) ? "" : Globals.GetStringById("NameEn", "gender", dr.GetInt32("GenderID"));
 
                         }
                     }
