@@ -15,10 +15,6 @@ namespace Market
         public int SelectedID;
         public string command;
         public Dictionary<string, int> ProductsCol = new Dictionary<string, int>();
-        public Dictionary<string, int> CurrenciesCol = new Dictionary<string, int>();
-        public Dictionary<string, int> UnitsValueCol = new Dictionary<string, int>();
-        public Dictionary<string, int> ProductsGroubCol = new Dictionary<string, int>();
-        public Dictionary<string, int> ProductsTypeCol = new Dictionary<string, int>();
         public AddEditWerehouse()
         {
             InitializeComponent();
@@ -31,46 +27,46 @@ namespace Market
             command = conf;
             SelectedID = id;
 
-            ProductsCol = Globals.GetColumnsIndex("products");
-            CurrenciesCol = Globals.GetColumnsIndex("currencies");
-            UnitsValueCol = Globals.GetColumnsIndex("units_value");
-            ProductsGroubCol = Globals.GetColumnsIndex("products_groub");
-            ProductsTypeCol = Globals.GetColumnsIndex("products_type");
+            ProductsCol = Globals.GetColumnsIndex("products_stock");
 
-            Globals.refreshCb(unitValueCb, "units_value", "Shortcut");
+            Globals.refreshCb(productCb, "products", "NameEn");
+            Globals.refreshCb(supplaierCb, "suppliers", "NameEn");
             Globals.refreshCb(currencyCb, "currencies", "Shortcut");
-            Globals.refreshCb(groubCb, "products_groub", "NameEn");
-            Globals.refreshCb(typeCb, "products_type", "NameEn");
-            vatCb.SelectedIndex = 0;
-            prescriptionCb.SelectedIndex = 0;
+
+            Globals.refreshCb(WerehouseCb, "warehouses", "NameEn");
+            Globals.refreshCb(SectionCb, "nav_sections", "NameEn");
+            Globals.refreshCb(RowCb, "nav_rows", "NameEn");
+            Globals.refreshCb(ColumnCb, "nav_columns", "NameEn");
+
+            AvailableCb.SelectedIndex = 0;
+
             if (command == "edit")
             {
                 Text = "Edit Product Wizerd";
                 AddEditBT.Text = "Edit";
-                string SQL = $@"SELECT products_groub.NameEn AS Groub, products_type.NameEn AS Type, products.NameEn, products.NameAr, Size, units_value.Shortcut AS Unit, Price, currencies.Shortcut AS Currency, Barcode, IncludeVat, IncludePrescription, UPC, SKU, ISBN From products INNER JOIN products_groub ON ProductGroubID = products_groub.ID INNER JOIN products_type ON ProductTypeID = products_type.ID INNER JOIN units_value ON UnitValueID = units_value.ID INNER JOIN currencies ON CurrencyID = currencies.ID;";
+                string SQL = $@"SELECT products_stock.ID, products.NameEn AS Product, suppliers.NameEn AS Supplier, warehouses.NameEn AS Warehouse, CostPrice, currencies.Shortcut, products_stock.Description, Quantity, Available, DateOfProduction, ExpiryDate, products_stock.Barcode, nav_sections.NameEn AS Section, nav_rows.NameEn AS nav_row, nav_columns.NameEn AS nav_column FROM products_stock INNER JOIN products ON products_stock.ProductID=products.ID INNER JOIN suppliers ON products_stock.SupplierID=suppliers.ID INNER JOIN warehouses ON products_stock.WerehouseID=warehouses.ID INNER JOIN currencies ON products_stock.CurrencyID=currencies.ID INNER JOIN nav_sections ON products_stock.SectionID=nav_sections.ID INNER JOIN nav_rows ON products_stock.RowID=nav_rows.ID INNER JOIN nav_columns ON products_stock.ColumnID=nav_columns.ID;";
 
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
                 {
                     dr.Read();
-                    nameEnTb.Text = dr.IsDBNull(ProductsCol["NameEn"]) ? "" : dr.GetString("NameEn");
-                    nameArTb.Text = dr.IsDBNull(ProductsCol["NameAr"]) ? "" : dr.GetString("NameAr");
-                    groubCb.SelectedItem = dr.IsDBNull(ProductsCol["ProductGroubID"]) ? "" : dr.GetString("Groub");
-                    typeCb.Text = dr.IsDBNull(ProductsCol["ProductTypeID"]) ? "" : dr.GetString("Type");
-                    sizeTb.Value = dr.IsDBNull(ProductsCol["Size"]) ? 0 : (decimal)dr.GetFloat("Size");
-                    unitValueCb.SelectedItem = dr.IsDBNull(ProductsCol["UnitValueID"]) ? "" : dr.GetString("Unit");
-                    salePriceTb.Value = dr.IsDBNull(ProductsCol["Price"]) ? 0 : (decimal)dr.GetFloat("Price");
-                    currencyCb.SelectedItem = dr.IsDBNull(ProductsCol["CurrencyID"]) ? "" : dr.GetString("Currency");
+                    productCb.SelectedItem = dr.IsDBNull(ProductsCol["ProductID"]) ? "" : dr.GetString("Product");
+                    supplaierCb.SelectedItem = dr.IsDBNull(ProductsCol["SupplierID"]) ? "" : dr.GetString("Supplier");
+                    WerehouseCb.SelectedItem = dr.IsDBNull(ProductsCol["WerehouseID"]) ? "" : dr.GetString("Warehouse");
+                    AvailableCb.SelectedItem = dr.IsDBNull(ProductsCol["Available"]) ? "" : dr.GetString("Available");
+                    costPriceTb.Value = dr.IsDBNull(ProductsCol["CostPrice"]) ? 0 : (decimal)dr.GetFloat("CostPrice");
+                    currencyCb.SelectedItem = dr.IsDBNull(ProductsCol["CurrencyID"]) ? "" : dr.GetString("Shortcut");
                     barcodeTb.Text = dr.IsDBNull(ProductsCol["Barcode"]) ? "" : dr.GetString("Barcode");
-                    upcTb.Text = dr.IsDBNull(ProductsCol["UPC"]) ? "" : dr.GetString("UPC");
-                    skuTb.Text = dr.IsDBNull(ProductsCol["SKU"]) ? "" : dr.GetString("SKU");
-                    isbnTb.Text = dr.IsDBNull(ProductsCol["ISBN"]) ? "" : dr.GetString("ISBN");
-                    prescriptionCb.SelectedItem = dr.IsDBNull(ProductsCol["IncludePrescription"]) ? "" : dr.GetString("IncludePrescription");
-                    vatCb.SelectedItem = dr.IsDBNull(ProductsCol["IncludeVat"]) ? "" : dr.GetString("IncludeVat");
+                    quantTb.Text = dr.IsDBNull(ProductsCol["Quantity"]) ? "" : dr.GetString("Quantity");
+                    ProductionDate.Text = dr.IsDBNull(ProductsCol["DateOfProduction"]) ? "" : dr.GetString("DateOfProduction");
+                    ExpiryDate.Text = dr.IsDBNull(ProductsCol["ExpiryDate"]) ? "" : dr.GetString("ExpiryDate");
+                    SectionCb.Text = dr.IsDBNull(ProductsCol["SectionID"]) ? "" : dr.GetString("Section");
+                    RowCb.Text = dr.IsDBNull(ProductsCol["RowID"]) ? "" : dr.GetString("nav_row");
+                    ColumnCb.Text = dr.IsDBNull(ProductsCol["ColumnID"]) ? "" : dr.GetString("nav_column");
                 }
             }
             else
             {
-                Text = "Add Product Wizerd";
+                Text = "Add Product to Werehouse Wizerd";
                 AddEditBT.Text = "Add";
             }
         }
@@ -83,55 +79,49 @@ namespace Market
 
 
 
-            if (nameEnTb.Text == "" || nameArTb.Text == "" || groubCb.Text == "" || typeCb.Text == "" || sizeTb.Text == "" || unitValueCb.Text == "" || salePriceTb.Text == "" || currencyCb.Text == "" || prescriptionCb.Text == "" || vatCb.Text == "")
+            if (costPriceTb.Value == 0 || quantTb.Value == 0 || barcodeTb.Text == "" || productCb.Text == "" || supplaierCb.Text == "")
             {
                 MessageBox.Show("Please Fill all needed inf");
                 return;
             }
             if (command == "edit")
             {
-                if (Globals.ifExist("products", "UPC", upcTb.Text, SelectedID) || Globals.ifExist("products", "SKU", skuTb.Text, SelectedID) || Globals.ifExist("products", "ISBN", isbnTb.Text, SelectedID) || Globals.ifExist("products", "barcode", barcodeTb.Text, SelectedID))
+                if (Globals.ifExist("products", "barcode", barcodeTb.Text, SelectedID) && barcodeTb.Text != "")
                 {
                     MessageBox.Show("This Vat Number is alredy Exist");
                     return;
                 }
-                SQL = $"UPDATE products NameEn=@NameEn, NameAr=@NameAr, ProductGroubID=@ProductGroubID, ProductTypeID=@ProductTypeID, Size=@Size, UnitValueID=@UnitValueID, Price=@Price, CurrencyID=@CurrencyID, Barcode=@Barcode, UPC=@UPC, SKU=@SKU, ISBN=@ISBN, IncludePrescription=@NameEIncludePrescriptionn, IncludeVat=@IncludeVat WHERE ID={SelectedID};";
+                SQL = $"UPDATE products_stock SET ProductID=@ProductID, SupplierID=@SupplierID, CurrencyID=@CurrencyID, CostPrice=@CostPrice, Description=@Description, Quantity=@Quantity, Available=@Available, Barcode=@Barcode, DateOfProduction=@DateOfProduction, ExpiryDate=@ExpiryDate, WerehouseID=@WerehouseID, SectionID=@SectionID, RowID=@RowID, ColumnID=@ColumnID WHERE ID={SelectedID};";
             }
             else
             {
-                if (Globals.ifExist("products", "UPC", upcTb.Text) || Globals.ifExist("products", "SKU", skuTb.Text) || Globals.ifExist("products", "ISBN", isbnTb.Text) || Globals.ifExist("products", "barcode", barcodeTb.Text))
+                if (Globals.ifExist("products", "barcode", barcodeTb.Text) && barcodeTb.Text != "")
                 {
                     MessageBox.Show("This Vat Number is alredy Exist");
                     return;
                 }
-                SQL = "INSERT INTO products (NameEn, NameAr, ProductGroubID, ProductTypeID, Size, UnitValueID, Price, CurrencyID, Barcode, UPC, SKU, ISBN, IncludePrescription, IncludeVat VALUES(@NameEn, @NameAr, @ProductGroubID, @ProductTypeID, @Size, @UnitValueID, @Price, @CurrencyID, @Barcode, @UPC, @SKU, @ISBN, @NameEIncludePrescriptionn, @IncludeVat);";
+                SQL = "INSERT INTO products_stock (ProductID, SupplierID, CurrencyID, CostPrice, Description, Quantity, Available, Barcode, DateOfProduction, ExpiryDate, WerehouseID, SectionID, RowID, ColumnID) VALUES(@ProductID, @SupplierID, @CurrencyID, @CostPrice, @Description, @Quantity, @Available, @Barcode, @DateOfProduction, @ExpiryDate, @WerehouseID, @SectionID, @RowID, @ColumnID);";
             }
 
-            myPara.Add("@NameEn", nameEnTb.Text);
-            myPara.Add("@NameAr", nameArTb.Text);
-            myPara.Add("@ProductGroubID", Globals.GetIdByString("products_groub", "NameEn", groubCb.Text));
-            myPara.Add("@ProductTypeID", Globals.GetIdByString("products_type", "NameEn", typeCb.Text));
-            myPara.Add("@Size", sizeTb.Value);
-            myPara.Add("@UnitValueID", Globals.GetIdByString("units_value", "NameEn", unitValueCb.Text));
-            myPara.Add("@Price", salePriceTb.Value);
-            myPara.Add("@CurrencyID", Globals.GetIdByString("", "currencies", currencyCb.Text));
+            myPara.Add("@ProductID", Globals.GetIdByString("products", "NameEn", productCb.Text));
+            myPara.Add("@SupplierID", Globals.GetIdByString("suppliers", "NameEn", supplaierCb.Text));
+            myPara.Add("@CurrencyID", Globals.GetIdByString("currencies", "Shortcut", currencyCb.Text));
+            myPara.Add("@CostPrice", costPriceTb.Value);
+            myPara.Add("@Description", DescriptionTb.Text);
+            myPara.Add("@Quantity", quantTb.Value);
+            myPara.Add("@Available", AvailableCb.Text == "Yes" ? true : false);
             myPara.Add("@Barcode", barcodeTb.Text);
-            myPara.Add("@UPC", upcTb.Text);
-            myPara.Add("@SKU", skuTb.Text);
-            myPara.Add("@ISBN", isbnTb.Text);
-            myPara.Add("@NameEIncludePrescriptionn", prescriptionCb.Text);
-            myPara.Add("@IncludeVa", vatCb.Text);
+            myPara.Add("@DateOfProduction", ProductionDate.Value);
+            myPara.Add("@ExpiryDate", ExpiryDate.Value);
+
+            myPara.Add("@WerehouseID", Globals.GetIdByString("warehouses", "NameEn", WerehouseCb.Text));
+            myPara.Add("@SectionID", Globals.GetIdByString("nav_sections", "NameEn", SectionCb.Text));
+            myPara.Add("@RowID", Globals.GetIdByString("nav_rows", "NameEn", RowCb.Text));
+            myPara.Add("@ColumnID", Globals.GetIdByString("nav_columns", "NameEn", ColumnCb.Text));
 
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
 
 
-        }
-
-        private void addUnitValueToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DefaultsDGV1 window = new DefaultsDGV1("units_value");
-            window.ShowDialog();
-            Globals.refreshCb(unitValueCb, "units_value", "Shortcut");
         }
 
         private void addCurrencyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -140,20 +130,18 @@ namespace Market
             window.ShowDialog();
             Globals.refreshCb(currencyCb, "currencies", "Shortcut");
         }
-
-        private void addGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        private void addEditProductB_Click(object sender, EventArgs e)
         {
-            DefaultsDGV2 window = new DefaultsDGV2("products_groub");
+            ProductsInfoDGV window = new ProductsInfoDGV();
             window.ShowDialog();
-            Globals.refreshCb(groubCb, "products_groub", "NameEn");
+            Globals.refreshCb(productCb, "products", "NameEn");
         }
 
-        private void addTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void addEditSupplierB_Click(object sender, EventArgs e)
         {
-            DefaultsDGV2 window = new DefaultsDGV2("products_type");
+            SuppliersDGV window = new SuppliersDGV();
             window.ShowDialog();
-            Globals.refreshCb(typeCb, "products_type", "NameEn");
+            Globals.refreshCb(supplaierCb, "suppliers", "NameEn");
         }
-
     }
 }

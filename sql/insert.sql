@@ -64,7 +64,8 @@ VALUES ('Female', N'أنثى', 'W');
 
 INSERT INTO currencies (NameEn, NameAr, Shortcut)
 VALUES ('Saudi Riyal', N'ريال سعودي', 'SAR');
-
+INSERT INTO currencies (NameEn, NameAr, Shortcut)
+VALUES ('United States dollar', N'دولار أمريكي', 'USD');
 
 INSERT INTO invoice_type (NameEn, NameAr)
 VALUES ('Purchases', N'مشتريات');
@@ -86,30 +87,47 @@ VALUES ('Cash', N'كاش');
 INSERT INTO payment_methods (NameEn, NameAr)
 VALUES ('Visa', N'شبكة');
 INSERT INTO payment_methods (NameEn, NameAr)
-VALUES ('Bamk Transfer', N'تحويل');
+VALUES ('Bank Transfer', N'تحويل');
 INSERT INTO payment_methods (NameEn, NameAr)
 VALUES ('Check', N'شيك');
 
+INSERT INTO units_value (NameEn, NameAr, Shortcut)
+VALUES ('Gram', N'غرام', 'G');
+INSERT INTO units_value (NameEn, NameAr, Shortcut)
+VALUES ('Kilo gram', N'كيلو غرام', 'Kg');
+INSERT INTO units_value (NameEn, NameAr, Shortcut)
+VALUES ('millimeter', N'مليمتر', 'Mm');
+INSERT INTO units_value (NameEn, NameAr, Shortcut)
+VALUES ('Centimeter', N'سنتيمتر', 'Cm');
+INSERT INTO units_value (NameEn, NameAr, Shortcut)
+VALUES ('Meter', N'متر', 'M');
+INSERT INTO units_value (NameEn, NameAr, Shortcut)
+VALUES ('Milliliters', N'مليلتر', 'Ml');
+INSERT INTO units_value (NameEn, NameAr, Shortcut)
+VALUES ('Liter', N'لتر', 'L');
 
-INSERT INTO units_value (NameEn, NameAr, Shortcut)
-VALUES ('Gram', N'غرام', 'g');
-INSERT INTO units_value (NameEn, NameAr, Shortcut)
-VALUES ('Kilo gram', N'كيلو غرام', 'kg');
-INSERT INTO units_value (NameEn, NameAr, Shortcut)
-VALUES ('millimeter', N'مليمتر', 'mm');
-INSERT INTO units_value (NameEn, NameAr, Shortcut)
-VALUES ('Centimeter', N'سنتيمتر', 'cm');
-INSERT INTO units_value (NameEn, NameAr, Shortcut)
-VALUES ('Meter', N'متر', 'm');
-INSERT INTO units_value (NameEn, NameAr, Shortcut)
-VALUES ('Milliliters', N'مليلتر', 'ml');
-INSERT INTO units_value (NameEn, NameAr, Shortcut)
-VALUES ('Liter', N'لتر', 'l');
+INSERT INTO products_groub (NameEn, NameAr)
+VALUES ('None', N'بدون');
 
 INSERT INTO products_type (NameEn, NameAr)
 VALUES ('Medicine', N'دواء');
 INSERT INTO products_type (NameEn, NameAr)
 VALUES ('Treatment', N'علاج');
+
+INSERT INTO warehouses (NameEn, NameAr)
+VALUES ('Ours', N'مستودعنا');
+
+INSERT INTO warehouses (NameEn, NameAr)
+VALUES ('Supplier', N'مزوّد');
+
+INSERT INTO nav_sections (WarehousesID, NameEn, NameAr)
+VALUES (2,'None', N'بدون');
+
+INSERT INTO nav_rows (SectionID, NameEn, NameAr)
+VALUES (1,'None', N'بدون');
+
+INSERT INTO nav_columns (SectionID, NameEn, NameAr)
+VALUES (1,'None', N'بدون');
 
 INSERT INTO emp_group (NameEn)
 VALUES ('Administrator');
@@ -137,20 +155,21 @@ INSERT INTO emp_group_permissions (EmpGroupID, PermissionID, PermissionState)
 VALUES (2,3,TRUE);
 
 INSERT INTO employees (EmpGroupID, UserName, Pass_word, GenderID)
-VALUES (1, 'admini',MD5('admin'),1);
-
-INSERT INTO suppliers (NameEn, NameAr, VatNumber, Description)
-VALUES ('Unknown', N'غير معروف', 'sd123123', 'Used to start the market');
-
-insert into suppliers_contact_numbers (UserID,CountryID, ContactTypeID, ContactNumber)  values(1,1,1,'0552382676');
-
-insert into suppliers_email_addresses (UserID,EmailAddress)  values(1,'heelo@hello.com');
+VALUES (1, 'admin',MD5('admin'),1);
 
 INSERT INTO customer_groups (NameEn, NameAr)
 VALUES ('Normal',N'عادي');
 
 INSERT INTO customers (CustomerGroupID, NameEn, NameAr)
 VALUES (1,'Unknown', N'غير معروف');
+
+INSERT INTO suppliers (NameEn, NameAr, VatNumber, Description)
+VALUES ('Unknown', N'غير معروف', 'Sd123123', 'Used to start the market');
+
+
+
+
+
 
 INSERT INTO invoices (InvoiceTypeID, PaymentMethodID, PaymentMechanismeID, EmpID, InvoiceDate, Discount, VAT, Total, Paid,Credit, Remain, CurrencyID, Description)
 VALUES (1,'Unknown', N'غير معروف');

@@ -15,13 +15,13 @@ namespace Market
         public WerehouseDGV()
         {
             InitializeComponent();
-            Text = "Products";
+            Text = "Werehouse Products";
             refresh();
         }
 
         public void refresh()
         {
-            string SQL = $"SELECT products.ID, products.NameEn, products.NameAr, Size, Price, Barcode, UPC, SKU, ISBN, products_groub.NameEn as ProductGroubID, products_type.NameEn as ProductTypeID, units_value.Shortcut as UnitValueID, currencies.Shortcut as CurrencyID FROM products INNER JOIN products_groub ON products.ProductGroubID=products_groub.ID INNER JOIN products_type ON products.ProductTypeID=products_type.ID INNER JOIN units_value ON products.UnitValueID=units_value.ID INNER JOIN currencies ON products.CurrencyID=currencies.ID;";
+            string SQL = $"SELECT products_stock.ID, products.NameEn AS Product, suppliers.NameEn AS Supplier, warehouses.NameEn AS Warehouse, CostPrice, currencies.Shortcut, products_stock.Description, Quantity, Available, DateOfProduction, ExpiryDate, products_stock.Barcode, nav_sections.NameEn AS Section, nav_rows.NameEn AS nav_row, nav_columns.NameEn AS nav_column FROM products_stock INNER JOIN products ON products_stock.ProductID=products.ID INNER JOIN suppliers ON products_stock.SupplierID=suppliers.ID INNER JOIN warehouses ON products_stock.WerehouseID=warehouses.ID INNER JOIN currencies ON products_stock.CurrencyID=currencies.ID INNER JOIN nav_sections ON products_stock.SectionID=nav_sections.ID INNER JOIN nav_rows ON products_stock.RowID=nav_rows.ID INNER JOIN nav_columns ON products_stock.ColumnID=nav_columns.ID;";
             ProductsDGV.DataSource = Globals.myCrud.getDtPassSql(SQL);
         }
 
@@ -35,7 +35,7 @@ namespace Market
 
         private void AddB_Click(object sender, EventArgs e)
         {
-            AddEditProducts window = new AddEditProducts("add");
+            AddEditWerehouse window = new AddEditWerehouse("add");
             window.ShowDialog();
             refresh();
         }
@@ -54,7 +54,7 @@ namespace Market
                 return;
             }
 
-            AddEditProducts window = new AddEditProducts("edit", selectedValues[0]);
+            AddEditWerehouse window = new AddEditWerehouse("edit", selectedValues[0]);
             window.ShowDialog();
             refresh();
         }

@@ -62,6 +62,9 @@ namespace Market
             this.vatCb = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.prescriptionCb = new System.Windows.Forms.ComboBox();
+            this.process1 = new System.Diagnostics.Process();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.STATUS = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sizeTb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.salePriceTb)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -291,7 +294,7 @@ namespace Market
             this.AddEditBT.MouseState = MaterialSkin.MouseState.HOVER;
             this.AddEditBT.Name = "AddEditBT";
             this.AddEditBT.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.AddEditBT.Size = new System.Drawing.Size(64, 36);
+            this.AddEditBT.Size = new System.Drawing.Size(65, 36);
             this.AddEditBT.TabIndex = 119;
             this.AddEditBT.Text = "lable";
             this.AddEditBT.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -411,11 +414,40 @@ namespace Market
             this.prescriptionCb.Size = new System.Drawing.Size(199, 30);
             this.prescriptionCb.TabIndex = 128;
             // 
+            // process1
+            // 
+            this.process1.StartInfo.Domain = "";
+            this.process1.StartInfo.LoadUserProfile = false;
+            this.process1.StartInfo.Password = null;
+            this.process1.StartInfo.StandardErrorEncoding = null;
+            this.process1.StartInfo.StandardOutputEncoding = null;
+            this.process1.StartInfo.UserName = "";
+            this.process1.SynchronizingObject = this;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(3, 329);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.TabIndex = 131;
+            // 
+            // STATUS
+            // 
+            this.STATUS.AutoSize = true;
+            this.STATUS.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.STATUS.Location = new System.Drawing.Point(109, 329);
+            this.STATUS.Name = "STATUS";
+            this.STATUS.Size = new System.Drawing.Size(20, 22);
+            this.STATUS.TabIndex = 132;
+            this.STATUS.Text = ":";
+            // 
             // AddEditProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(748, 358);
+            this.ClientSize = new System.Drawing.Size(748, 354);
+            this.Controls.Add(this.STATUS);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.prescriptionCb);
             this.Controls.Add(this.label8);
@@ -491,5 +523,8 @@ namespace Market
         private System.Windows.Forms.ComboBox vatCb;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox prescriptionCb;
+        private System.Diagnostics.Process process1;
+        private System.Windows.Forms.Label STATUS;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

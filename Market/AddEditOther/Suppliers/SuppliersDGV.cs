@@ -13,16 +13,10 @@ namespace Market
 {
     public partial class SuppliersDGV : MaterialSkin.Controls.MaterialForm
     {
-        string SQLtable;
+
         public SuppliersDGV()
         {
             InitializeComponent();
-        }
-
-        public SuppliersDGV(string table)
-        {
-            InitializeComponent();
-            SQLtable = table;
             refreshTap();
             Text = "Suppliers";
         }

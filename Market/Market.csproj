@@ -52,9 +52,11 @@
     <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net48\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="QrCodeGenerator, Version=1.6.0.0, Culture=neutral, PublicKeyToken=6aa6bd7a159d47c2, processorArchitecture=MSIL">
-      <HintPath>..\packages\Net.Codecrete.QrCodeGenerator.2.0.0\lib\netstandard2.0\QrCodeGenerator.dll</HintPath>
+    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.4.2.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.4.2\lib\net40\QRCoder.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -71,6 +73,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddEditInfo\AddContact.cs">
@@ -163,10 +166,10 @@
     <Compile Include="AddEditOther\Suppliers\SuppliersDGV.Designer.cs">
       <DependentUpon>SuppliersDGV.cs</DependentUpon>
     </Compile>
-    <Compile Include="Navigation\Werehouse.cs">
+    <Compile Include="Trash\Werehouse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Navigation\Werehouse.Designer.cs">
+    <Compile Include="Trash\Werehouse.Designer.cs">
       <DependentUpon>Werehouse.cs</DependentUpon>
     </Compile>
     <Compile Include="Trash\AddEditDefaultsForm.cs">
@@ -310,7 +313,7 @@
     <EmbeddedResource Include="AddEditOther\Suppliers\SuppliersDGV.resx">
       <DependentUpon>SuppliersDGV.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Navigation\Werehouse.resx">
+    <EmbeddedResource Include="Trash\Werehouse.resx">
       <DependentUpon>Werehouse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trash\AddEditDefaultsForm.resx">
@@ -395,8 +398,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Gridviews\" />
-    <Folder Include="Main Add Forms\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

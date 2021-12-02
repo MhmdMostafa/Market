@@ -163,7 +163,7 @@ CREATE TABLE warehouses_email_addresses(
 	UserID INT NOT NULL,
     EmailAddress VARCHAR(150) NOT NULL,
     PRIMARY KEY(ID),
-    FOREIGN KEY (UserID) REFERENCES employees(ID),
+    FOREIGN KEY (UserID) REFERENCES warehouses(ID),
     UNIQUE (EmailAddress)
 );
 CREATE TABLE nav_sections(
@@ -477,16 +477,16 @@ CREATE TABLE suppliers_bank_accounts(
 
 CREATE TABLE products(
 	ID INT NOT NULL AUTO_INCREMENT,
-    ProductGroubID INT NOT NULL,
-    ProductTypeID INT NOT NULL,
-	NameEn VARCHAR(100) NOT NULL,
+    ProductGroubID INT,
+    ProductTypeID INT,
+	NameEn VARCHAR(100),
     NameAr VARCHAR(100),
-    Size INT NOT NULL,
-    UnitValueID INT NOT NULL,
-    Price FLOAT NOT NULL,
-    CurrencyID INT NOT NULL,
+    Size FLOAT,
+    UnitValueID INT,
+    Price FLOAT,
+    CurrencyID INT,
     Barcode VARCHAR(100),
-    IncludeVat BOOLEAN DEFAULT TRUE,
+    IncludeVat BOOLEAN DEFAULT FALSE,
     IncludePrescription BOOLEAN DEFAULT FALSE,
     UPC CHAR(20),
     SKU CHAR(20),
@@ -517,7 +517,7 @@ CREATE TABLE products_stock(
     PRIMARY KEY (ID),
 	FOREIGN KEY (ProductID) REFERENCES products(ID),
     FOREIGN KEY (SupplierID) REFERENCES suppliers(ID),
-    FOREIGN KEY (WerehouseID) REFERENCES our_warehouses(ID),
+    FOREIGN KEY (WerehouseID) REFERENCES warehouses(ID),
     FOREIGN KEY (CurrencyID) REFERENCES currencies(ID),
     FOREIGN KEY (SectionID) REFERENCES nav_sections(ID),
     FOREIGN KEY (RowID) REFERENCES nav_rows(ID),

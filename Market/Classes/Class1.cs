@@ -1,12 +1,16 @@
-﻿using Net.Codecrete.QrCodeGenerator;
+﻿using QRCoder;
+using System.Drawing;
 namespace Market
 {
     class Class1
     {
-        public static void d()
+        public static Bitmap d()
         {
-            var qr = QrCode.EncodeText("Hello, world!", QrCode.Ecc.Medium);
-            
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded. 12313 13 1 adasda sdasd", QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+            return qrCodeImage;
         }
     }
 }

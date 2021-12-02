@@ -27,6 +27,7 @@ namespace Market
 
         public AddEditProducts(string conf, int id = 0)
         {
+
             InitializeComponent();
             command = conf;
             SelectedID = id;
@@ -41,13 +42,14 @@ namespace Market
             Globals.refreshCb(currencyCb, "currencies", "Shortcut");
             Globals.refreshCb(groubCb, "products_groub", "NameEn");
             Globals.refreshCb(typeCb, "products_type", "NameEn");
-            vatCb.SelectedIndex = 0;
-            prescriptionCb.SelectedIndex = 0;
+            vatCb.SelectedIndex = 1;
+            prescriptionCb.SelectedIndex = 1;
+
             if (command == "edit")
             {
                 Text = "Edit Product Wizerd";
                 AddEditBT.Text = "Edit";
-                string SQL = $@"SELECT products_groub.NameEn AS Groub, products_type.NameEn AS Type, products.NameEn, products.NameAr, Size, units_value.Shortcut AS Unit, Price, currencies.Shortcut AS Currency, Barcode, IncludeVat, IncludePrescription, UPC, SKU, ISBN From products INNER JOIN products_groub ON ProductGroubID = products_groub.ID INNER JOIN products_type ON ProductTypeID = products_type.ID INNER JOIN units_value ON UnitValueID = units_value.ID INNER JOIN currencies ON CurrencyID = currencies.ID;";
+                string SQL = $@"SELECT products.ID, products_groub.NameEn AS Groub, products_type.NameEn AS Type, products.NameEn, products.NameAr, Size, units_value.Shortcut AS Unit, Price, currencies.Shortcut AS Currency, Barcode, IncludeVat, IncludePrescription, UPC, SKU, ISBN From products INNER JOIN products_groub ON ProductGroubID = products_groub.ID INNER JOIN products_type ON ProductTypeID = products_type.ID INNER JOIN units_value ON UnitValueID = units_value.ID INNER JOIN currencies ON CurrencyID = currencies.ID;";
 
                 using (MySqlDataReader dr = Globals.myCrud.getDrPassSql(SQL))
                 {
@@ -73,10 +75,15 @@ namespace Market
                 Text = "Add Product Wizerd";
                 AddEditBT.Text = "Add";
             }
+
+
         }
 
         private void AddEditBT_Click(object sender, EventArgs e)
         {
+            progressBar1.Value = 0;
+            STATUS.Text = "Adding";
+            progressBar1.Value = 10;
             Dictionary<string, object> myPara = new Dictionary<string, object>();
             string SQL;
             Globals.CleanTB(Controls);
@@ -90,21 +97,21 @@ namespace Market
             }
             if (command == "edit")
             {
-                if (Globals.ifExist("products", "UPC", upcTb.Text, SelectedID) || Globals.ifExist("products", "SKU", skuTb.Text, SelectedID) || Globals.ifExist("products", "ISBN", isbnTb.Text, SelectedID) || Globals.ifExist("products", "barcode", barcodeTb.Text, SelectedID))
+                if ((Globals.ifExist("products", "UPC", upcTb.Text) && upcTb.Text != "") || (Globals.ifExist("products", "SKU", skuTb.Text) && skuTb.Text != "") || (Globals.ifExist("products", "ISBN", isbnTb.Text) && isbnTb.Text != "") || (Globals.ifExist("products", "barcode", barcodeTb.Text) && barcodeTb.Text != ""))
                 {
-                    MessageBox.Show("This Vat Number is alredy Exist");
+                    MessageBox.Show("This product is alredy Exist");
                     return;
                 }
-                SQL = $"UPDATE products NameEn=@NameEn, NameAr=@NameAr, ProductGroubID=@ProductGroubID, ProductTypeID=@ProductTypeID, Size=@Size, UnitValueID=@UnitValueID, Price=@Price, CurrencyID=@CurrencyID, Barcode=@Barcode, UPC=@UPC, SKU=@SKU, ISBN=@ISBN, IncludePrescription=@NameEIncludePrescriptionn, IncludeVat=@IncludeVat WHERE ID={SelectedID};";
+                SQL = $"UPDATE products SET NameEn=@NameEn, NameAr=@NameAr, ProductGroubID=@ProductGroubID, ProductTypeID=@ProductTypeID, Size=@Size, UnitValueID=@UnitValueID, Price=@Price, CurrencyID=@CurrencyID, Barcode=@Barcode, UPC=@UPC, SKU=@SKU, ISBN=@ISBN, IncludePrescription=@IncludePrescription, IncludeVat=@IncludeVat WHERE ID={SelectedID};";
             }
             else
             {
-                if (Globals.ifExist("products", "UPC", upcTb.Text) || Globals.ifExist("products", "SKU", skuTb.Text) || Globals.ifExist("products", "ISBN", isbnTb.Text) || Globals.ifExist("products", "barcode", barcodeTb.Text))
+                if ((Globals.ifExist("products", "UPC", upcTb.Text) && upcTb.Text != "") || (Globals.ifExist("products", "SKU", skuTb.Text) && skuTb.Text != "") || (Globals.ifExist("products", "ISBN", isbnTb.Text) && isbnTb.Text != "") || (Globals.ifExist("products", "barcode", barcodeTb.Text) && barcodeTb.Text != ""))
                 {
-                    MessageBox.Show("This Vat Number is alredy Exist");
+                    MessageBox.Show("This product is alredy Exist");
                     return;
                 }
-                SQL = "INSERT INTO products (NameEn, NameAr, ProductGroubID, ProductTypeID, Size, UnitValueID, Price, CurrencyID, Barcode, UPC, SKU, ISBN, IncludePrescription, IncludeVat VALUES(@NameEn, @NameAr, @ProductGroubID, @ProductTypeID, @Size, @UnitValueID, @Price, @CurrencyID, @Barcode, @UPC, @SKU, @ISBN, @NameEIncludePrescriptionn, @IncludeVat);";
+                SQL = "INSERT INTO products (NameEn, NameAr, ProductGroubID, ProductTypeID, Size, UnitValueID, Price, CurrencyID, Barcode, UPC, SKU, ISBN, IncludePrescription, IncludeVat) VALUES(@NameEn, @NameAr, @ProductGroubID, @ProductTypeID, @Size, @UnitValueID, @Price, @CurrencyID, @Barcode, @UPC, @SKU, @ISBN, @IncludePrescription, @IncludeVat);";
             }
 
             myPara.Add("@NameEn", nameEnTb.Text);
@@ -112,18 +119,20 @@ namespace Market
             myPara.Add("@ProductGroubID", Globals.GetIdByString("products_groub", "NameEn", groubCb.Text));
             myPara.Add("@ProductTypeID", Globals.GetIdByString("products_type", "NameEn", typeCb.Text));
             myPara.Add("@Size", sizeTb.Value);
-            myPara.Add("@UnitValueID", Globals.GetIdByString("units_value", "NameEn", unitValueCb.Text));
+            myPara.Add("@UnitValueID", Globals.GetIdByString("units_value", "Shortcut", unitValueCb.Text));
             myPara.Add("@Price", salePriceTb.Value);
-            myPara.Add("@CurrencyID", Globals.GetIdByString("", "currencies", currencyCb.Text));
+            myPara.Add("@CurrencyID", Globals.GetIdByString("currencies", "Shortcut", currencyCb.Text));
             myPara.Add("@Barcode", barcodeTb.Text);
             myPara.Add("@UPC", upcTb.Text);
             myPara.Add("@SKU", skuTb.Text);
             myPara.Add("@ISBN", isbnTb.Text);
-            myPara.Add("@NameEIncludePrescriptionn", prescriptionCb.Text);
-            myPara.Add("@IncludeVa", vatCb.Text);
+            myPara.Add("@IncludePrescription", prescriptionCb.Text == "Yes" ? true : false);
+            myPara.Add("@IncludeVat", vatCb.Text == "Yes" ? true : false);
 
             Globals.myCrud.InsertUpdateDeleteViaSqlDic(SQL, myPara);
-
+            progressBar1.Value = 100;
+            STATUS.Text = $"Added {nameEnTb.Text}";
+            progressBar1.Value = 0;
 
         }
 

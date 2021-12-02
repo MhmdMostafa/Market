@@ -232,6 +232,8 @@ namespace Market
             foreach (Control control in objs)
                 if (control is TextBox)
                 {
+                    if (control.Text == "")
+                        continue;
                     temp = new StringBuilder(RmSpace(control.Text).ToLower());
                     temp[0] = char.ToUpper(control.Text[0]);
                     control.Text = temp.ToString();

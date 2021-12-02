@@ -37,18 +37,18 @@ namespace Market
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CustomerGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CurrencyID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IncludeVat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IncludePrescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Barcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UPC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SKU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Available = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ProductsDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,18 +112,18 @@ namespace Market
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
-            this.Column1,
             this.CustomerGroup,
             this.CurrencyID,
             this.IncludeVat,
+            this.Column1,
             this.IncludePrescription,
+            this.dataGridViewTextBoxColumn4,
             this.Barcode,
             this.UPC,
             this.SKU,
-            this.ISBN});
+            this.Available});
             this.ProductsDGV.Location = new System.Drawing.Point(6, 67);
             this.ProductsDGV.Name = "ProductsDGV";
             this.ProductsDGV.Size = new System.Drawing.Size(729, 314);
@@ -149,99 +149,107 @@ namespace Market
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "NameEn";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name En";
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Product";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Product";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             this.dataGridViewTextBoxColumn2.Width = 150;
             // 
             // dataGridViewTextBoxColumn3
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "NameAr";
-            this.dataGridViewTextBoxColumn3.HeaderText = "NameAr";
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Supplier";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Supplier";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             this.dataGridViewTextBoxColumn3.Width = 80;
             // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "ProductGroubID";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Group";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
             // dataGridViewTextBoxColumn5
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "ProductTypeID";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "CostPrice";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Cost Price";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn6
             // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Size";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Size";
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Shortcut";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Currency";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 80;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "UnitValueID";
-            this.Column1.HeaderText = "Unit Value";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 80;
             // 
             // CustomerGroup
             // 
-            this.CustomerGroup.DataPropertyName = "Price";
-            this.CustomerGroup.HeaderText = "Price";
+            this.CustomerGroup.DataPropertyName = "Quantity";
+            this.CustomerGroup.HeaderText = "Quantity";
             this.CustomerGroup.Name = "CustomerGroup";
+            this.CustomerGroup.ReadOnly = true;
             // 
             // CurrencyID
             // 
-            this.CurrencyID.DataPropertyName = "CurrencyID";
-            this.CurrencyID.HeaderText = "Currency";
+            this.CurrencyID.DataPropertyName = "DateOfProduction";
+            this.CurrencyID.HeaderText = "Production Date";
             this.CurrencyID.Name = "CurrencyID";
+            this.CurrencyID.ReadOnly = true;
             // 
             // IncludeVat
             // 
-            this.IncludeVat.DataPropertyName = "IncludeVat";
-            this.IncludeVat.HeaderText = "Include Vat";
+            this.IncludeVat.DataPropertyName = "ExpiryDate";
+            this.IncludeVat.HeaderText = "Expiry Date";
             this.IncludeVat.Name = "IncludeVat";
+            this.IncludeVat.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Description";
+            this.Column1.HeaderText = "Description";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 80;
             // 
             // IncludePrescription
             // 
-            this.IncludePrescription.DataPropertyName = "IncludePrescription";
-            this.IncludePrescription.HeaderText = "Include Prescription";
+            this.IncludePrescription.DataPropertyName = "Barcode";
+            this.IncludePrescription.HeaderText = "Barcode";
             this.IncludePrescription.Name = "IncludePrescription";
+            this.IncludePrescription.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Werehouse";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Werehouse";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // Barcode
             // 
-            this.Barcode.DataPropertyName = "Barcode";
-            this.Barcode.HeaderText = "Barcode";
+            this.Barcode.DataPropertyName = "Section";
+            this.Barcode.HeaderText = "Section";
             this.Barcode.Name = "Barcode";
+            this.Barcode.ReadOnly = true;
             // 
             // UPC
             // 
-            this.UPC.DataPropertyName = "UPC";
-            this.UPC.HeaderText = "UPC";
+            this.UPC.DataPropertyName = "nav_row";
+            this.UPC.HeaderText = "Row";
             this.UPC.Name = "UPC";
+            this.UPC.ReadOnly = true;
             // 
             // SKU
             // 
-            this.SKU.DataPropertyName = "SKU";
-            this.SKU.HeaderText = "SKU";
+            this.SKU.DataPropertyName = "nav_column";
+            this.SKU.HeaderText = "Column";
             this.SKU.Name = "SKU";
+            this.SKU.ReadOnly = true;
             // 
-            // ISBN
+            // Available
             // 
-            this.ISBN.DataPropertyName = "ISBN";
-            this.ISBN.HeaderText = "ISBN";
-            this.ISBN.Name = "ISBN";
+            this.Available.DataPropertyName = "Available";
+            this.Available.HeaderText = "Available";
+            this.Available.Name = "Available";
+            this.Available.ReadOnly = true;
             // 
-            // ProductsInfoDGV
+            // WerehouseDGV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -250,7 +258,8 @@ namespace Market
             this.Controls.Add(this.EditB);
             this.Controls.Add(this.AddB);
             this.Controls.Add(this.ProductsDGV);
-            this.Name = "ProductsInfoDGV";
+            this.Name = "WerehouseDGV";
+            this.Sizable = false;
             this.Text = "ProductsInfoDGV";
             ((System.ComponentModel.ISupportInitialize)(this.ProductsDGV)).EndInit();
             this.ResumeLayout(false);
@@ -268,17 +277,17 @@ namespace Market
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CustomerGroup;
         private System.Windows.Forms.DataGridViewTextBoxColumn CurrencyID;
         private System.Windows.Forms.DataGridViewTextBoxColumn IncludeVat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn IncludePrescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Barcode;
         private System.Windows.Forms.DataGridViewTextBoxColumn UPC;
         private System.Windows.Forms.DataGridViewTextBoxColumn SKU;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ISBN;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Available;
     }
 }

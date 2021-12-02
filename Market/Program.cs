@@ -16,9 +16,10 @@ namespace Market
         [STAThread]
         static void Main()
         {
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ProductsInfoDGV());
+            Application.Run(new WerehouseDGV());
         }
 
 
