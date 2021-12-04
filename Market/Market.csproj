@@ -52,7 +52,7 @@
     <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialSkin.2.2.3.1\lib\net48\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.26.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="QRCoder, Version=1.4.2.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
@@ -105,6 +105,12 @@
     </Compile>
     <Compile Include="AddEditOther\AddShowInvoice\InvoiceDGV.Designer.cs">
       <DependentUpon>InvoiceDGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditOther\AddShowInvoice\ShowInv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditOther\AddShowInvoice\ShowInv.Designer.cs">
+      <DependentUpon>ShowInv.cs</DependentUpon>
     </Compile>
     <Compile Include="AddEditOther\Customers\CustomersDGV.cs">
       <SubType>Form</SubType>
@@ -172,6 +178,19 @@
     <Compile Include="AddEditOther\Suppliers\SuppliersDGV.Designer.cs">
       <DependentUpon>SuppliersDGV.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\ExCRUD.cs" />
+    <Compile Include="SalesDGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesDGV.Designer.cs">
+      <DependentUpon>SalesDGV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
     <Compile Include="Trash\Werehouse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,7 +257,6 @@
     <Compile Include="AddEditOther\Suppliers\MainSupplier.Designer.cs">
       <DependentUpon>MainSupplier.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Class1.cs" />
     <Compile Include="Classes\Globals.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -246,10 +264,10 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Trash\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Trash\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\MySQL_CRUD.cs" />
@@ -289,6 +307,9 @@
     <EmbeddedResource Include="AddEditOther\AddShowInvoice\InvoiceDGV.resx">
       <DependentUpon>InvoiceDGV.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddEditOther\AddShowInvoice\ShowInv.resx">
+      <DependentUpon>ShowInv.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddEditOther\Customers\CustomersDGV.resx">
       <DependentUpon>CustomersDGV.cs</DependentUpon>
     </EmbeddedResource>
@@ -321,6 +342,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddEditOther\Suppliers\SuppliersDGV.resx">
       <DependentUpon>SuppliersDGV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SalesDGV.resx">
+      <DependentUpon>SalesDGV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trash\Werehouse.resx">
       <DependentUpon>Werehouse.cs</DependentUpon>
@@ -358,7 +385,7 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Trash\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddEditOther\AddShowInvoice\NewInvoiceForm.resx">
@@ -407,7 +434,33 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

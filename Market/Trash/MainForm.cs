@@ -16,29 +16,17 @@ namespace Market
         {
             InitializeComponent();
         }
-         
+
         public void OptionsMenuB_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            OptionsForm MainWindow = new OptionsForm();
-            MainWindow.Closed += (s, args) => this.Show();
-            MainWindow.Show();
         }
 
         private void NewInvoiceB_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            NewInvoiceForm MainWindow = new NewInvoiceForm();
-            MainWindow.Closed += (s, args) => this.Show();
-            MainWindow.Show();
         }
 
         private void addProductToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            MainProduct MainWindow = new MainProduct();
-            MainWindow.Closed += (s, args) => this.Show();
-            MainWindow.Show();
         }
     }
 }

@@ -7,7 +7,8 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using System.Windows.Forms;
 using System.Security.Cryptography;
-using System.IO;
+using QRCoder;
+using System.Drawing;
 namespace Market
 {
     class Globals
@@ -255,6 +256,15 @@ namespace Market
             }
             if (obj.Items.Count != 0)
                 obj.SelectedIndex = 0;
+        }
+
+        public static Bitmap GenerateQR(string text)
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+            return qrCodeImage;
         }
 
     }

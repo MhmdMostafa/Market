@@ -1,7 +1,7 @@
 ﻿
 namespace Market
 {
-    partial class NewInvoiceForm
+    partial class ShowInv
     {
         /// <summary>
         /// Required designer variable.
@@ -30,22 +30,11 @@ namespace Market
         private void InitializeComponent()
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.c1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ProductNameEnCol = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.QuantityCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Size = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnitValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ExpiryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Barcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.InvoiceTypeCb = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.CustomerCb = new System.Windows.Forms.ComboBox();
-            this.PaidAmountTb = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
-            this.DiscountValueTb = new System.Windows.Forms.NumericUpDown();
             this.label16 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -64,28 +53,21 @@ namespace Market
             this.label1 = new System.Windows.Forms.Label();
             this.CreditValueL = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddCustomerB = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.process1 = new System.Diagnostics.Process();
-            this.SubmitB = new MaterialSkin.Controls.MaterialButton();
-            this.SelectAllCB = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.PaymentMethodCb = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.currencyCb = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PaidAmountTb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DiscountValueTb)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -94,76 +76,11 @@ namespace Market
             // 
             this.dataGridView.AllowUserToOrderColumns = true;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.c1,
-            this.ProductNameEnCol,
-            this.QuantityCol,
-            this.Price,
-            this.Size,
-            this.UnitValue,
-            this.ExpiryDate,
-            this.Barcode});
-            this.dataGridView.Location = new System.Drawing.Point(6, 97);
+            this.dataGridView.Location = new System.Drawing.Point(3, 67);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(698, 218);
             this.dataGridView.TabIndex = 0;
-            this.dataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
-            this.dataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView_EditingControlShowing);
-            // 
-            // c1
-            // 
-            this.c1.HeaderText = "";
-            this.c1.Name = "c1";
-            this.c1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.c1.Width = 30;
-            // 
-            // ProductNameEnCol
-            // 
-            this.ProductNameEnCol.HeaderText = "Product Name";
-            this.ProductNameEnCol.Name = "ProductNameEnCol";
-            this.ProductNameEnCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ProductNameEnCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // QuantityCol
-            // 
-            this.QuantityCol.HeaderText = "Quantity";
-            this.QuantityCol.Name = "QuantityCol";
-            this.QuantityCol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Price
-            // 
-            this.Price.DataPropertyName = "Price";
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            // 
-            // Size
-            // 
-            this.Size.DataPropertyName = "Size";
-            this.Size.HeaderText = "Size";
-            this.Size.Name = "Size";
-            this.Size.ReadOnly = true;
-            // 
-            // UnitValue
-            // 
-            this.UnitValue.DataPropertyName = "UnitValue";
-            this.UnitValue.HeaderText = "Unit Value";
-            this.UnitValue.Name = "UnitValue";
-            this.UnitValue.ReadOnly = true;
-            // 
-            // ExpiryDate
-            // 
-            this.ExpiryDate.DataPropertyName = "ExpiryDate";
-            this.ExpiryDate.HeaderText = "Expiry Date";
-            this.ExpiryDate.Name = "ExpiryDate";
-            this.ExpiryDate.ReadOnly = true;
-            // 
-            // Barcode
-            // 
-            this.Barcode.DataPropertyName = "Barcode";
-            this.Barcode.HeaderText = "Barcode";
-            this.Barcode.Name = "Barcode";
-            this.Barcode.ReadOnly = true;
+
             // 
             // label4
             // 
@@ -178,35 +95,33 @@ namespace Market
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.currencyCb);
-            this.groupBox2.Controls.Add(this.PaymentMethodCb);
+            this.groupBox2.Controls.Add(this.textBox5);
+            this.groupBox2.Controls.Add(this.textBox4);
+            this.groupBox2.Controls.Add(this.textBox3);
+            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.InvoiceTypeCb);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.CustomerCb);
-            this.groupBox2.Controls.Add(this.PaidAmountTb);
             this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.DiscountValueTb);
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(6, 327);
+            this.groupBox2.Location = new System.Drawing.Point(6, 291);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(286, 234);
+            this.groupBox2.Size = new System.Drawing.Size(286, 213);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Payment";
             // 
-            // InvoiceTypeCb
+            // label7
             // 
-            this.InvoiceTypeCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.InvoiceTypeCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.InvoiceTypeCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.InvoiceTypeCb.FormattingEnabled = true;
-            this.InvoiceTypeCb.Location = new System.Drawing.Point(72, 26);
-            this.InvoiceTypeCb.Name = "InvoiceTypeCb";
-            this.InvoiceTypeCb.Size = new System.Drawing.Size(208, 30);
-            this.InvoiceTypeCb.TabIndex = 12;
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 100);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(80, 22);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Method:";
             // 
             // label3
             // 
@@ -218,31 +133,6 @@ namespace Market
             this.label3.TabIndex = 11;
             this.label3.Text = "Type:";
             // 
-            // CustomerCb
-            // 
-            this.CustomerCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CustomerCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CustomerCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CustomerCb.FormattingEnabled = true;
-            this.CustomerCb.Location = new System.Drawing.Point(106, 61);
-            this.CustomerCb.Name = "CustomerCb";
-            this.CustomerCb.Size = new System.Drawing.Size(174, 30);
-            this.CustomerCb.TabIndex = 10;
-            // 
-            // PaidAmountTb
-            // 
-            this.PaidAmountTb.DecimalPlaces = 2;
-            this.PaidAmountTb.Location = new System.Drawing.Point(121, 169);
-            this.PaidAmountTb.Maximum = new decimal(new int[] {
-            1410065407,
-            2,
-            0,
-            0});
-            this.PaidAmountTb.Name = "PaidAmountTb";
-            this.PaidAmountTb.Size = new System.Drawing.Size(86, 30);
-            this.PaidAmountTb.TabIndex = 9;
-            this.PaidAmountTb.ValueChanged += new System.EventHandler(this.PaidAmountTb_ValueChanged);
-            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -252,20 +142,6 @@ namespace Market
             this.label19.Size = new System.Drawing.Size(120, 22);
             this.label19.TabIndex = 8;
             this.label19.Text = "Paid Amout:";
-            // 
-            // DiscountValueTb
-            // 
-            this.DiscountValueTb.DecimalPlaces = 2;
-            this.DiscountValueTb.Location = new System.Drawing.Point(132, 133);
-            this.DiscountValueTb.Maximum = new decimal(new int[] {
-            1410065407,
-            2,
-            0,
-            0});
-            this.DiscountValueTb.Name = "DiscountValueTb";
-            this.DiscountValueTb.Size = new System.Drawing.Size(148, 30);
-            this.DiscountValueTb.TabIndex = 7;
-            this.DiscountValueTb.ValueChanged += new System.EventHandler(this.DiscountValueTb_ValueChanged);
             // 
             // label16
             // 
@@ -307,7 +183,7 @@ namespace Market
             this.groupBox3.Controls.Add(this.CreditValueL);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(298, 327);
+            this.groupBox3.Location = new System.Drawing.Point(298, 291);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(222, 213);
             this.groupBox3.TabIndex = 8;
@@ -470,40 +346,6 @@ namespace Market
             this.label5.TabIndex = 9;
             this.label5.Text = "Remain:";
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(3, 64);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(704, 30);
-            this.menuStrip1.TabIndex = 9;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addProductToolStripMenuItem,
-            this.AddCustomerB});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(62, 26);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // addProductToolStripMenuItem
-            // 
-            this.addProductToolStripMenuItem.Name = "addProductToolStripMenuItem";
-            this.addProductToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
-            this.addProductToolStripMenuItem.Text = "Add Product";
-            this.addProductToolStripMenuItem.Click += new System.EventHandler(this.addProductToolStripMenuItem_Click);
-            // 
-            // AddCustomerB
-            // 
-            this.AddCustomerB.Name = "AddCustomerB";
-            this.AddCustomerB.Size = new System.Drawing.Size(200, 26);
-            this.AddCustomerB.Text = "Add Customer";
-            this.AddCustomerB.Click += new System.EventHandler(this.AddCustomerB_Click);
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -511,7 +353,7 @@ namespace Market
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4});
-            this.statusStrip1.Location = new System.Drawing.Point(3, 564);
+            this.statusStrip1.Location = new System.Drawing.Point(3, 517);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(704, 22);
             this.statusStrip1.TabIndex = 10;
@@ -551,103 +393,73 @@ namespace Market
             this.process1.StartInfo.UserName = "";
             this.process1.SynchronizingObject = this;
             // 
-            // SubmitB
-            // 
-            this.SubmitB.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.SubmitB.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.SubmitB.Depth = 0;
-            this.SubmitB.HighEmphasis = true;
-            this.SubmitB.Icon = null;
-            this.SubmitB.Location = new System.Drawing.Point(579, 504);
-            this.SubmitB.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.SubmitB.MouseState = MaterialSkin.MouseState.HOVER;
-            this.SubmitB.Name = "SubmitB";
-            this.SubmitB.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.SubmitB.Size = new System.Drawing.Size(75, 36);
-            this.SubmitB.TabIndex = 11;
-            this.SubmitB.Text = "Submit";
-            this.SubmitB.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.SubmitB.UseAccentColor = false;
-            this.SubmitB.UseVisualStyleBackColor = true;
-            this.SubmitB.Click += new System.EventHandler(this.SubmitB_Click);
-            // 
-            // SelectAllCB
-            // 
-            this.SelectAllCB.AutoSize = true;
-            this.SelectAllCB.Location = new System.Drawing.Point(56, 101);
-            this.SelectAllCB.Name = "SelectAllCB";
-            this.SelectAllCB.Size = new System.Drawing.Size(15, 14);
-            this.SelectAllCB.TabIndex = 33;
-            this.SelectAllCB.UseVisualStyleBackColor = true;
-            this.SelectAllCB.CheckedChanged += new System.EventHandler(this.SelectAllCB_CheckedChanged);
-            // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(526, 327);
+            this.pictureBox1.Location = new System.Drawing.Point(526, 296);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(178, 157);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 34;
             this.pictureBox1.TabStop = false;
             // 
-            // PaymentMethodCb
+            // textBox1
             // 
-            this.PaymentMethodCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.PaymentMethodCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.PaymentMethodCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.PaymentMethodCb.FormattingEnabled = true;
-            this.PaymentMethodCb.Location = new System.Drawing.Point(92, 97);
-            this.PaymentMethodCb.Name = "PaymentMethodCb";
-            this.PaymentMethodCb.Size = new System.Drawing.Size(188, 30);
-            this.PaymentMethodCb.TabIndex = 14;
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(72, 26);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(208, 30);
+            this.textBox1.TabIndex = 14;
             // 
-            // label7
+            // textBox2
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 100);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 22);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Method:";
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(112, 61);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(168, 30);
+            this.textBox2.TabIndex = 15;
             // 
-            // currencyCb
+            // textBox3
             // 
-            this.currencyCb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.currencyCb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.currencyCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.currencyCb.FormattingEnabled = true;
-            this.currencyCb.Location = new System.Drawing.Point(213, 169);
-            this.currencyCb.Name = "currencyCb";
-            this.currencyCb.Size = new System.Drawing.Size(67, 30);
-            this.currencyCb.TabIndex = 15;
+            this.textBox3.Enabled = false;
+            this.textBox3.Location = new System.Drawing.Point(92, 96);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(188, 30);
+            this.textBox3.TabIndex = 16;
             // 
-            // NewInvoiceForm
+            // textBox4
+            // 
+            this.textBox4.Enabled = false;
+            this.textBox4.Location = new System.Drawing.Point(132, 132);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(148, 30);
+            this.textBox4.TabIndex = 17;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Enabled = false;
+            this.textBox5.Location = new System.Drawing.Point(132, 168);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(148, 30);
+            this.textBox5.TabIndex = 18;
+            // 
+            // ShowInv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 589);
+            this.ClientSize = new System.Drawing.Size(710, 542);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.SelectAllCB);
-            this.Controls.Add(this.SubmitB);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "NewInvoiceForm";
+            this.Name = "ShowInv";
             this.Sizable = false;
             this.Text = "NewInvoiceForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PaidAmountTb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DiscountValueTb)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -667,20 +479,13 @@ namespace Market
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label PaidL;
         private System.Windows.Forms.Label RemainL;
-        private System.Windows.Forms.ComboBox CustomerCb;
-        private System.Windows.Forms.NumericUpDown PaidAmountTb;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.NumericUpDown DiscountValueTb;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addProductToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Diagnostics.Process process1;
-        private MaterialSkin.Controls.MaterialButton SubmitB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label CreditValueL;
         private System.Windows.Forms.Label TotalAfterDiscountL;
@@ -693,21 +498,13 @@ namespace Market
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label FinalTotalL;
-        private System.Windows.Forms.CheckBox SelectAllCB;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn c1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ProductNameEnCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QuantityCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Size;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UnitValue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ExpiryDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Barcode;
-        private System.Windows.Forms.ComboBox InvoiceTypeCb;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ToolStripMenuItem AddCustomerB;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ComboBox PaymentMethodCb;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox currencyCb;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

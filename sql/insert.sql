@@ -72,19 +72,19 @@ INSERT INTO currencies (NameEn, NameAr, Shortcut)
 VALUES ('United States dollar', N'دولار أمريكي', 'USD');
 
 INSERT INTO invoice_type (NameEn, NameAr)
-VALUES ('Purchases', N'مشتريات');
-INSERT INTO invoice_type (NameEn, NameAr)
-VALUES ('Purchases return', N'مردود مشتريات');
-INSERT INTO invoice_type (NameEn, NameAr)
 VALUES ('Sales', N'مبيعات');
 INSERT INTO invoice_type (NameEn, NameAr)
 VALUES ('Sales return', N'مردود مبيعات');
+INSERT INTO invoice_type (NameEn, NameAr)
+VALUES ('Purchases', N'مشتريات');
+INSERT INTO invoice_type (NameEn, NameAr)
+VALUES ('Purchases return', N'مردود مشتريات');
 
-
-INSERT INTO payment_mechanisms (NameEn, NameAr)
-VALUES ('Credit', N'آجل');
 INSERT INTO payment_mechanisms (NameEn, NameAr)
 VALUES ('Cash', N'نقدي');
+INSERT INTO payment_mechanisms (NameEn, NameAr)
+VALUES ('Credit', N'آجل');
+
 
 INSERT INTO payment_methods (NameEn, NameAr)
 VALUES ('Cash', N'كاش');
@@ -164,8 +164,8 @@ VALUES (1, 'admin',MD5('admin'),1);
 INSERT INTO customer_groups (NameEn, NameAr)
 VALUES ('Normal',N'عادي');
 
-INSERT INTO customers (CustomerGroupID, NameEn, NameAr)
-VALUES (1,'Unknown', N'غير معروف');
+INSERT INTO customers (CustomerGroupID,  UserName,NameEn, NameAr,BirthDate, NationalNumber, GenderID)
+VALUES (1,'Unknown','Unknown', N'غير معروف', '01/01/22', '000000000000',1);
 
 INSERT INTO suppliers (NameEn, NameAr, VatNumber, Description)
 VALUES ('Unknown', N'غير معروف', 'Sd123123', 'Used to start the market');

@@ -61,7 +61,7 @@ namespace Market
             this.ShowInv.NoAccentTextColor = System.Drawing.Color.Empty;
             this.ShowInv.Size = new System.Drawing.Size(64, 36);
             this.ShowInv.TabIndex = 27;
-            this.ShowInv.Text = "Edit";
+            this.ShowInv.Text = "Show";
             this.ShowInv.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.ShowInv.UseAccentColor = false;
             this.ShowInv.UseVisualStyleBackColor = true;

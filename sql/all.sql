@@ -544,6 +544,7 @@ CREATE TABLE invoices(
     EmpID INT NOT NULL,
     CustomerID INT NOT NULL,
     InvoiceDate DATE NOT NULL,
+    InvoiceTime TIME NOT NULL,
     Discount FLOAT NOT NULL,
     TotalDiscount FLOAT NOT NULL,
     TotalVAT FLOAT NOT NULL,
@@ -568,7 +569,6 @@ CREATE TABLE invoices(
 
 CREATE TABLE sales(
 	InvoiceID INT NOT NULL,
-	ProductGroubID INT,
     ProductID INT,
     Price FLOAT NOT NULL,
     Size INT,
@@ -576,7 +576,6 @@ CREATE TABLE sales(
     Quantity INT,
     Description VARCHAR (600),
     FOREIGN KEY (InvoiceID) REFERENCES invoices(ID),
-    FOREIGN KEY (ProductGroubID) REFERENCES products_groub(ID),
     FOREIGN KEY (UnitValueID) REFERENCES units_value(ID),
     FOREIGN KEY (ProductID) REFERENCES products(ID)
 );
@@ -584,6 +583,7 @@ CREATE TABLE sales(
 CREATE TABLE sales_returns(
     InvoiceID INT NOT NULL,
 	ProductID INT,
+    ProductGroubID INT,
     Price FLOAT NOT NULL,
     Size INT,
     UnitValueID INT,

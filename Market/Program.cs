@@ -31,7 +31,7 @@ namespace Market
             Globals.myCrud = new MySQL_CRUD();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new OptionsForm());
+            Application.Run(new LoginForm());
         }
 
 

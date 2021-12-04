@@ -22,10 +22,10 @@ namespace Market
         private void LoginB_Click(object sender, EventArgs e)
         {
             bool flag = false;
-            MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM emp_employees");
+            MySqlDataReader dr = Globals.myCrud.getDrPassSql("SELECT * FROM employees");
 
-            string pass=Globals.encrypt(UserPasswordTB.Text);
-            
+            string pass = Globals.encrypt(UserPasswordTB.Text);
+
             while (dr.Read())
             {
                 if (dr.GetString("UserName") == UserNameTB.Text)
@@ -40,7 +40,7 @@ namespace Market
             {
                 Globals.UserNameLogedin = UserNameTB.Text;
                 this.Hide();
-                MainForm MainWindow = new MainForm();
+                Main MainWindow = new Main();
                 MainWindow.Closed += (s, args) => this.Close();
                 MainWindow.Show();
             }
